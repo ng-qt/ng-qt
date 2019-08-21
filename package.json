@@ -1,0 +1,27 @@
+{
+  "name": "ng-cute",
+  "version": "0.0.1",
+  "description": "Angular renderer for NodeGui",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:nodegui": "cd node_modules/@nodegui/nodegui && yarn run build:addon"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "^0.802.2",
+    "@angular-devkit/core": "^8.2.2",
+    "@angular-devkit/schematics": "^8.2.2",
+    "@angular/animations": "^8.2.3",
+    "@angular/compiler": "^8.2.3",
+    "@angular/core": "^8.2.3",
+    "@angular/platform-browser": "^8.2.3",
+    "@angular/platform-browser-dynamic": "^8.2.3",
+    "@nodegui/qode": "^1.0.3",
+    "@types/node": "^12.7.2",
+    "add": "^2.0.6",
+    "rxjs": "^6.5.2",
+    "yarn": "^1.17.3",
+    "zone.js": "^0.10.2"
+  }
+}

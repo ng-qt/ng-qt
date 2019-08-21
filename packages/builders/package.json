@@ -1,0 +1,9 @@
+{
+  "name": "@ng-cute/builders",
+  "version": "0.0.1",
+  "dependencies": {
+    "@angular-devkit/architect": "*",
+    "@angular-devkit/core":  "*",
+    "@angular-devkit/schematics": "*"
+  }
+}

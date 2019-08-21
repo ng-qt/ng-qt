@@ -1,0 +1,7 @@
+{
+  "name": "@ng-cute/renderer",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "*"
+  }
+}

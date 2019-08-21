@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2018",
+    "lib": ["esnext", "dom"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "importHelpers": true,
+    "strictPropertyInitialization": false,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "sourceMap": false,
+    "declaration": true,
+    "types": ["node"],
+    "paths": {
+      "@ng-cute/*": ["./packages/*/src/index.ts"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+   ]
+}
