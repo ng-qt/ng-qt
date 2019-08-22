@@ -36,6 +36,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/common@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-8.2.3.tgz#e7c21ac22b10ce7e6fc75a22d879a85b6f057ea6"
+  integrity sha512-Y8ttd66bAApnJgxjndVnBP0aMsID8AzttR2TKp1KpdDKy4n6td22+1DeHZJqPMOBwoTDEdjHZqFQ7XRNYe3IVw==
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/compiler@8.2.3":
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-8.2.3.tgz#9242a28280c92770fec617e97fa31c6a1e8618f2"
@@ -63,6 +70,15 @@
   integrity sha512-hKC5V2n0jfrFc9DXvHW+NtHDSfC417WZz8onmUhMR2Eo3fjBm5cuZi5CNgnbZt9zUoXXOfwCy6p3N7FbPDXxLQ==
   dependencies:
     tslib "^1.9.0"
+
+"@angular/platform-server@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/platform-server/-/platform-server-8.2.3.tgz#c9f0b1d92cea824bda670a858d01dda88df135ca"
+  integrity sha512-esVJSOX6GYGzW8Rsmn/FwZl2cpsH24lWsPNmIQHe61qXCmuLrjWKrsefrWq8FMpUfyPqZNC4QuwNWZ1yeA/Hrw==
+  dependencies:
+    domino "^2.1.2"
+    tslib "^1.9.0"
+    xhr2 "^0.1.4"
 
 "@nodegui/qode@1.0.3":
   version "1.0.3"
@@ -165,6 +181,11 @@ defer-to-connect@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/defer-to-connect/-/defer-to-connect-1.0.2.tgz#4bae758a314b034ae33902b5aac25a8dd6a8633e"
   integrity sha512-k09hcQcTDY+cwgiwa6PYKLm3jlagNzQ+RSvhjzESOGOx+MNOuXkxTfEvPrO1IOQ81tArCFYQgi631clB70RpQw==
+
+domino@^2.1.2:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/domino/-/domino-2.1.3.tgz#0ca1ad02cbd316ebe2e99e0ac9fb0010407d4601"
+  integrity sha512-EwjTbUv1Q/RLQOdn9k7ClHutrQcWGsfXaRQNOnM/KgK4xDBoLFEcIRFuBSxAx13Vfa63X029gXYrNFrSy+DOSg==
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -482,6 +503,11 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+
+xhr2@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/xhr2/-/xhr2-0.1.4.tgz#7f87658847716db5026323812f818cadab387a5f"
+  integrity sha1-f4dliEdxbbUCYyOBL4GMras4el8=
 
 yarn@1.17.3:
   version "1.17.3"

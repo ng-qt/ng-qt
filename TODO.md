@@ -8,3 +8,6 @@
 
 ### Events
 * Patch HostListener
+
+### Widgets
+* ElementRef should reference to the native QWidget

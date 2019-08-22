@@ -1,0 +1,21 @@
+{
+	"$schema": "@angular-devkit/architect/src/builders-schema.json",
+	"builders": {
+		"serve": {
+			"implementation": "./src/serve",
+			"schema": "./src/serve/schema.json",
+			"description": "Serve your native Angular app"
+		},
+		"build": {
+			"implementation": "./build/serve",
+			"schema": "./src/build/schema.json",
+			"description": "Build your native Angular app"
+		},
+		"package": {
+			"implementation": "./src/package",
+			"schema": "./src/package/schema.json",
+			"description": "Package your native Angular app"
+		},
+		"distribute": {}
+	}
+}

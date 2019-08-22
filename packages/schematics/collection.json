@@ -1,0 +1,18 @@
+{
+	"name": "ng-cute",
+	"version": "0.1",
+	"schematics": {
+		"ng-new": {
+			"factory": "./src/schematics/ng-new/ng-add",
+			"schema": "./src/schematics/ng-new/schema.json",
+			"description": "Create a native Angular application",
+			"hidden": true
+		},
+		"ng-add": {
+			"factory": "./src/schematics/ng-add/ng-add",
+			"schema": "./src/schematics/ng-add/schema.json",
+			"description": "Add ng-cute to a project",
+			"hidden": true
+		}
+	}
+}

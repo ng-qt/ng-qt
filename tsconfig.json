@@ -17,6 +17,8 @@
     "declaration": true,
     "types": ["node"],
     "paths": {
+      "@ng-cute/core": ["./packages/core/src/index.ts"],
+      "@ng-cute/core/*": ["./packages/core/*/index.ts"],
       "@ng-cute/*": ["./packages/*/src/index.ts"]
     }
   },

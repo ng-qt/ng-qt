@@ -10,6 +10,7 @@ export class CuteRendererFactory2 implements RendererFactory2 {
   constructor(private readonly ngZone: NgZone) {}
 
   createRenderer(hostElement: any, type: RendererType2 | null): CuteRenderer {
+    console.log(hostElement, type);
     if (!hostElement || !type) {
       return this.defaultRenderer;
     }
@@ -31,9 +32,7 @@ export class CuteRendererFactory2 implements RendererFactory2 {
     }
   }
 
-  end(): void {
-  }
+  end(): void {}
 
-  begin(): void {
-  }
+  begin(): void {}
 }

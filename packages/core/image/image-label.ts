@@ -1,21 +1,21 @@
 import { QLabel, QPixmap, AspectRatioMode } from '@nodegui/nodegui';
 
 export class ImageLabel extends QLabel {
-  originalPixmap?: QPixmap;
-  aspectRatioMode?: AspectRatioMode;
+  protected originalPixmap?: QPixmap;
+  protected aspectRatioMode?: AspectRatioMode;
 
-  setPixmap(pixmap: QPixmap) {
+  setPixmap(pixmap: QPixmap): void {
     super.setPixmap(pixmap);
     this.originalPixmap = pixmap;
   }
 
-  setAspectRatioMode(mode: AspectRatioMode) {
+  protected setAspectRatioMode(mode: AspectRatioMode): void {
     this.aspectRatioMode = mode;
   }
 
-  scalePixmap(width: number, height: number) {
+  protected scalePixmap(width: number, height: number): void {
     if (this.originalPixmap) {
-      return super.setPixmap(
+      super.setPixmap(
         this.originalPixmap.scaled(width, height, this.aspectRatioMode)
       );
     }

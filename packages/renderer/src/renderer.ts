@@ -16,9 +16,11 @@ export class CuteRenderer implements Renderer2 {
   }
 
   createElement(name: string, namespace?: string | null): any {
+    console.log(name);
   }
 
   createText(value: string): any {
+    console.log(value);
   }
 
   destroy(): void {
@@ -54,6 +56,7 @@ export class CuteRenderer implements Renderer2 {
   }
 
   setAttribute(el: any, name: string, value: string, namespace?: string | null): void {
+    console.log(el);
   }
 
   setProperty(el: any, name: string, value: any): void {

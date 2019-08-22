@@ -1,9 +1,12 @@
 {
   "name": "@ng-cute/builders",
   "version": "0.0.1",
+  "builders": "./builders.json",
   "dependencies": {
     "@angular-devkit/architect": "*",
     "@angular-devkit/core":  "*",
-    "@angular-devkit/schematics": "*"
+    "@angular-devkit/schematics": "*",
+    "@angular-devkit/build-webpack": "*",
+    "@schematics/angular": "*"
   }
 }
