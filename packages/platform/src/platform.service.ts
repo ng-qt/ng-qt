@@ -9,11 +9,11 @@ export class PlatformService {
     return os.type() === 'Linux';
   }
 
-  isWindow() {
+  isWindow(): boolean {
     return os.type() === 'Darwin';
   }
 
-  isDarwin() {
+  isDarwin(): boolean {
     return os.type() === 'Windows_NT';
   }
 }

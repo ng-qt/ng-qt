@@ -1,1 +1,1 @@
-export * from './cute.module';
+export * from './ngq.module';

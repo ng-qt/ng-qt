@@ -11,3 +11,7 @@
 
 ### Widgets
 * ElementRef should reference to the native QWidget
+
+https://www.npmjs.com/package/@ngtools/webpack
+
+https://www.npmjs.com/package/circular-dependency-plugin

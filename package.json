@@ -1,9 +1,11 @@
 {
-  "name": "ng-cute",
   "version": "0.0.1",
   "description": "Angular renderer for NodeGui",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "postinstall": "sudo chmod -R 777 ."
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
@@ -12,22 +14,41 @@
   "private": true,
   "devDependencies": {
     "@angular-devkit/architect": "0.802.2",
+    "@angular-devkit/build-angular": "^0.803.0",
+    "@angular-devkit/build-webpack": "^0.803.0",
     "@angular-devkit/core": "8.2.2",
     "@angular-devkit/schematics": "8.2.2",
     "@angular/animations": "8.2.3",
+    "@angular/cli": "^8.3.0",
     "@angular/common": "^8.2.3",
     "@angular/compiler": "8.2.3",
+    "@angular/compiler-cli": "^8.2.3",
     "@angular/core": "8.2.3",
     "@angular/platform-browser": "8.2.3",
     "@angular/platform-browser-dynamic": "^8.2.3",
     "@angular/platform-server": "^8.2.3",
+    "@ngtools/webpack": "^8.3.0",
+    "@nodegui/nodegui": "file:../nodegui",
     "@nodegui/qode": "1.0.3",
+    "@types/jest": "^24.0.18",
     "@types/node": "12.7.2",
-    "add": "2.0.6",
+    "@types/webpack": "^4.39.0",
+    "circular-dependency-plugin": "^5.2.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "fork-ts-checker-webpack-plugin": "^1.5.0",
     "husky": "^3.0.4",
+    "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "6.5.2",
+    "ts-jest": "^24.0.2",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2",
     "yarn": "1.17.3",
     "zone.js": "0.10.2"
   }

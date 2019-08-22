@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { ImageModule } from '@ng-cute/core/image';
+import { ImageModule } from '@ngq/core/image';
 
 export const COMPONENTS = [
   ImageModule
@@ -10,4 +10,4 @@ export const COMPONENTS = [
   imports: COMPONENTS,
   exports: COMPONENTS,
 })
-export class CuteModule {}
+export class NGQModule {}
