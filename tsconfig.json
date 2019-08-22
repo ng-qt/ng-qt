@@ -15,15 +15,12 @@
     "noImplicitThis": true,
     "sourceMap": false,
     "declaration": true,
-    "types": ["node"],
+    "types": ["node", "zone.js"],
     "paths": {
       "@ng-cute/core": ["./packages/core/src/index.ts"],
       "@ng-cute/core/*": ["./packages/core/*/index.ts"],
       "@ng-cute/*": ["./packages/*/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-   ]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
