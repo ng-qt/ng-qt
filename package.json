@@ -9,9 +9,9 @@
     "build:nodegui": "cd node_modules/@nodegui/nodegui && yarn run build:addon"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.802.2",
-    "@angular-devkit/core": "8.2.2",
-    "@angular-devkit/schematics": "8.2.2",
+    "@angular-devkit/architect": "0.803.0",
+    "@angular-devkit/core": "8.3.0",
+    "@angular-devkit/schematics": "8.3.0",
     "@angular/animations": "8.2.3",
     "@angular/compiler": "8.2.3",
     "@angular/core": "8.2.3",
