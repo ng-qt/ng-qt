@@ -1,13 +1,8 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { QLabel, AspectRatioMode, QPixmap, QLabelEvents } from '@nodegui/nodegui';
 import { fromEvent, Subscription } from 'rxjs';
 
-@Component({
-  selector: 'Image',
-  template: ``,
-})
-export class ImageComponent extends QLabel implements OnInit, OnChanges, OnDestroy {
-  private readonly subs = new Subscription();
+export class ImageWidget extends QLabel {
+  /*private readonly subs = new Subscription();
   private originalPixmap: QPixmap;
 
   @Input() aspectRatioMode?: AspectRatioMode;
@@ -48,5 +43,5 @@ export class ImageComponent extends QLabel implements OnInit, OnChanges, OnDestr
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
+  }*/
 }

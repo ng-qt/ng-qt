@@ -1,6 +1,6 @@
 import { QWidget } from '@nodegui/nodegui';
 
-export class NGWidget extends QWidget {
+export class NGQWidget extends QWidget {
   // @ts-ignore
   // TODO: Should be implemented in renderer
   setStyleSheet() {}

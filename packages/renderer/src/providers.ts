@@ -1,16 +1,11 @@
-import { NgZone, Provider, RendererFactory2 } from '@angular/core';
+import { StaticProvider, RendererFactory2 } from '@angular/core';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 
-import { CuteRendererFactory2 } from './renderer-factory';
+import { NGQRendererFactory } from './renderer-factory';
 
-export function createCuteRendererFactory(ngZone: NgZone) {
-  return new CuteRendererFactory2(ngZone);
-}
-
-export const CUTE_RENDERER_PROVIDERS: Provider[] = [
+export const NGQ_RENDERER_PROVIDERS: StaticProvider[] = [
   {
     provide: RendererFactory2,
-    useFactory: createCuteRendererFactory,
-    deps: [NgZone],
+    useExisting: NGQRendererFactory,
   },
 ];

@@ -1,2 +1,0 @@
-// @TODO: Custom ts-loader transformer for inlining styleUrls and templateUrl
-// https://github.com/TypeStrong/ts-loader#getcustomtransformers--program-program---before-transformerfactory-after-transformerfactory--
