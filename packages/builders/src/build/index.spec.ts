@@ -3,7 +3,7 @@ import { TestingArchitectHost, TestProjectHost } from '@angular-devkit/architect
 import { getSystemPath, join, normalize, schema, workspaces } from '@angular-devkit/core';
 import { WorkspaceNodeModulesArchitectHost } from '@angular-devkit/architect/node';
 
-describe('NGQ Build', () => {
+describe('NGQT Build', () => {
   const target = { project: 'app', target: 'server' };
 
   let architect: Architect;
@@ -20,10 +20,7 @@ describe('NGQ Build', () => {
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     const workspaceSysPath = getSystemPath(host.root());
 
-    const { workspace } = await workspaces.readWorkspace(
-      workspaceSysPath,
-      workspaces.createWorkspaceHost(host),
-    );
+    const { workspace } = await workspaces.readWorkspace(workspaceSysPath, workspaces.createWorkspaceHost(host));
 
     architectHost = new TestingArchitectHost(
       workspaceSysPath,

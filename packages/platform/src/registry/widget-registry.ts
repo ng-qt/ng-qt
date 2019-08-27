@@ -9,10 +9,7 @@ export function isKnownWidget(name: string) {
   return widgetRegistry.has(name);
 }
 
-export function registerWidget(
-  name: string,
-  resolver: NodeWidgetResolver,
-): void {
+export function registerWidget(name: string, resolver: NodeWidgetResolver): void {
   widgetRegistry.set(name, resolver);
 }
 
@@ -31,9 +28,9 @@ export function resolveWidget(name: string): Type<NodeWidget> {
 }
 
 // Register core widgets
-registerWidget('Window', () => require('@ngq/core/window').WindowWidget);
-registerWidget('View', () => require('@ngq/core/view').ViewWidget);
-registerWidget('Image', () => require('@ngq/core/image').ImageWidget);
+registerWidget('Window', () => require('@ng-qt/core/window').WindowWidget);
+registerWidget('View', () => require('@ng-qt/core/view').ViewWidget);
+registerWidget('Image', () => require('@ng-qt/core/image').ImageWidget);
 
 /*@Injectable()
 export class WidgetRegistry {

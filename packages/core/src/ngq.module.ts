@@ -11,21 +11,21 @@ import {
 
 import { throwIfAlreadyLoaded } from './utils';
 import { errorHandlerFactory } from './error-handler';
-import { NGQRendererFactory } from './renderer';
+import { NGQTRendererFactory } from './renderer';
 
 @NgModule({
   imports: [ApplicationModule],
   providers: [
     { provide: APP_ROOT, useValue: true },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
-    { provide: RendererFactory2, useExisting: NGQRendererFactory },
+    { provide: RendererFactory2, useExisting: NGQTRendererFactory },
   ],
   schemas: [NO_ERRORS_SCHEMA],
   exports: [ApplicationModule],
 })
-export class NGQModule {
-  constructor(@Optional() @SkipSelf() parentModule: NGQModule) {
+export class NGQTModule {
+  constructor(@Optional() @SkipSelf() parentModule: NGQTModule) {
     // Prevents NativeScriptModule from getting imported multiple times
-    throwIfAlreadyLoaded(parentModule, 'NGQModule');
+    throwIfAlreadyLoaded(parentModule, 'NGQTModule');
   }
 }

@@ -1,17 +1,17 @@
 import { Injectable, NgZone, Renderer2, RendererFactory2, RendererType2, ViewEncapsulation } from '@angular/core';
 
-import { NGQRenderer } from './renderer';
+import { NGQTRenderer } from './renderer';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NGQRendererFactory implements RendererFactory2 {
+export class NGQTRendererFactory implements RendererFactory2 {
   private readonly rendererByCompId = new Map<string, Renderer2>();
-  private defaultRenderer = new NGQRenderer(this.ngZone);
+  private defaultRenderer = new NGQTRenderer(this.ngZone);
 
   constructor(private readonly ngZone: NgZone) {}
 
-  createRenderer(hostElement: any, type: RendererType2 | null): NGQRenderer {
+  createRenderer(hostElement: any, type: RendererType2 | null): NGQTRenderer {
     console.log(hostElement, type);
     if (!hostElement || !type) {
       return this.defaultRenderer;

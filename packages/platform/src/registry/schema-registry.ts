@@ -4,18 +4,18 @@ import { Injectable, SchemaMetadata } from '@angular/core';
 import { isKnownWidget } from './widget-registry';
 
 @Injectable()
-export class NGQElementSchemaRegistry implements ElementSchemaRegistry {
+export class NGQTElementSchemaRegistry implements ElementSchemaRegistry {
   allKnownElementNames(): string[] {
     return [];
   }
 
   getDefaultComponentElementName(): string {
-    return "";
+    return '';
   }
 
   getMappedPropName(propName: string): string {
     console.log(arguments);
-    return "";
+    return '';
   }
 
   hasElement(tagName: string, schemaMetas: SchemaMetadata[]): boolean {
@@ -30,12 +30,16 @@ export class NGQElementSchemaRegistry implements ElementSchemaRegistry {
 
   normalizeAnimationStyleProperty(propName: string): string {
     console.log(arguments);
-    return "";
+    return '';
   }
 
-  normalizeAnimationStyleValue(camelCaseProp: string, userProvidedProp: string, val: string | number): { error: string; value: string } {
+  normalizeAnimationStyleValue(
+    camelCaseProp: string,
+    userProvidedProp: string,
+    val: string | number,
+  ): { error: string; value: string } {
     console.log(arguments);
-    return { error: "", value: "" };
+    return { error: '', value: '' };
   }
 
   securityContext(elementName: string, propName: string, isAttribute: boolean): any {

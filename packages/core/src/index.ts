@@ -1,2 +1,2 @@
-export * from './ngq.module';
-export * from './ngq-widget';
+export * from './ng-qt.module';
+export * from './ng-qt-widget';

@@ -1,6 +1,6 @@
 import { CompilerOptions, NgModuleFactory, NgModuleRef, PlatformRef, Type } from '@angular/core';
 
-export class NGQPlatformRef implements PlatformRef {
+export class NGQTPlatformRef implements PlatformRef {
   get injector() {
     return this.platform.injector;
   }

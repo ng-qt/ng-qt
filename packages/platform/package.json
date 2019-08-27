@@ -1,5 +1,5 @@
 {
-  "name": "@ngq/platform",
+  "name": "@ng-qt/platform",
   "version": "0.0.1",
   "dependencies": {
     "@angular/core": "*"

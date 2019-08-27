@@ -1,24 +1,19 @@
 import { Type } from '@angular/core';
-import {
-  ɵsetRootDomAdapter as setRootDomAdapter,
-  ɵDomAdapter as DomAdapter,
-} from '@angular/platform-browser';
+import { ɵsetRootDomAdapter as setRootDomAdapter, ɵDomAdapter as DomAdapter } from '@angular/platform-browser';
 
-export class NGQDomAdapter implements DomAdapter {
+export class NGQTDomAdapter implements DomAdapter {
   static makeCurrent() {
-    setRootDomAdapter(new NGQDomAdapter());
+    setRootDomAdapter(new NGQTDomAdapter());
   }
 
   attrToPropMap: { [p: string]: string };
   resourceLoaderType: Type<any>;
 
-  addClass(element: any, className: string): any {
-  }
+  addClass(element: any, className: string): any {}
 
   adoptNode(node: any): any {}
 
-  appendChild(el: any, node: any): any {
-  }
+  appendChild(el: any, node: any): any {}
 
   attributeMap(element: any): Map<string, string> {
     return new Map();
@@ -36,94 +31,71 @@ export class NGQDomAdapter implements DomAdapter {
     return [];
   }
 
-  clearNodes(el: any): any {
-  }
+  clearNodes(el: any): any {}
 
-  clone(node: any): any {
-  }
+  clone(node: any): any {}
 
   contains(nodeA: any, nodeB: any): boolean {
     return false;
   }
 
-  content(node: any): any {
-  }
+  content(node: any): any {}
 
-  createComment(text: string): any {
-  }
+  createComment(text: string): any {}
 
-  createElement(tagName: any, doc?: any): any {
-  }
+  createElement(tagName: any, doc?: any): any {}
 
-  createElementNS(ns: string, tagName: string, doc?: any): any {
-  }
+  createElementNS(ns: string, tagName: string, doc?: any): any {}
 
-  createEvent(eventType: string): any {
-  }
+  createEvent(eventType: string): any {}
 
-  createHtmlDocument(): any {
-  }
+  createHtmlDocument(): any {}
 
-  createMouseEvent(eventType: any): any {
-  }
+  createMouseEvent(eventType: any): any {}
 
-  createScriptTag(attrName: string, attrValue: string, doc?: any): any {
-  }
+  createScriptTag(attrName: string, attrValue: string, doc?: any): any {}
 
-  createShadowRoot(el: any): any {
-  }
+  createShadowRoot(el: any): any {}
 
-  createStyleElement(css: string, doc?: any): any {
-  }
+  createStyleElement(css: string, doc?: any): any {}
 
   createTemplate(html: any): any {
     return undefined;
   }
 
-  createTextNode(text: string, doc?: any): any {
-  }
+  createTextNode(text: string, doc?: any): any {}
 
-  dispatchEvent(el: any, evt: any): any {
-  }
+  dispatchEvent(el: any, evt: any): any {}
 
   elementMatches(n: any, selector: string): boolean {
     return false;
   }
 
-  firstChild(el: any): any {
-  }
+  firstChild(el: any): any {}
 
   getAnimationPrefix(): string {
-    return "";
+    return '';
   }
 
-  getAttribute(element: any, attribute: string): any {
-  }
+  getAttribute(element: any, attribute: string): any {}
 
-  getAttributeNS(element: any, ns: string, attribute: string): any {
-  }
+  getAttributeNS(element: any, ns: string, attribute: string): any {}
 
-  getBaseHref(doc: any): any {
-  }
+  getBaseHref(doc: any): any {}
 
-  getBoundingClientRect(el: any): any {
-  }
+  getBoundingClientRect(el: any): any {}
 
   getChecked(el: any): boolean {
     return false;
   }
 
-  getComputedStyle(element: any): any {
-  }
+  getComputedStyle(element: any): any {}
 
-  getCookie(name: string): any {
-  }
+  getCookie(name: string): any {}
 
-  getData(element: any, name: string): any {
-  }
+  getData(element: any, name: string): any {}
 
-  getDefaultDocument(): any {
-  }
+  getDefaultDocument(): any {}
 
   getDistributedNodes(el: any): any[] {
     return [];
@@ -138,63 +110,55 @@ export class NGQDomAdapter implements DomAdapter {
   }
 
   getEventKey(event: any): string {
-    return "";
+    return '';
   }
 
-  getGlobalEventTarget(doc: any, target: string): any {
-  }
+  getGlobalEventTarget(doc: any, target: string): any {}
 
-  getHistory(): any {
-  }
+  getHistory(): any {}
 
-  getHost(el: any): any {
-  }
+  getHost(el: any): any {}
 
   getHref(element: any): string {
-    return "";
+    return '';
   }
 
   getInnerHTML(el: any): string {
-    return "";
+    return '';
   }
 
-  getLocation(): any {
-  }
+  getLocation(): any {}
 
   getOuterHTML(el: any): string {
-    return "";
+    return '';
   }
 
-  getProperty(el: Element, name: string): any {
-  }
+  getProperty(el: Element, name: string): any {}
 
-  getShadowRoot(el: any): any {
-  }
+  getShadowRoot(el: any): any {}
 
   getStyle(element: any, styleName: string): string {
-    return "";
+    return '';
   }
 
-  getTemplateContent(el: any): any {
-  }
+  getTemplateContent(el: any): any {}
 
-  getText(el: any): any {
-  }
+  getText(el: any): any {}
 
   getTitle(doc: any): string {
-    return "";
+    return '';
   }
 
   getTransitionEnd(): string {
-    return "";
+    return '';
   }
 
   getUserAgent(): string {
-    return "";
+    return '';
   }
 
   getValue(el: any): string {
-    return "";
+    return '';
   }
 
   hasAttribute(element: any, attribute: string): boolean {
@@ -221,20 +185,15 @@ export class NGQDomAdapter implements DomAdapter {
     return false;
   }
 
-  importIntoDoc(node: any): any {
-  }
+  importIntoDoc(node: any): any {}
 
-  insertAfter(parent: any, el: any, node: any): any {
-  }
+  insertAfter(parent: any, el: any, node: any): any {}
 
-  insertAllBefore(parent: any, ref: any, nodes: any): any {
-  }
+  insertAllBefore(parent: any, ref: any, nodes: any): any {}
 
-  insertBefore(parent: any, ref: any, node: any): any {
-  }
+  insertBefore(parent: any, ref: any, node: any): any {}
 
-  invoke(el: any, methodName: string, args: any[]): any {
-  }
+  invoke(el: any, methodName: string, args: any[]): any {}
 
   isCommentNode(node: any): boolean {
     return false;
@@ -260,113 +219,83 @@ export class NGQDomAdapter implements DomAdapter {
     return false;
   }
 
-  log(error: any): any {
-  }
+  log(error: any): any {}
 
-  logError(error: any): any {
-  }
+  logError(error: any): any {}
 
-  logGroup(error: any): any {
-  }
+  logGroup(error: any): any {}
 
-  logGroupEnd(): any {
-  }
+  logGroupEnd(): any {}
 
-  nextSibling(el: any): any {
-  }
+  nextSibling(el: any): any {}
 
   nodeName(node: any): string {
-    return "";
+    return '';
   }
 
-  nodeValue(node: any): any {
-  }
+  nodeValue(node: any): any {}
 
-  on(el: any, evt: any, listener: any): any {
-  }
+  on(el: any, evt: any, listener: any): any {}
 
   onAndCancel(el: any, evt: any, listener: any): Function {
     return () => {};
   }
 
-  parentElement(el: any): any {
-  }
+  parentElement(el: any): any {}
 
-  parse(templateHtml: string): any {
-  }
+  parse(templateHtml: string): any {}
 
   performanceNow(): number {
     return 0;
   }
 
-  preventDefault(evt: any): any {
-  }
+  preventDefault(evt: any): any {}
 
-  querySelector(el: any, selector: string): any {
-  }
+  querySelector(el: any, selector: string): any {}
 
   querySelectorAll(el: any, selector: string): any[] {
     return [];
   }
 
-  remove(el: any): any {  }
+  remove(el: any): any {}
 
-  removeAttribute(element: any, attribute: string): any {
-  }
+  removeAttribute(element: any, attribute: string): any {}
 
-  removeAttributeNS(element: any, ns: string, attribute: string): any {
-  }
+  removeAttributeNS(element: any, ns: string, attribute: string): any {}
 
-  removeChild(el: any, node: any): any {
-  }
+  removeChild(el: any, node: any): any {}
 
-  removeClass(element: any, className: string): any {
-  }
+  removeClass(element: any, className: string): any {}
 
-  removeStyle(element: any, styleName: string): any {
-  }
+  removeStyle(element: any, styleName: string): any {}
 
-  replaceChild(el: any, newNode: any, oldNode: any): any {
-  }
+  replaceChild(el: any, newNode: any, oldNode: any): any {}
 
-  resetBaseElement(): void {
-  }
+  resetBaseElement(): void {}
 
-  resolveAndSetHref(element: any, baseUrl: string, href: string): any {
-  }
+  resolveAndSetHref(element: any, baseUrl: string, href: string): any {}
 
-  setAttribute(element: any, name: string, value: string): any {
-  }
+  setAttribute(element: any, name: string, value: string): any {}
 
-  setAttributeNS(element: any, ns: string, name: string, value: string): any {
-  }
+  setAttributeNS(element: any, ns: string, name: string, value: string): any {}
 
-  setChecked(el: any, value: boolean): any {
-  }
+  setChecked(el: any, value: boolean): any {}
 
-  setCookie(name: string, value: string): any {
-  }
+  setCookie(name: string, value: string): any {}
 
-  setData(element: any, name: string, value: string): any {
-  }
+  setData(element: any, name: string, value: string): any {}
 
-  setInnerHTML(el: any, value: any): any {
-  }
+  setInnerHTML(el: any, value: any): any {}
 
-  setProperty(el: Element, name: string, value: any): any {
-  }
+  setProperty(el: Element, name: string, value: any): any {}
 
-  setStyle(element: any, styleName: string, styleValue: string): any {
-  }
+  setStyle(element: any, styleName: string, styleValue: string): any {}
 
-  setText(el: any, value: string): any {
-  }
+  setText(el: any, value: string): any {}
 
-  setTitle(doc: Document, newTitle: string): any {
-  }
+  setTitle(doc: Document, newTitle: string): any {}
 
-  setValue(el: any, value: string): any {
-  }
+  setValue(el: any, value: string): any {}
 
   supportsAnimation(): boolean {
     return false;
@@ -389,15 +318,14 @@ export class NGQDomAdapter implements DomAdapter {
   }
 
   tagName(element: any): string {
-    return "";
+    return '';
   }
 
-  templateAwareRoot(el: any): any {
-  }
+  templateAwareRoot(el: any): any {}
 
   type(node: any): string {
-    return "";
+    return '';
   }
 }
 
-NGQDomAdapter.makeCurrent();
+NGQTDomAdapter.makeCurrent();

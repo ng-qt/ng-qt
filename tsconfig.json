@@ -17,8 +17,8 @@
     "declaration": false,
     "types": ["jest", "node", "zone.js"],
     "paths": {
-      "@ngq/core/*": ["./packages/core/*/index.ts"],
-      "@ngq/*": ["./packages/*/src/index.ts"]
+      "@ng-qt/core/*": ["./packages/core/*/index.ts"],
+      "@ng-qt/*": ["./packages/*/src/index.ts"]
     }
   },
   "exclude": ["node_modules"]

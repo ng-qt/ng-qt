@@ -1,8 +1,8 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-// import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ngq/platform';
+// import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ng-qt/platform';
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 
-export class NGQRenderer implements Renderer2 {
+export class NGQTRenderer implements Renderer2 {
   constructor(private readonly ngZone: NgZone) {}
 
   readonly data: { [p: string]: any };
@@ -36,8 +36,7 @@ export class NGQRenderer implements Renderer2 {
     parent.layout.addWidget(newChild);*/
   }
 
-  createComment(value: string): any {
-  }
+  createComment(value: string): any {}
 
   createElement(name: string, namespace?: string | null): any {
     console.log(arguments);
@@ -45,11 +44,10 @@ export class NGQRenderer implements Renderer2 {
 
   createText(value: string): void {
     console.warn(`Use <Text /> component to add the text: ${value}`);
-    throw new TypeError('NGQRenderer: createText called when platform doesnt have host level text.');
+    throw new TypeError('NGQTRenderer: createText called when platform doesnt have host level text.');
   }
 
-  destroy(): void {
-  }
+  destroy(): void {}
 
   insertBefore({ layout }: NodeWidget, newChild: NodeWidget, refChild: NodeWidget): void {
     console.log(arguments);
@@ -58,11 +56,14 @@ export class NGQRenderer implements Renderer2 {
     }*/
   }
 
-  listen(target: "window" | "document" | "body" | any, eventName: string, callback: (event: any) => (boolean | void)): () => void {
+  listen(
+    target: 'window' | 'document' | 'body' | any,
+    eventName: string,
+    callback: (event: any) => boolean | void,
+  ): () => void {
     console.log(arguments);
 
-    return function() {
-    };
+    return function() {};
   }
 
   nextSibling({ layout }: NodeWidget) {

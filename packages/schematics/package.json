@@ -1,12 +1,12 @@
 {
-	"name": "@ngq/schematics",
-	"version": "0.0.1",
-	"schematics": "./collection.json",
-	"dependencies": {
-		"@angular-devkit/schematics": "*",
-		"@angular-devkit/core": "*"
-	},
-	"peerDependencies": {
-		"typescript": "*"
-	}
+  "name": "@ng-qt/schematics",
+  "version": "0.0.1",
+  "schematics": "./collection.json",
+  "dependencies": {
+    "@angular-devkit/schematics": "*",
+    "@angular-devkit/core": "*"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
 }

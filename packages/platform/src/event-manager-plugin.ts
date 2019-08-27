@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class NGQEventManagerPlugin /* extends EventManagerPlugin which is private */ {
-
+export class NGQTEventManagerPlugin /* extends EventManagerPlugin which is private */ {
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@ngq/builders",
+  "name": "@ng-qt/builders",
   "version": "0.0.1",
   "builders": "builders.json",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@angular-devkit/architect": "*",
-    "@angular-devkit/core":  "*",
+    "@angular-devkit/core": "*",
     "@angular-devkit/schematics": "*",
     "@angular-devkit/build-webpack": "*",
     "@schematics/angular": "*"

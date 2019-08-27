@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { NGQModule } from '@ngq/core';
+import { NGQTModule } from '@ng-qt/core';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [NGQModule],
+  imports: [NGQTModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
