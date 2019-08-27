@@ -1,7 +1,10 @@
 {
-  "name": "@ng-cute/builders",
+  "name": "@ngq/builders",
   "version": "0.0.1",
-  "builders": "./builders.json",
+  "builders": "builders.json",
+  "scripts": {
+    "build": "rm -rf lib && tsc"
+  },
   "dependencies": {
     "@angular-devkit/architect": "*",
     "@angular-devkit/core":  "*",

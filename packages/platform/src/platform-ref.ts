@@ -1,6 +1,6 @@
 import { CompilerOptions, NgModuleFactory, NgModuleRef, PlatformRef, Type } from '@angular/core';
 
-export class NGQPlatformRef extends PlatformRef {
+export class NGQPlatformRef implements PlatformRef {
   get injector() {
     return this.platform.injector;
   }
@@ -9,16 +9,18 @@ export class NGQPlatformRef extends PlatformRef {
     return this.platform.destroyed;
   }
 
-  constructor(private readonly platform: PlatformRef) {
-    super();
-  }
+  constructor(private readonly platform: PlatformRef) {}
 
-  bootstrapModuleFactory<M>(moduleFactory: NgModuleFactory<M>): Promise<NgModuleRef<M>> {}
+  bootstrapModuleFactory<M>(moduleFactory: NgModuleFactory<M>): Promise<NgModuleRef<M>> {
+    return this.platform.bootstrapModuleFactory(moduleFactory);
+  }
 
   bootstrapModule<M>(
     moduleType: Type<M>,
     compilerOptions?: CompilerOptions | CompilerOptions[],
-  ): Promise<NgModuleRef<M>> {}
+  ): Promise<NgModuleRef<M>> {
+    return this.platform.bootstrapModule(moduleType, compilerOptions);
+  }
 
   onDestroy(cb: () => void): void {
     this.platform.onDestroy(cb);

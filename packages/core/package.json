@@ -1,7 +1,7 @@
 {
-  "name": "@ng-cute/core",
+  "name": "@ngq/core",
   "version": "0.0.1",
-  "peerDependencies": {
+  "dependencies": {
     "@angular/core": "*"
   }
 }

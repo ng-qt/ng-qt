@@ -1,15 +1,45 @@
 import { NodeLayout, FlexLayout, NodeWidget } from '@nodegui/nodegui';
-import { Injectable, Type } from '@angular/core';
+import { Injectable, PLATFORM_INITIALIZER, Type } from '@angular/core';
 
 export type NodeWidgetResolver = () => Type<NodeWidget>;
 
-@Injectable({
-  providedIn: 'root',
-})
+export const widgetRegistry = new Map<string, NodeWidgetResolver>();
+
+export function isKnownWidget(name: string) {
+  return widgetRegistry.has(name);
+}
+
+export function registerWidget(
+  name: string,
+  resolver: NodeWidgetResolver,
+): void {
+  widgetRegistry.set(name, resolver);
+}
+
+export function resolveWidget(name: string): Type<NodeWidget> {
+  const resolver = widgetRegistry.get(name);
+
+  if (!resolver) {
+    throw new TypeError(`No known component for widget ${name}`);
+  }
+
+  try {
+    return resolver();
+  } catch (e) {
+    throw new TypeError(`Could not load view for ${name}.${e}`);
+  }
+}
+
+// Register core widgets
+registerWidget('Window', () => require('@ngq/core/window').WindowWidget);
+registerWidget('View', () => require('@ngq/core/view').ViewWidget);
+registerWidget('Image', () => require('@ngq/core/image').ImageWidget);
+
+/*@Injectable()
 export class WidgetRegistry {
   public readonly resolvers = new Map<string, NodeWidgetResolver>();
 
-  isKnown(name: string): boolean {
+  has(name: string): boolean {
     return this.resolvers.has(name);
   }
 
@@ -18,8 +48,7 @@ export class WidgetRegistry {
   }
 
   getNextSibling(layout: NodeLayout) {
-    const children = (layout as any).children.values();
-    return children.next();
+    return (layout as any).children.values().next().value;
   }
 
   isNodeLayout(layout: any): layout is NodeLayout {
@@ -52,4 +81,4 @@ export class WidgetRegistry {
       throw new TypeError(`Could not load view for ${name}.${e}`);
     }
   }
-}
+}*/

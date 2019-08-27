@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "sourceMap": false,
+    "module": "commonjs",
+    "types": ["node", "zone.js"]
+  },
+  "files": [
+    "polyfills.ts",
+    "main.ts"
+  ],
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

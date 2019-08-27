@@ -1,7 +1,6 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ngq/platform';
+// import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ngq/platform';
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
-import { Component } from '@nodegui/nodegui/dist/lib/core/Component';
 
 export class NGQRenderer implements Renderer2 {
   constructor(private readonly ngZone: NgZone) {}
@@ -10,20 +9,22 @@ export class NGQRenderer implements Renderer2 {
   destroyNode: ((node: any) => void) | null;
 
   createWidget(name: string) {
-    if (!isKnownWidget(name)) {
+    /*if (!isKnownWidget(name)) {
       // default widget all components inherit from
       name = 'View';
     }
 
     const widgetType = resolveWidget(name);
-    return new widgetType();
+    return new widgetType();*/
   }
 
   addClass(el: any, name: string): void {
+    console.log(arguments);
   }
 
   appendChild(parent: NodeWidget, newChild: NodeWidget): void {
-    if (!isFlexLayout(parent.layout)) {
+    console.log(arguments);
+    /*if (!isFlexLayout(parent.layout)) {
       const flexLayout = new FlexLayout();
 
       const parentFlexNode = parent.getFlexNode();
@@ -32,14 +33,14 @@ export class NGQRenderer implements Renderer2 {
       parent.layout = flexLayout;
     }
 
-    parent.layout.addWidget(newChild);
+    parent.layout.addWidget(newChild);*/
   }
 
   createComment(value: string): any {
   }
 
   createElement(name: string, namespace?: string | null): any {
-    console.log(name);
+    console.log(arguments);
   }
 
   createText(value: string): void {
@@ -51,56 +52,66 @@ export class NGQRenderer implements Renderer2 {
   }
 
   insertBefore({ layout }: NodeWidget, newChild: NodeWidget, refChild: NodeWidget): void {
-    if (isFlexLayout(layout)) {
+    console.log(arguments);
+    /*if (isFlexLayout(layout)) {
       layout.insertChildBefore(newChild, refChild);
-    }
+    }*/
   }
 
   listen(target: "window" | "document" | "body" | any, eventName: string, callback: (event: any) => (boolean | void)): () => void {
-    console.log(target, eventName, callback);
+    console.log(arguments);
 
     return function() {
     };
   }
 
   nextSibling({ layout }: NodeWidget) {
-    return isNodeLayout(layout)
+    /*return isNodeLayout(layout)
       ? getNextSibling(layout)
-      : null;
+      : null;*/
   }
 
   parentNode(node: NodeWidget): NodeLayout | null {
+    console.log(arguments);
     return node.layout || null;
   }
 
   removeAttribute(el: any, name: string, namespace?: string | null): void {
+    console.log(arguments);
   }
 
   removeChild({ layout }: NodeWidget, oldChild: NodeWidget, isHostElement?: boolean): void {
-    if (isFlexLayout(layout)) {
+    console.log(arguments);
+    /*if (isFlexLayout(layout)) {
       layout.removeWidget(oldChild);
-    }
+    }*/
   }
 
   removeClass(el: any, name: string): void {
+    console.log(arguments);
   }
 
   removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void {
+    console.log(arguments);
   }
 
   selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): any {
+    console.log(arguments);
   }
 
   setAttribute(el: any, name: string, value: string, namespace?: string | null): void {
-    console.log(el);
+    console.log(arguments);
   }
 
   setProperty(el: any, name: string, value: any): void {
+    console.log(arguments);
   }
 
   setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void {
+    console.log(arguments);
   }
 
   setValue(node: any, value: string): void {
+    console.log(arguments);
   }
 }

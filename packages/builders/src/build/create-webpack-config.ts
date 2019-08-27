@@ -3,10 +3,14 @@ import * as webpack from 'webpack';
 import { Configuration, Stats, Plugin, ProgressPlugin } from 'webpack';
 import CircularDependencyPlugin = require('circular-dependency-plugin');
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+import nodeExternals = require('webpack-node-externals');
 import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
+import { resolve } from 'path';
 
 import { BuildOptions } from './types';
+import {BuilderContext} from "@angular-devkit/architect";
+import { inlineFilesTransformer, stripStylesTransformer } from './transformers';
 
 function getAliases(options: BuildOptions): Record<string, string> {
   return options.fileReplacements.reduce(
@@ -49,6 +53,12 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     entry: {
       main: [options.main],
     },
+    target: 'node',
+    externals: [
+      nodeExternals({
+        modulesDir: resolve(options.root!, '../../node_modules'),
+      }),
+    ],
     devtool: options.sourceMap && 'source-map',
     mode: options.optimization ? 'production' : 'development',
     output: {
@@ -58,13 +68,23 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     module: {
       rules: [
         {
+          test: /\.(html|css)$/,
+          loader: 'raw-loader',
+        },
+        {
           test: /\.(j|t)sx?$/,
-          loader: `ts-loader`,
+          loader: 'ts-loader',
           options: {
             configFile: options.tsConfig,
             transpileOnly: true,
+            getCustomTransformers: (program) => ({
+              before: [
+                inlineFilesTransformer(program),
+                stripStylesTransformer(program),
+              ],
+            }),
           }
-        }
+        },
       ],
     },
     resolve: {
@@ -85,7 +105,10 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     plugins: [
       new ForkTsCheckerWebpackPlugin({
         tsconfig: options.tsConfig,
-        workers: options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE
+        useTypescriptIncrementalApi: options.useTypescriptIncrementalApi,
+        workers: options.useTypescriptIncrementalApi
+          ? ForkTsCheckerWebpackPlugin.ONE_CPU
+          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE
       })
     ],
     stats: getStatsConfig(options)
@@ -131,8 +154,7 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     );
   }
 
-  // @ts-ignore
-  webpackConfig.plugins = [...webpackConfig.plugins, ...extraPlugins];
+  webpackConfig.plugins = [...webpackConfig.plugins!, ...extraPlugins];
 
   return webpackConfig;
 }

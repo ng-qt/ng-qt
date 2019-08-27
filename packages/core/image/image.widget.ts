@@ -1,5 +1,5 @@
-import { QLabel, AspectRatioMode, QPixmap, QLabelEvents } from '@nodegui/nodegui';
-import { fromEvent, Subscription } from 'rxjs';
+import { QLabel } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
+// import { fromEvent, Subscription } from 'rxjs';
 
 export class ImageWidget extends QLabel {
   /*private readonly subs = new Subscription();

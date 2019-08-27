@@ -7,7 +7,7 @@
     "lib": ["esnext", "dom"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "importHelpers": false,
+    "importHelpers": true,
     "strictPropertyInitialization": false,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
@@ -17,7 +17,6 @@
     "declaration": true,
     "types": ["jest", "node", "zone.js"],
     "paths": {
-      "@ngq/core": ["./packages/core/src/index.ts"],
       "@ngq/core/*": ["./packages/core/*/index.ts"],
       "@ngq/*": ["./packages/*/src/index.ts"]
     }

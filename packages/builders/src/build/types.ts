@@ -27,6 +27,7 @@ export interface BuildOptions {
   showCircularDependencies?: boolean;
   maxWorkers?: number;
   poll?: number;
+  useTypescriptIncrementalApi: boolean;
 
   fileReplacements: FileReplacement[];
   assets?: any[];

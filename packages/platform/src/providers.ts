@@ -1,10 +1,9 @@
-import { PLATFORM_ID, PLATFORM_INITIALIZER, StaticProvider } from '@angular/core';
+import { PLATFORM_ID, StaticProvider } from '@angular/core';
 import { ElementSchemaRegistry, ResourceLoader } from '@angular/compiler';
 import { COMPILER_OPTIONS } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 
-import { APP_ROOT_VIEW, createRootView } from './app-root-view';
-import { FileSystemResourceLoader } from './resource-loader';
+import { FileSystemResourceLoader } from './fs-resource-loader';
 import { NGQElementSchemaRegistry } from './registry';
 import { NGQPlatformLocation } from './location';
 
@@ -18,10 +17,12 @@ export const NGQ_COMPILER_PROVIDERS: StaticProvider[] = [
         {
           provide: ResourceLoader,
           useClass: FileSystemResourceLoader,
+          deps: [],
         },
         {
           provide: ElementSchemaRegistry,
           useClass: NGQElementSchemaRegistry,
+          deps: [],
         },
       ],
     },
@@ -37,10 +38,5 @@ export const NGQ_INTERNAL_PLATFORM_PROVIDERS: StaticProvider[] = [
   {
     provide: PlatformLocation,
     useExisting: NGQPlatformLocation,
-  },
-  {
-    provide: PLATFORM_INITIALIZER,
-    useFactory: createRootView,
-    deps: [],
   },
 ];

@@ -1,0 +1,7 @@
+{
+  "name": "@ngq/testing",
+  "version": "0.0.1",
+  "dependencies": {
+    "@nodegui/qode": "*"
+  }
+}
