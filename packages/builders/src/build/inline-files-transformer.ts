@@ -11,12 +11,7 @@ import {
   PropertyAssignment,
   Identifier,
   Program,
-  TransformerFactory,
 } from 'typescript';
-
-// replace original ts-jest ConfigSet with this simple interface, as it would require
-// jest-preset-angular to add several babel devDependencies to get the other types
-// inside the ConfigSet right
 
 /** Angular component decorator TemplateUrl property name */
 const TEMPLATE_URL = 'templateUrl';
@@ -32,23 +27,6 @@ const STYLES = 'styles';
  */
 const TRANSFORM_PROPS = [TEMPLATE_URL, STYLE_URLS];
 
-/**
- * Transformer ID
- * @internal
- */
-// export const name = 'angular-component-inline-files';
-
-// increment this each time the code is modified
-/**
- * Transformer Version
- * @internal
- */
-// export const version = 1;
-
-/**
- * The factory of hoisting transformer factory
- * @internal
- */
 export function inlineFilesTransformer(cs: Program) {
   /**
    * Traverses the AST down to the relevant assignments anywhere in the file
@@ -64,8 +42,8 @@ export function inlineFilesTransformer(cs: Program) {
   function transfromPropertyAssignmentForJest(node: PropertyAssignment, sf: SourceFile) {
     const mutableAssignment = ts.getMutableClone(node);
 
-    function readComponentLiteral(literal: ts.StringLiteral) {
-      return readFileSync(join(dirname(sf.fileName), literal.text)).toString();
+    function createComponentLiteral(literal: ts.StringLiteral): ts.StringLiteral {
+      return ts.createStringLiteral(readFileSync(join(dirname(sf.fileName), literal.text)).toString());
     }
 
     const assignmentNameText = (mutableAssignment.name as Identifier).text;
@@ -73,9 +51,8 @@ export function inlineFilesTransformer(cs: Program) {
     switch (assignmentNameText) {
       case TEMPLATE_URL:
         if (ts.isStringLiteral(pathLiteral)) {
-          const template = readComponentLiteral(pathLiteral);
           mutableAssignment.name = ts.createIdentifier(TEMPLATE);
-          mutableAssignment.initializer = ts.createStringLiteral(template);
+          mutableAssignment.initializer = createComponentLiteral(pathLiteral);
         }
         break;
 
@@ -84,12 +61,10 @@ export function inlineFilesTransformer(cs: Program) {
           mutableAssignment.name = ts.createIdentifier(STYLES);
           mutableAssignment.initializer = ts.createArrayLiteral(
             pathLiteral.elements.reduce(
-              (literals, element) => {
-                if (ts.isStringLiteral(element)) {
-                  const style = readComponentLiteral(element);
-                  const literal = ts.createStringLiteral(style);
-
-                  return [...literals, literal];
+              (literals, literal) => {
+                if (ts.isStringLiteral(literal)) {
+                  const style = createComponentLiteral(literal);
+                  return [...literals, style];
                 }
 
                 return literals;
