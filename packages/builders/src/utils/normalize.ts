@@ -1,14 +1,19 @@
 import { normalize } from '@angular-devkit/core';
 import { resolve, dirname, relative, basename } from 'path';
-import { BuildOptions } from './types';
 import { statSync } from 'fs';
+
+import { BuildOptions } from '../build/types';
 
 export interface FileReplacement {
   replace: string;
   with: string;
 }
 
-export function normalizeBuildOptions<T extends BuildOptions>(options: T, root: string, sourceRoot: string): T {
+export function normalizeBuildOptions<T extends BuildOptions>(
+  options: T,
+  root: string,
+  sourceRoot: string,
+): T {
   return {
     ...options,
     root: root,
@@ -18,7 +23,9 @@ export function normalizeBuildOptions<T extends BuildOptions>(options: T, root: 
     tsConfig: resolve(root, options.tsConfig),
     fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
     assets: normalizeAssets(options.assets!, root, sourceRoot),
-    webpackConfig: options.webpackConfig ? resolve(root, options.webpackConfig) : options.webpackConfig,
+    webpackConfig: options.webpackConfig
+      ? resolve(root, options.webpackConfig)
+      : options.webpackConfig,
   };
 }
 
@@ -30,7 +37,9 @@ function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[]
       const resolvedSourceRoot = resolve(root, sourceRoot);
 
       if (!resolvedAssetPath.startsWith(resolvedSourceRoot)) {
-        throw new Error(`The ${resolvedAssetPath} asset path must start with the project source root: ${sourceRoot}`);
+        throw new Error(
+          `The ${resolvedAssetPath} asset path must start with the project source root: ${sourceRoot}`,
+        );
       }
 
       const isDirectory = statSync(resolvedAssetPath).isDirectory();
@@ -59,7 +68,10 @@ function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[]
   });
 }
 
-function normalizeFileReplacements(root: string, fileReplacements: FileReplacement[]): FileReplacement[] {
+function normalizeFileReplacements(
+  root: string,
+  fileReplacements: FileReplacement[],
+): FileReplacement[] {
   return fileReplacements.map(fileReplacement => ({
     replace: resolve(root, fileReplacement.replace),
     with: resolve(root, fileReplacement.with),

@@ -1,16 +1,12 @@
 // https://github.com/nrwl/nx/blob/master/packages/node/src/utils/config.ts
-import * as webpack from 'webpack';
 import { Configuration, Stats, Plugin, ProgressPlugin } from 'webpack';
 import CircularDependencyPlugin = require('circular-dependency-plugin');
 import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-import nodeExternals = require('webpack-node-externals');
 import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
-import { resolve } from 'path';
-import * as fs from 'fs';
 
 import { inlineFilesTransformer } from './inline-files-transformer';
-import { BuildOptions } from './types';
+import { BuildOptions } from '../build/types';
 
 function getAliases(options: BuildOptions): Record<string, string> {
   return options.fileReplacements.reduce(
@@ -45,20 +41,7 @@ function getStatsConfig(options: BuildOptions): Stats.ToStringOptions {
   };
 }
 
-export function resolveModulesDir(root: string): string {
-  const dir = resolve(root, 'node_modules');
-
-  try {
-    fs.accessSync(dir, fs.constants.R_OK);
-    return dir;
-  } catch {}
-
-  const parentDir = resolve(root, '..');
-  return resolveModulesDir(parentDir);
-}
-
-export function createWebpackConfig(options: BuildOptions): Configuration {
-  const modulesDir = resolveModulesDir(options.root!);
+export function getBaseWebpackPartial(options: BuildOptions): Configuration {
   const extensions = ['.ts', '.mjs', '.js'];
   const mainFields = ['module', 'main'];
 
@@ -66,8 +49,6 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     entry: {
       main: [options.main],
     },
-    target: 'node',
-    externals: [nodeExternals({ modulesDir })],
     devtool: options.sourceMap && 'source-map',
     mode: options.optimization ? 'production' : 'development',
     output: {
@@ -76,6 +57,10 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     },
     module: {
       rules: [
+        {
+          test: /\.(html|css)$/,
+          loader: 'raw-loader',
+        },
         {
           test: /\.(j|t)sx?$/,
           loader: 'ts-loader',
@@ -86,8 +71,8 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
               declaration: false,
               noEmit: true,
             },
-            getCustomTransformers: program => ({
-              before: [inlineFilesTransformer(program)],
+            getCustomTransformers: () => ({
+              before: [inlineFilesTransformer()],
             }),
           },
         },
@@ -104,6 +89,10 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
         }),
       ],
       mainFields,
+    },
+    watch: options.watch,
+    watchOptions: {
+      poll: options.poll,
     },
     performance: {
       hints: false,
@@ -145,7 +134,10 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
       ignore: ['.gitkeep', '**/.DS_Store', '**/Thumbs.db'],
     };
 
-    const copyWebpackPluginInstance = new CopyWebpackPlugin(copyWebpackPluginPatterns, copyWebpackPluginOptions);
+    const copyWebpackPluginInstance = new CopyWebpackPlugin(
+      copyWebpackPluginPatterns,
+      copyWebpackPluginOptions,
+    );
     extraPlugins.push(copyWebpackPluginInstance);
   }
 

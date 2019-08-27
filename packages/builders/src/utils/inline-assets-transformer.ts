@@ -1,7 +1,4 @@
-// only import types, for the rest use injected `ConfigSet.compilerModule`
 import * as ts from 'typescript';
-import { join, dirname } from 'path';
-import { readFileSync } from 'fs';
 import {
   Node,
   SourceFile,
@@ -22,6 +19,9 @@ const TEMPLATE = 'template';
 /** Angular component decorator Styles property name */
 const STYLES = 'styles';
 
+const REQUIRE = 'require';
+const EXPORT_DEFAULT = 'default';
+
 /**
  * Property names anywhere in an angular project to transform
  */
@@ -33,17 +33,24 @@ export function inlineFilesTransformer(cs: Program) {
    * and returns a boolean indicating if it should be transformed.
    */
   function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
-    return ts.isPropertyAssignment(node) && ts.isIdentifier(node.name) && TRANSFORM_PROPS.includes(node.name.text);
+    return (
+      ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      TRANSFORM_PROPS.includes(node.name.text)
+    );
   }
 
   /**
    * Clones the assignment and manipulates it depending on its name.
    */
-  function transfromPropertyAssignmentForJest(node: PropertyAssignment, sf: SourceFile) {
+  function transformPropertyAssignmentForJest(node: PropertyAssignment) {
     const mutableAssignment = ts.getMutableClone(node);
 
-    function createComponentLiteral(literal: ts.StringLiteral): ts.StringLiteral {
-      return ts.createStringLiteral(readFileSync(join(dirname(sf.fileName), literal.text)).toString());
+    function createDefaultRequireCall(literal: ts.StringLiteral) {
+      return ts.createPropertyAccess(
+        ts.createCall(ts.createIdentifier(REQUIRE), undefined, [literal]),
+        EXPORT_DEFAULT,
+      );
     }
 
     const assignmentNameText = (mutableAssignment.name as Identifier).text;
@@ -52,7 +59,7 @@ export function inlineFilesTransformer(cs: Program) {
       case TEMPLATE_URL:
         if (ts.isStringLiteral(pathLiteral)) {
           mutableAssignment.name = ts.createIdentifier(TEMPLATE);
-          mutableAssignment.initializer = createComponentLiteral(pathLiteral);
+          mutableAssignment.initializer = createDefaultRequireCall(pathLiteral);
         }
         break;
 
@@ -63,13 +70,13 @@ export function inlineFilesTransformer(cs: Program) {
             pathLiteral.elements.reduce(
               (literals, literal) => {
                 if (ts.isStringLiteral(literal)) {
-                  const style = createComponentLiteral(literal);
-                  return [...literals, style];
+                  const styleRequire = createDefaultRequireCall(literal);
+                  return [...literals, styleRequire];
                 }
 
                 return literals;
               },
-              [] as ts.StringLiteral[],
+              [] as ts.Expression[],
             ),
           );
         }
@@ -79,7 +86,7 @@ export function inlineFilesTransformer(cs: Program) {
     return mutableAssignment;
   }
 
-  function createVisitor(ctx: TransformationContext, sf: SourceFile) {
+  function createVisitor(ctx: TransformationContext) {
     /**
      * Our main visitor, which will be called recursively for each node in the source file's AST
      * @param node The node to be visited
@@ -91,7 +98,7 @@ export function inlineFilesTransformer(cs: Program) {
       // this is an assignment which we want to transform
       if (isPropertyAssignmentToTransform(node)) {
         // get transformed node with changed properties
-        resultNode = transfromPropertyAssignmentForJest(node, sf);
+        resultNode = transformPropertyAssignmentForJest(node);
       }
 
       // look for interesting assignments inside this node in any case
@@ -104,5 +111,5 @@ export function inlineFilesTransformer(cs: Program) {
   }
 
   return (ctx: TransformationContext): Transformer<SourceFile> => (sf: SourceFile) =>
-    ts.visitNode(sf, createVisitor(ctx, sf));
+    ts.visitNode(sf, createVisitor(ctx));
 }

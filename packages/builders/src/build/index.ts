@@ -5,11 +5,11 @@ import { BuildResult, runWebpack } from '@angular-devkit/build-webpack';
 import { from, Observable } from 'rxjs';
 import { BuildOptions } from './types';
 import { concatMap, map } from 'rxjs/operators';
-import { createWebpackConfig } from './create-webpack-config';
-import { normalizeBuildOptions } from './utils';
+
+import { normalizeBuildOptions, getNodeWebpackConfig } from '../utils';
 
 export type NodeBuildEvent = BuildResult & {
-  outfile: string;
+  outFile: string;
 };
 
 async function getSourceRoot(context: BuilderContext) {
@@ -33,7 +33,7 @@ export default createBuilder(
     return from(getSourceRoot(context)).pipe(
       map(sourceRoot => normalizeBuildOptions(options, context.workspaceRoot, sourceRoot)),
       map(options => {
-        let config = createWebpackConfig(options);
+        let config = getNodeWebpackConfig(options);
         if (options.webpackConfig) {
           config = require(options.webpackConfig)(config, {
             options,
@@ -52,7 +52,10 @@ export default createBuilder(
         }),
       ),
       map((buildEvent: BuildResult) => {
-        buildEvent.outfile = resolve(context.workspaceRoot as any, (options.outputPath + '/main.js') as any);
+        buildEvent.outFile = resolve(
+          context.workspaceRoot as any,
+          (options.outputPath + '/main.js') as any,
+        );
 
         return buildEvent as NodeBuildEvent;
       }),
