@@ -14,22 +14,22 @@ export class NGQTElementSchemaRegistry implements ElementSchemaRegistry {
   }
 
   getMappedPropName(propName: string): string {
-    console.log(arguments);
+    console.log('getMappedPropName', arguments);
     return '';
   }
 
   hasElement(tagName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log(arguments);
+    console.log('hasElement', arguments);
     return isKnownWidget(tagName);
   }
 
   hasProperty(tagName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log(arguments);
+    console.log('hasProperty', arguments);
     return false;
   }
 
   normalizeAnimationStyleProperty(propName: string): string {
-    console.log(arguments);
+    console.log('normalizeAnimationStyleProperty', arguments);
     return '';
   }
 
@@ -38,21 +38,21 @@ export class NGQTElementSchemaRegistry implements ElementSchemaRegistry {
     userProvidedProp: string,
     val: string | number,
   ): { error: string; value: string } {
-    console.log(arguments);
+    console.log('normalizeAnimationStyleValue', arguments);
     return { error: '', value: '' };
   }
 
   securityContext(elementName: string, propName: string, isAttribute: boolean): any {
-    console.log(arguments);
+    console.log('securityContext', arguments);
   }
 
   validateAttribute(name: string): { error: boolean; msg?: string } {
-    console.log(arguments);
+    console.log('validateAttribute', arguments);
     return { error: false };
   }
 
   validateProperty(name: string): { error: boolean; msg?: string } {
-    console.log(arguments);
+    console.log('validateProperty', arguments);
     return { error: false };
   }
 }

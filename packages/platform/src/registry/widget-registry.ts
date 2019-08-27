@@ -1,7 +1,7 @@
-import { NodeLayout, FlexLayout, NodeWidget } from '@nodegui/nodegui';
-import { Injectable, PLATFORM_INITIALIZER, Type } from '@angular/core';
+import { Type } from '@angular/core';
+import { NgQtWidget } from '@ng-qt/core';
 
-export type NodeWidgetResolver = () => Type<NodeWidget>;
+export type NodeWidgetResolver = () => Type<NgQtWidget>;
 
 export const widgetRegistry = new Map<string, NodeWidgetResolver>();
 
@@ -13,7 +13,7 @@ export function registerWidget(name: string, resolver: NodeWidgetResolver): void
   widgetRegistry.set(name, resolver);
 }
 
-export function resolveWidget(name: string): Type<NodeWidget> {
+export function resolveWidget(name: string): Type<NgQtWidget> {
   const resolver = widgetRegistry.get(name);
 
   if (!resolver) {
@@ -28,9 +28,9 @@ export function resolveWidget(name: string): Type<NodeWidget> {
 }
 
 // Register core widgets
-registerWidget('Window', () => require('@ng-qt/core/window').WindowWidget);
-registerWidget('View', () => require('@ng-qt/core/view').ViewWidget);
-registerWidget('Image', () => require('@ng-qt/core/image').ImageWidget);
+registerWidget('Window', () => require('@ng-qt/core/window').Window);
+registerWidget('View', () => require('@ng-qt/core/view').View);
+registerWidget('Image', () => require('@ng-qt/core/image').Image);
 
 /*@Injectable()
 export class WidgetRegistry {

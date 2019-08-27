@@ -1,8 +1,6 @@
-import { QIcon, QPushButton } from '@nodegui/nodegui';
+import { QPushButton, QPushButtonEvents } from '@nodegui/nodegui';
+import { createWidgetEvents, NgQtWidget } from '../src';
 
-export class ButtonWidget extends QPushButton {
-  set icon(url: string) {
-    const icon = new QIcon(url);
-    this.setIcon(icon);
-  }
+export class Button extends QPushButton implements NgQtWidget {
+  events = createWidgetEvents(QPushButtonEvents);
 }

@@ -1,5 +1,3 @@
-import { QWidget } from '@nodegui/nodegui/dist/lib/QtGui/QWidget';
+import { NgQtWidget } from '@ng-qt/core';
 
-export type ListenerMap = Record<string, Function>;
-
-export class ViewWidget extends QWidget {}
+export class View extends NgQtWidget {}

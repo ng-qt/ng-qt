@@ -1,12 +1,6 @@
-import { QLabel } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
+import { QLabel, QLabelEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
+import { createWidgetEvents, NgQtWidget } from '../src';
 
-export class TextWidget extends QLabel {
-  // @ts-ignore
-  /*set children(text: string | number) {
-    this.setText(text);
-  }
-
-  set wordWrap(shouldWrap: boolean) {
-    this.setWordWrap(shouldWrap);
-  }*/
+export class Text extends QLabel implements NgQtWidget {
+  events = createWidgetEvents(QLabelEvents);
 }

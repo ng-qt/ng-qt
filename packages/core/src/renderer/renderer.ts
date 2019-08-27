@@ -1,6 +1,9 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
 // import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ng-qt/platform';
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
+import { resolveWidget } from '@ng-qt/platform';
+
+import { NgQtWidget } from '../ng-qt-widget';
 
 export class NGQTRenderer implements Renderer2 {
   constructor(private readonly ngZone: NgZone) {}
@@ -19,11 +22,11 @@ export class NGQTRenderer implements Renderer2 {
   }
 
   addClass(el: any, name: string): void {
-    console.log(arguments);
+    console.log('addClass', arguments);
   }
 
   appendChild(parent: NodeWidget, newChild: NodeWidget): void {
-    console.log(arguments);
+    console.log('appendChild', arguments);
     /*if (!isFlexLayout(parent.layout)) {
       const flexLayout = new FlexLayout();
 
@@ -36,10 +39,13 @@ export class NGQTRenderer implements Renderer2 {
     parent.layout.addWidget(newChild);*/
   }
 
-  createComment(value: string): any {}
+  createComment(value: string): any {
+    console.log('createComment', value);
+  }
 
-  createElement(name: string, namespace?: string | null): any {
-    console.log(arguments);
+  createElement(name: string, namespace?: string | null): NgQtWidget {
+    const widgetCtor = resolveWidget(name);
+    return new widgetCtor();
   }
 
   createText(value: string): void {
@@ -50,20 +56,22 @@ export class NGQTRenderer implements Renderer2 {
   destroy(): void {}
 
   insertBefore({ layout }: NodeWidget, newChild: NodeWidget, refChild: NodeWidget): void {
-    console.log(arguments);
+    console.log('insertBefore', arguments);
     /*if (isFlexLayout(layout)) {
       layout.insertChildBefore(newChild, refChild);
     }*/
   }
 
-  listen(
-    target: 'window' | 'document' | 'body' | any,
-    eventName: string,
-    callback: (event: any) => boolean | void,
-  ): () => void {
-    console.log(arguments);
+  listen(widget: NgQtWidget, eventName: string, callback: (event: any) => boolean | void): () => void {
+    if (!widget.events.has(eventName)) {
+      throw new TypeError(`${widget.constructor.name} doesn't have event: ${eventName}`);
+    }
 
-    return function() {};
+    const zonedCallback = (...args: any) => this.ngZone.run(() => callback.apply(undefined, args));
+
+    widget.addEventListener(eventName, zonedCallback);
+
+    return () => widget.removeEventListener(eventName, zonedCallback);
   }
 
   nextSibling({ layout }: NodeWidget) {
@@ -73,46 +81,46 @@ export class NGQTRenderer implements Renderer2 {
   }
 
   parentNode(node: NodeWidget): NodeLayout | null {
-    console.log(arguments);
+    console.log('parentNode', arguments);
     return node.layout || null;
   }
 
   removeAttribute(el: any, name: string, namespace?: string | null): void {
-    console.log(arguments);
+    console.log('removeAttribute', arguments);
   }
 
   removeChild({ layout }: NodeWidget, oldChild: NodeWidget, isHostElement?: boolean): void {
-    console.log(arguments);
+    console.log('removeChild', arguments);
     /*if (isFlexLayout(layout)) {
       layout.removeWidget(oldChild);
     }*/
   }
 
   removeClass(el: any, name: string): void {
-    console.log(arguments);
+    console.log('removeClass', arguments);
   }
 
   removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void {
-    console.log(arguments);
+    console.log('removeStyle', arguments);
   }
 
   selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): any {
-    console.log(arguments);
+    console.log('selectRootElement', arguments);
   }
 
   setAttribute(el: any, name: string, value: string, namespace?: string | null): void {
-    console.log(arguments);
+    console.log('setAttribute', arguments);
   }
 
   setProperty(el: any, name: string, value: any): void {
-    console.log(arguments);
+    console.log('setProperty', arguments);
   }
 
   setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void {
-    console.log(arguments);
+    console.log('setStyle', arguments);
   }
 
   setValue(node: any, value: string): void {
-    console.log(arguments);
+    console.log('setValue', arguments);
   }
 }

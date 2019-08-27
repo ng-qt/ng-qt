@@ -1,7 +1,8 @@
-import { QLabel } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
-// import { fromEvent, Subscription } from 'rxjs';
+import { QLabel, QLabelEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
+import { createWidgetEvents, NgQtWidget } from '../src';
 
-export class ImageWidget extends QLabel {
+export class Image extends QLabel implements NgQtWidget {
+  events = createWidgetEvents(QLabelEvents);
   /*private readonly subs = new Subscription();
   private originalPixmap: QPixmap;
 

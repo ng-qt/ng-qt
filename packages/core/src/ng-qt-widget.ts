@@ -1,11 +1,14 @@
-import { QWidget } from '@nodegui/nodegui';
+import { QWidget, QWidgetEvents } from '@nodegui/nodegui';
 
-export class NGQTWidget extends QWidget {
+import { createWidgetEvents } from './utils';
+
+export class NgQtWidget extends QWidget {
+  readonly events = createWidgetEvents(QWidgetEvents);
   // @ts-ignore
   // TODO: Should be implemented in renderer
-  setStyleSheet() {}
+  // setStyleSheet() {}
   // @ts-ignore
   // TODO
   // TODO: Should be implemented in renderer
-  setInlineStyle() {}
+  // setInlineStyle() {}
 }
