@@ -14,7 +14,7 @@
     "noImplicitAny": false,
     "noImplicitThis": true,
     "sourceMap": false,
-    "declaration": true,
+    "declaration": false,
     "types": ["jest", "node", "zone.js"],
     "paths": {
       "@ngq/core/*": ["./packages/core/*/index.ts"],

@@ -8,17 +8,16 @@ import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { resolve } from 'path';
 
+import { inlineFilesTransformer } from './inline-files-transformer';
 import { BuildOptions } from './types';
-import {BuilderContext} from "@angular-devkit/architect";
-import { inlineFilesTransformer, stripStylesTransformer } from './transformers';
 
 function getAliases(options: BuildOptions): Record<string, string> {
   return options.fileReplacements.reduce(
     (aliases, replacement) => ({
       ...aliases,
-      [replacement.replace]: replacement.with
+      [replacement.replace]: replacement.with,
     }),
-    {}
+    {},
   );
 }
 
@@ -41,7 +40,7 @@ function getStatsConfig(options: BuildOptions): Stats.ToStringOptions {
     version: !!options.verbose,
     errorDetails: !!options.verbose,
     moduleTrace: !!options.verbose,
-    usedExports: !!options.verbose
+    usedExports: !!options.verbose,
   };
 }
 
@@ -67,23 +66,20 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     },
     module: {
       rules: [
-        {
+        /*{
           test: /\.(html|css)$/,
           loader: 'raw-loader',
-        },
+        },*/
         {
           test: /\.(j|t)sx?$/,
           loader: 'ts-loader',
           options: {
             configFile: options.tsConfig,
             transpileOnly: true,
-            getCustomTransformers: (program) => ({
-              before: [
-                inlineFilesTransformer(program),
-                stripStylesTransformer(program),
-              ],
+            getCustomTransformers: program => ({
+              before: [inlineFilesTransformer(program)],
             }),
-          }
+          },
         },
       ],
     },
@@ -94,13 +90,13 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
         new TsConfigPathsPlugin({
           configFile: options.tsConfig,
           extensions,
-          mainFields
-        })
+          mainFields,
+        }),
       ],
-      mainFields
+      mainFields,
     },
     performance: {
-      hints: false
+      hints: false,
     },
     plugins: [
       new ForkTsCheckerWebpackPlugin({
@@ -108,10 +104,10 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
         useTypescriptIncrementalApi: options.useTypescriptIncrementalApi,
         workers: options.useTypescriptIncrementalApi
           ? ForkTsCheckerWebpackPlugin.ONE_CPU
-          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE
-      })
+          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
+      }),
     ],
-    stats: getStatsConfig(options)
+    stats: getStatsConfig(options),
   };
 
   const extraPlugins: Plugin[] = [];
@@ -130,27 +126,24 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
         ignore: asset.ignore,
         from: {
           glob: asset.glob,
-          dot: true
-        }
+          dot: true,
+        },
       };
     });
 
     const copyWebpackPluginOptions = {
-      ignore: ['.gitkeep', '**/.DS_Store', '**/Thumbs.db']
+      ignore: ['.gitkeep', '**/.DS_Store', '**/Thumbs.db'],
     };
 
-    const copyWebpackPluginInstance = new CopyWebpackPlugin(
-      copyWebpackPluginPatterns,
-      copyWebpackPluginOptions
-    );
+    const copyWebpackPluginInstance = new CopyWebpackPlugin(copyWebpackPluginPatterns, copyWebpackPluginOptions);
     extraPlugins.push(copyWebpackPluginInstance);
   }
 
   if (options.showCircularDependencies) {
     extraPlugins.push(
       new CircularDependencyPlugin({
-        exclude: /[\\\/]node_modules[\\\/]/
-      })
+        exclude: /[\\\/]node_modules[\\\/]/,
+      }),
     );
   }
 
