@@ -28,9 +28,9 @@ export function resolveWidget(name: string): Type<NgQtWidget> {
 }
 
 // Register core widgets
-registerWidget('Window', () => require('@ng-qt/core/window').Window);
-registerWidget('View', () => require('@ng-qt/core/view').View);
-registerWidget('Image', () => require('@ng-qt/core/image').Image);
+registerWidget('Window', () => require('../../../core/ui/window').Window);
+registerWidget('View', () => require('../../../core/ui/view').View);
+registerWidget('Image', () => require('../../../core/ui/image').Image);
 
 /*@Injectable()
 export class WidgetRegistry {

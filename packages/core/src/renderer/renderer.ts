@@ -1,9 +1,10 @@
-import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
+import { NgZone, Renderer2, RendererStyleFlags2, Type } from '@angular/core';
 // import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ng-qt/platform';
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 import { resolveWidget } from '@ng-qt/platform';
 
 import { NgQtWidget } from '../ng-qt-widget';
+import { getWidgetCtor } from '../utils';
 
 export class NGQTRenderer implements Renderer2 {
   constructor(private readonly ngZone: NgZone) {}
@@ -63,8 +64,9 @@ export class NGQTRenderer implements Renderer2 {
   }
 
   listen(widget: NgQtWidget, eventName: string, callback: (event: any) => boolean | void): () => void {
-    if (!widget.events.has(eventName)) {
-      throw new TypeError(`${widget.constructor.name} doesn't have event: ${eventName}`);
+    const { events, name } = getWidgetCtor(widget);
+    if (!events.has(eventName)) {
+      throw new TypeError(`${name} doesn't have event: ${eventName}`);
     }
 
     const zonedCallback = (...args: any) => this.ngZone.run(() => callback.apply(undefined, args));

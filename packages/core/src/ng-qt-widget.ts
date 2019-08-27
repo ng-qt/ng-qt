@@ -3,7 +3,7 @@ import { QWidget, QWidgetEvents } from '@nodegui/nodegui';
 import { createWidgetEvents } from './utils';
 
 export class NgQtWidget extends QWidget {
-  readonly events = createWidgetEvents(QWidgetEvents);
+  static readonly events = createWidgetEvents(QWidgetEvents);
   // @ts-ignore
   // TODO: Should be implemented in renderer
   // setStyleSheet() {}
