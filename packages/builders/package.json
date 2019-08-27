@@ -1,9 +1,15 @@
 {
-  "name": "@ng-cute/builders",
+  "name": "@ng-qt/builders",
   "version": "0.0.1",
+  "builders": "builders.json",
+  "scripts": {
+    "build": "rm -rf lib && tsc"
+  },
   "dependencies": {
     "@angular-devkit/architect": "*",
-    "@angular-devkit/core":  "*",
-    "@angular-devkit/schematics": "*"
+    "@angular-devkit/core": "*",
+    "@angular-devkit/schematics": "*",
+    "@angular-devkit/build-webpack": "*",
+    "@schematics/angular": "*"
   }
 }

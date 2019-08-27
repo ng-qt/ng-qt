@@ -11,17 +11,15 @@
     "strictPropertyInitialization": false,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "sourceMap": false,
-    "declaration": true,
-    "types": ["node"],
+    "declaration": false,
+    "types": ["jest", "node", "zone.js"],
     "paths": {
-      "@ng-cute/*": ["./packages/*/src/index.ts"]
+      "@ng-qt/core/*": ["./packages/core/*/index.ts"],
+      "@ng-qt/*": ["./packages/*/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-   ]
+  "exclude": ["node_modules"]
 }
