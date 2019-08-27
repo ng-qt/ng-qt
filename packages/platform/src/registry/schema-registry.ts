@@ -15,7 +15,7 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
 
   getMappedPropName(propName: string): string {
     console.log('getMappedPropName', arguments);
-    return '';
+    return propName;
   }
 
   hasElement(tagName: string, schemaMetas: SchemaMetadata[]): boolean {

@@ -21,10 +21,11 @@ export interface BuildOptions {
   main: string;
   outputPath: string;
   tsConfig: string;
+  debug: boolean;
+  showCircularDependencies: boolean;
   watch?: boolean;
   sourceMap?: boolean | SourceMapOptions;
   optimization?: boolean | OptimizationOptions;
-  showCircularDependencies?: boolean;
   maxWorkers?: number;
   poll?: number;
   useTypescriptIncrementalApi: boolean;

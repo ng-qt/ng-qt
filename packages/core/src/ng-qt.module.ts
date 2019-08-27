@@ -1,7 +1,8 @@
+import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/platform';
+import { ɵSharedStylesHost as SharedStylesHost } from '@angular/platform-browser';
 import {
   ErrorHandler,
   NgModule,
-  NO_ERRORS_SCHEMA,
   Optional,
   RendererFactory2,
   SkipSelf,
@@ -10,9 +11,9 @@ import {
   Sanitizer,
 } from '@angular/core';
 
+import { NgQtRendererFactory, NgQtSharedStylesHost } from './renderer';
 import { throwIfAlreadyLoaded } from './utils';
 import { errorHandlerFactory } from './error-handler';
-import { NgQtRendererFactory } from './renderer';
 import { NgQtSanitizer } from './sanitizer';
 
 @NgModule({
@@ -21,9 +22,10 @@ import { NgQtSanitizer } from './sanitizer';
     { provide: APP_ROOT, useValue: true },
     { provide: Sanitizer, useClass: NgQtSanitizer },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
+    { provide: APP_ROOT_VIEW, useClass: AppRootView },
+    { provide: SharedStylesHost, useExisting: NgQtSharedStylesHost },
     { provide: RendererFactory2, useExisting: NgQtRendererFactory },
   ],
-  schemas: [NO_ERRORS_SCHEMA],
   exports: [ApplicationModule],
 })
 export class NgQtModule {

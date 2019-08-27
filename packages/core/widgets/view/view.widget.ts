@@ -36,10 +36,6 @@ export class View extends QWidget {
   private oldAttributes: WidgetAttribute[] = [];
   private oldFlags: WindowType[] = [];
 
-  /*set geometry(geometry: Geometry) {
-    this.setGe
-  }*/
-
   setVisible(visible: boolean) {
     visible ? this.show() : this.hide();
   }

@@ -9,7 +9,6 @@
     "emitDecoratorMetadata": true,
     "importHelpers": true,
     "strictPropertyInitialization": false,
-    "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "noImplicitThis": true,

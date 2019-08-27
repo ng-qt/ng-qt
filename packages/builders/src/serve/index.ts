@@ -68,10 +68,15 @@ function runProcess(file: string, options: NodeExecuteBuilderOptions, context: B
 
   const args = [...getExecArgv(options), ...options.args];
 
-  subProcess = spawn('qode', [file, ...args]);
+  subProcess = spawn('qode', [...args, file]);
 
   subProcess.stdout!.on('data', data => context.logger.info(data.toString()));
   subProcess.stderr!.on('data', err => context.logger.error(err.toString()));
+  /*subProcess.once('exit', (code) => {
+    if (code === 0) {
+      process.exit();
+    }
+  });*/
 }
 
 function getExecArgv(options: NodeExecuteBuilderOptions): string[] {
