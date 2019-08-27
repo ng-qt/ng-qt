@@ -65,7 +65,7 @@ export function inlineFilesTransformer(cs: Program) {
     const mutableAssignment = ts.getMutableClone(node);
 
     function readComponentLiteral(literal: ts.StringLiteral) {
-      return readFileSync(join(dirname(sf.fileName), literal.text), 'utf8');
+      return readFileSync(join(dirname(sf.fileName), literal.text)).toString();
     }
 
     const assignmentNameText = (mutableAssignment.name as Identifier).text;

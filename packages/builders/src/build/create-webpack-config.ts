@@ -7,6 +7,7 @@ import nodeExternals = require('webpack-node-externals');
 import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { resolve } from 'path';
+import * as fs from 'fs';
 
 import { inlineFilesTransformer } from './inline-files-transformer';
 import { BuildOptions } from './types';
@@ -44,7 +45,20 @@ function getStatsConfig(options: BuildOptions): Stats.ToStringOptions {
   };
 }
 
+export function resolveModulesDir(root: string): string {
+  const dir = resolve(root, 'node_modules');
+
+  try {
+    fs.accessSync(dir, fs.constants.R_OK);
+    return dir;
+  } catch {}
+
+  const parentDir = resolve(root, '..');
+  return resolveModulesDir(parentDir);
+}
+
 export function createWebpackConfig(options: BuildOptions): Configuration {
+  const modulesDir = resolveModulesDir(options.root!);
   const extensions = ['.ts', '.mjs', '.js'];
   const mainFields = ['module', 'main'];
 
@@ -53,11 +67,7 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
       main: [options.main],
     },
     target: 'node',
-    externals: [
-      nodeExternals({
-        modulesDir: resolve(options.root!, '../../node_modules'),
-      }),
-    ],
+    externals: [nodeExternals({ modulesDir })],
     devtool: options.sourceMap && 'source-map',
     mode: options.optimization ? 'production' : 'development',
     output: {
@@ -66,16 +76,16 @@ export function createWebpackConfig(options: BuildOptions): Configuration {
     },
     module: {
       rules: [
-        /*{
-          test: /\.(html|css)$/,
-          loader: 'raw-loader',
-        },*/
         {
           test: /\.(j|t)sx?$/,
           loader: 'ts-loader',
           options: {
             configFile: options.tsConfig,
             transpileOnly: true,
+            compilerOptions: {
+              declaration: false,
+              noEmit: true,
+            },
             getCustomTransformers: program => ({
               before: [inlineFilesTransformer(program)],
             }),
