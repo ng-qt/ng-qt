@@ -1,19 +1,18 @@
-import { Type } from '@angular/core';
-import { NgQtWidget } from '@ng-qt/core';
+import { WidgetType } from '@ng-qt/core';
 
-export type NodeWidgetResolver = () => Type<NgQtWidget>;
+export type WidgetResolver = () => WidgetType;
 
-export const widgetRegistry = new Map<string, NodeWidgetResolver>();
+export const widgetRegistry = new Map<string, WidgetResolver>();
 
 export function isKnownWidget(name: string) {
   return widgetRegistry.has(name);
 }
 
-export function registerWidget(name: string, resolver: NodeWidgetResolver): void {
+export function registerWidget(name: string, resolver: WidgetResolver): void {
   widgetRegistry.set(name, resolver);
 }
 
-export function resolveWidget(name: string): Type<NgQtWidget> {
+export function resolveWidget(name: string): WidgetType {
   const resolver = widgetRegistry.get(name);
 
   if (!resolver) {
@@ -28,9 +27,9 @@ export function resolveWidget(name: string): Type<NgQtWidget> {
 }
 
 // Register core widgets
-registerWidget('Window', () => require('../../../core/ui/window').Window);
-registerWidget('View', () => require('../../../core/ui/view').View);
-registerWidget('Image', () => require('../../../core/ui/image').Image);
+registerWidget('Window', () => require('@ng-qt/core/widgets/window').Window);
+registerWidget('View', () => require('@ng-qt/core/widgets/view').View);
+registerWidget('Image', () => require('@ng-qt/core/widgets/image').Image);
 
 /*@Injectable()
 export class WidgetRegistry {

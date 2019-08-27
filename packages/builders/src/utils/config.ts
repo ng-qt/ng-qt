@@ -5,7 +5,7 @@ import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 
-import { inlineFilesTransformer } from './inline-files-transformer';
+import { inlineAssetsTransformer } from './inline-assets-transformer';
 import { BuildOptions } from '../build/types';
 
 function getAliases(options: BuildOptions): Record<string, string> {
@@ -72,7 +72,7 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
               noEmit: true,
             },
             getCustomTransformers: () => ({
-              before: [inlineFilesTransformer()],
+              before: [inlineAssetsTransformer()],
             }),
           },
         },

@@ -4,7 +4,7 @@ import { createPlatformFactory } from '@angular/core';
 import { NGQT_COMPILER_PROVIDERS, NGQT_INTERNAL_PLATFORM_PROVIDERS } from './providers';
 // import { NGQTPlatformRef } from './platform-ref';
 
-export const platformNGQT = createPlatformFactory(platformCoreDynamic, 'platformNGQTDynamic', [
+export const platformNgQt = createPlatformFactory(platformCoreDynamic, 'platformNGQTDynamic', [
   ...NGQT_INTERNAL_PLATFORM_PROVIDERS,
   ...NGQT_COMPILER_PROVIDERS,
 ]);
@@ -13,4 +13,4 @@ export const platformNGQT = createPlatformFactory(platformCoreDynamic, 'platform
   return new NGQTPlatformRef(_platformNGQTDynamic(extraProviders));
 }*/
 
-export const platformDesktop = platformNGQT;
+export const platformDesktop = platformNgQt;

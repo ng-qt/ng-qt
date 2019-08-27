@@ -15,16 +15,14 @@
             "outputPath": "dist",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json"
+            "tsConfig": "src/tsconfig.app.json",
+            "showCircularDependencies": false
           }
         },
-        "server": {
-          "builder": "../node_modules/@angular-devkit/build-angular:server",
+        "serve": {
+          "builder": "../../packages/builders:serve",
           "options": {
-            "outputPath": "dist-server",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "progress": false
+            "buildTarget": "app:build"
           }
         }
       }

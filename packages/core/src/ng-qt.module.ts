@@ -12,23 +12,23 @@ import {
 
 import { throwIfAlreadyLoaded } from './utils';
 import { errorHandlerFactory } from './error-handler';
-import { NGQTRendererFactory } from './renderer';
-import { NGQTSanitizer } from './ng-qt-sanitizer';
+import { NgQtRendererFactory } from './renderer';
+import { NgQtSanitizer } from './sanitizer';
 
 @NgModule({
   imports: [ApplicationModule],
   providers: [
     { provide: APP_ROOT, useValue: true },
-    { provide: Sanitizer, useClass: NGQTSanitizer },
+    { provide: Sanitizer, useClass: NgQtSanitizer },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
-    { provide: RendererFactory2, useExisting: NGQTRendererFactory },
+    { provide: RendererFactory2, useExisting: NgQtRendererFactory },
   ],
   schemas: [NO_ERRORS_SCHEMA],
   exports: [ApplicationModule],
 })
-export class NGQTModule {
-  constructor(@Optional() @SkipSelf() parentModule: NGQTModule) {
+export class NgQtModule {
+  constructor(@Optional() @SkipSelf() parentModule: NgQtModule) {
     // Prevents NativeScriptModule from getting imported multiple times
-    throwIfAlreadyLoaded(parentModule, 'NGQTModule');
+    throwIfAlreadyLoaded(parentModule, NgQtModule.name);
   }
 }

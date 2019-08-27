@@ -1,7 +1,7 @@
 import { QLabel, QLabelEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
-import { createWidgetEvents, NgQtWidget } from '../../src';
+import { createWidgetEvents } from '../../src';
 
-export class Image extends QLabel implements NgQtWidget {
+export class Image extends QLabel {
   static readonly events = createWidgetEvents(QLabelEvents);
   /*private readonly subs = new Subscription();
   private originalPixmap: QPixmap;

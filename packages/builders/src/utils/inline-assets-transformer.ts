@@ -27,7 +27,7 @@ const EXPORT_DEFAULT = 'default';
  */
 const TRANSFORM_PROPS = [TEMPLATE_URL, STYLE_URLS];
 
-export function inlineFilesTransformer(cs: Program) {
+export function inlineAssetsTransformer() {
   /**
    * Traverses the AST down to the relevant assignments anywhere in the file
    * and returns a boolean indicating if it should be transformed.

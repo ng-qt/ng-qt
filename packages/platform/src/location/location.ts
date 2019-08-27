@@ -12,7 +12,7 @@ import { parseUrl } from './parse-url';
 @Injectable({
   providedIn: 'root',
 })
-export class NGQTPlatformLocation implements PlatformLocation, Location {
+export class NgQtPlatformLocation implements PlatformLocation, Location {
   public readonly href = '/';
   public readonly hostname = '/';
   public readonly protocol = '/';

@@ -4,7 +4,7 @@ import { Injectable, SchemaMetadata } from '@angular/core';
 import { isKnownWidget } from './widget-registry';
 
 @Injectable()
-export class NGQTElementSchemaRegistry implements ElementSchemaRegistry {
+export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   allKnownElementNames(): string[] {
     return [];
   }

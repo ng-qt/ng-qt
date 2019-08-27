@@ -1,9 +1,12 @@
 import { Type } from '@angular/core';
-import { ɵsetRootDomAdapter as setRootDomAdapter, ɵDomAdapter as DomAdapter } from '@angular/platform-browser';
+import {
+  ɵsetRootDomAdapter as setRootDomAdapter,
+  ɵDomAdapter as DomAdapter,
+} from '@angular/platform-browser';
 
-export class NGQTDomAdapter implements DomAdapter {
+export class NgQtDomAdapter implements DomAdapter {
   static makeCurrent() {
-    setRootDomAdapter(new NGQTDomAdapter());
+    setRootDomAdapter(new NgQtDomAdapter());
   }
 
   attrToPropMap: { [p: string]: string };
@@ -328,4 +331,4 @@ export class NGQTDomAdapter implements DomAdapter {
   }
 }
 
-NGQTDomAdapter.makeCurrent();
+NgQtDomAdapter.makeCurrent();

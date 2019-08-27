@@ -1,12 +1,10 @@
-import { NgZone, Renderer2, RendererStyleFlags2, Type } from '@angular/core';
-// import { resolveWidget, isKnownWidget, isFlexLayout, isNodeLayout, getNextSibling } from '@ng-qt/platform';
-import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
-import { resolveWidget } from '@ng-qt/platform';
+import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
+import { NodeLayout, NodeWidget } from '@nodegui/nodegui';
+import { isKnownWidget, resolveWidget } from '@ng-qt/platform';
 
-import { NgQtWidget } from '../ng-qt-widget';
 import { getWidgetCtor } from '../utils';
 
-export class NGQTRenderer implements Renderer2 {
+export class NgQtRenderer implements Renderer2 {
   constructor(private readonly ngZone: NgZone) {}
 
   readonly data: { [p: string]: any };
@@ -44,14 +42,18 @@ export class NGQTRenderer implements Renderer2 {
     console.log('createComment', value);
   }
 
-  createElement(name: string, namespace?: string | null): NgQtWidget {
+  createElement(name: string, namespace?: string | null): NodeWidget {
+    if (!isKnownWidget(name)) name = 'View';
+
     const widgetCtor = resolveWidget(name);
     return new widgetCtor();
   }
 
   createText(value: string): void {
     console.warn(`Use <Text /> component to add the text: ${value}`);
-    throw new TypeError('NGQTRenderer: createText called when platform doesnt have host level text.');
+    throw new TypeError(
+      this.constructor.name + ': createText called when platform doesnt have host level text.',
+    );
   }
 
   destroy(): void {}
@@ -63,7 +65,11 @@ export class NGQTRenderer implements Renderer2 {
     }*/
   }
 
-  listen(widget: NgQtWidget, eventName: string, callback: (event: any) => boolean | void): () => void {
+  listen(
+    widget: NodeWidget,
+    eventName: string,
+    callback: (event: any) => boolean | void,
+  ): () => void {
     const { events, name } = getWidgetCtor(widget);
     if (!events.has(eventName)) {
       throw new TypeError(`${name} doesn't have event: ${eventName}`);

@@ -21,5 +21,6 @@
       "@ng-qt/*": ["./packages/*/src/index.ts"]
     }
   },
+  "include": ["**/*.d.ts"],
   "exclude": ["node_modules"]
 }

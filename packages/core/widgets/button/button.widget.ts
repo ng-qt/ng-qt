@@ -1,6 +1,6 @@
 import { QPushButton, QPushButtonEvents } from '@nodegui/nodegui';
-import { createWidgetEvents, NgQtWidget } from '../../src';
+import { createWidgetEvents } from '../../src';
 
-export class Button extends QPushButton implements NgQtWidget {
+export class Button extends QPushButton {
   static readonly events = createWidgetEvents(QPushButtonEvents);
 }

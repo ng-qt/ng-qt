@@ -4,8 +4,8 @@ import { COMPILER_OPTIONS } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 
 import { FileSystemResourceLoader } from './fs-resource-loader';
-import { NGQTElementSchemaRegistry } from './registry';
-import { NGQTPlatformLocation } from './location';
+import { NgQtElementSchemaRegistry } from './registry';
+import { NgQtPlatformLocation } from './location';
 
 export const PLATFORM_NGQT_ID = 'nodegui';
 
@@ -21,7 +21,7 @@ export const NGQT_COMPILER_PROVIDERS: StaticProvider[] = [
         },
         {
           provide: ElementSchemaRegistry,
-          useClass: NGQTElementSchemaRegistry,
+          useClass: NgQtElementSchemaRegistry,
           deps: [],
         },
       ],
@@ -37,6 +37,6 @@ export const NGQT_INTERNAL_PLATFORM_PROVIDERS: StaticProvider[] = [
   },
   {
     provide: PlatformLocation,
-    useExisting: NGQTPlatformLocation,
+    useExisting: NgQtPlatformLocation,
   },
 ];
