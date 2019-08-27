@@ -7,16 +7,19 @@ import {
   SkipSelf,
   ApplicationModule,
   ɵAPP_ROOT as APP_ROOT,
+  Sanitizer,
 } from '@angular/core';
 
 import { throwIfAlreadyLoaded } from './utils';
 import { errorHandlerFactory } from './error-handler';
 import { NGQTRendererFactory } from './renderer';
+import { NGQTSanitizer } from './ng-qt-sanitizer';
 
 @NgModule({
   imports: [ApplicationModule],
   providers: [
     { provide: APP_ROOT, useValue: true },
+    { provide: Sanitizer, useClass: NGQTSanitizer },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
     { provide: RendererFactory2, useExisting: NGQTRendererFactory },
   ],
