@@ -1,6 +1,7 @@
-import { WidgetType } from '@ng-qt/core';
+import { NodeWidget } from '@nodegui/nodegui';
+import { WidgetType } from '@ng-qt/common';
 
-export type WidgetResolver = () => WidgetType;
+export type WidgetResolver = () => WidgetType<any>;
 
 export const widgetRegistry = new Map<string, WidgetResolver>();
 
@@ -12,7 +13,7 @@ export function registerWidget(name: string, resolver: WidgetResolver): void {
   widgetRegistry.set(name, resolver);
 }
 
-export function resolveWidget(name: string): WidgetType {
+export function resolveWidget<W extends NodeWidget>(name: string): WidgetType<W> {
   const resolver = widgetRegistry.get(name);
 
   if (!resolver) {
@@ -30,6 +31,8 @@ export function resolveWidget(name: string): WidgetType {
 registerWidget('Window', () => require('@ng-qt/core/widgets/window').Window);
 registerWidget('View', () => require('@ng-qt/core/widgets/view').View);
 registerWidget('Image', () => require('@ng-qt/core/widgets/image').Image);
+registerWidget('Text', () => require('@ng-qt/core/widgets/text').Text);
+registerWidget('Button', () => require('@ng-qt/core/widgets/button').Button);
 
 /*@Injectable()
 export class WidgetRegistry {

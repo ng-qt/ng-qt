@@ -64,3 +64,5 @@ typings/
 
 lib/
 dist/
+
+/bazel-*

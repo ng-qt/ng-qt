@@ -1,5 +1,8 @@
-import { Injectable, NgZone, RendererFactory2, RendererType2 } from '@angular/core';
+import { Inject, Injectable, NgZone, RendererFactory2, RendererType2 } from '@angular/core';
+import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/platform';
+import { NodeWidget } from '@nodegui/nodegui';
 
+import { NgQtSharedStylesHost } from './shared-styles-host';
 import { NgQtRenderer } from './renderer';
 
 @Injectable({
@@ -7,37 +10,26 @@ import { NgQtRenderer } from './renderer';
 })
 export class NgQtRendererFactory implements RendererFactory2 {
   private readonly rendererByCompId = new Map<string, NgQtRenderer>();
-  private defaultRenderer = new NgQtRenderer(this.ngZone);
+  private defaultRenderer = new NgQtRenderer(this.ngZone, this.rootView);
 
-  constructor(private readonly ngZone: NgZone) {}
+  constructor(
+    private readonly sharedStylesHost: NgQtSharedStylesHost,
+    private readonly ngZone: NgZone,
+    @Inject(APP_ROOT_VIEW)
+    private readonly rootView: AppRootView,
+  ) {}
 
-  createRenderer(hostElement: any, type: RendererType2 | null): NgQtRenderer {
-    console.log('createRenderer', hostElement, type);
-    if (!hostElement || !type) {
+  createRenderer(hostWidget: NodeWidget, type: RendererType2 | null): NgQtRenderer {
+    if (!hostWidget || !type) {
       return this.defaultRenderer;
     }
 
     if (!this.rendererByCompId.has(type.id)) {
+      this.sharedStylesHost.addStyles(hostWidget, type);
       this.rendererByCompId.set(type.id, this.defaultRenderer);
     }
 
-    return this.rendererByCompId.get(type.id)!;
-
-    /*switch (type.encapsulation) {
-      // @TODO: Compile time / codelyzer rules
-      case ViewEncapsulation.ShadowDom:
-        throw new Error('Not supported');
-
-      default: {
-        if (!this.rendererByCompId.has(type.id)) {
-          // const styles = flattenStyles(type.id, type.styles, []);
-          // this.sharedStylesHost.addStyles(styles);
-          this.rendererByCompId.set(type.id, this.defaultRenderer);
-        }
-
-        return this.defaultRenderer;
-      }
-    }*/
+    return this.rendererByCompId.get(type.id);
   }
 
   end(): void {}

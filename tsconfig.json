@@ -8,19 +8,14 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "importHelpers": true,
-    "strictPropertyInitialization": false,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
-    "noImplicitThis": true,
-    "sourceMap": false,
-    "declaration": false,
-    "types": ["jest", "node", "zone.js"],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+    "types": ["node", "zone.js"],
     "paths": {
-      "@ng-qt/core/*": ["./packages/core/*/index.ts"],
-      "@ng-qt/*": ["./packages/*/src/index.ts"]
+      "@ng-qt/*": ["./packages/*"]
     }
   },
-  "include": ["**/*.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "bazel-*"]
 }

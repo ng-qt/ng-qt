@@ -3,23 +3,20 @@ import { InjectionToken } from '@angular/core';
 
 export const APP_ROOT_VIEW = new InjectionToken<QMainWindow>('APP_ROOT_VIEW');
 
-export function createRootView() {
-  return new AppRootView();
-}
 
-export class AppRootView {
-  public readonly window: QMainWindow;
-  public readonly rootView: QWidget;
-  public readonly rootViewLayout: FlexLayout;
+export class AppRootView extends QMainWindow {
+  public readonly centralWidget: QWidget;
+  public readonly rootLayout: FlexLayout;
 
   constructor() {
-    this.window = new QMainWindow();
-    this.rootView = new QWidget();
-    this.rootViewLayout = new FlexLayout();
+    super();
 
-    const flexNode = this.rootView.getFlexNode();
-    this.rootViewLayout.setFlexNode(flexNode);
-    this.rootView.setLayout(this.rootViewLayout);
-    this.window.setCentralWidget(this.rootView);
+    this.centralWidget = new QWidget();
+    this.rootLayout = new FlexLayout();
+
+    const flexNode = this.centralWidget.getFlexNode();
+    this.rootLayout.setFlexNode(flexNode);
+    this.centralWidget.setLayout(this.rootLayout);
+    this.setCentralWidget(this.centralWidget);
   }
 }
