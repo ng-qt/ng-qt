@@ -33,4 +33,5 @@ install_bazel_dependencies()
 
 # Setup TypeScript toolchain
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+
 ts_setup_workspace()

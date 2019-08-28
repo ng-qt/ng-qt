@@ -4,30 +4,30 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
 package(default_visibility = ["//visibility:public"])
 
 ts_library(
-  name = "core",
-  module_name = "@ng-qt/core",
-  srcs = glob(
-    include = ["**/*.ts"],
-    exclude = ["**/*.spec.ts"],
-  ),
-  deps = [
-    "@npm//@nodegui/nodegui",
-    "@npm//@angular/core",
-    "@npm//@angular/platform-browser",
-    "@npm//rxjs",
-    "@npm//@types",
-    "@npm//tslib",
-    "//packages/common",
-    "//packages/platform",
-  ],
+    name = "core",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    module_name = "@ng-qt/core",
+    deps = [
+        "//packages/common",
+        "//packages/platform",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@nodegui/nodegui",
+        "@npm//@types",
+        "@npm//rxjs",
+        "@npm//tslib",
+    ],
 )
 
 npm_package(
-  name = "npm",
-  deps = [
-    ":core"
-  ],
-  srcs = [
-    "package.json",
-  ],
+    name = "npm",
+    srcs = [
+        "package.json",
+    ],
+    deps = [
+        ":core",
+    ],
 )
