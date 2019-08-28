@@ -26,7 +26,7 @@ ts_library(
 npm_package(
     name = "npm",
     srcs = [
-        "package.json",
+        ":package.json",
     ],
     deps = [
         ":platform",

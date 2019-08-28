@@ -1,0 +1,6 @@
+<View (keyRelease)="onKeyRelease($event)" id="container" visible>
+  <View id="row0">
+    <Button (clicked)="onOperator('~')" id="opBtn" text="AC"></Button>
+    {{ result$ | async | number }}
+  </View>
+</View>
