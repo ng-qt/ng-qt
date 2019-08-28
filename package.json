@@ -4,13 +4,14 @@
   "license": "MIT",
   "scripts": {
     "build": "bazel build //...",
+    "build:watch": "ibazel build //...",
     "bazel:format": "find . -type f \\( -name \"*.bzl\" -or -name WORKSPACE -or -name BUILD -or -name BUILD.bazel \\) ! -path \"*/node_modules/*\" | xargs buildifier -v --warnings=attr-cfg,attr-license,attr-non-empty,attr-output-default,attr-single-file,constant-glob,ctx-args,depset-iteration,depset-union,dict-concatenation,duplicated-name,filetype,git-repository,http-archive,integer-division,load,load-on-top,native-build,native-package,output-group,package-name,package-on-top,positional-args,redefined-variable,repository-name,same-origin-load,string-iteration,unused-variable",
     "bazel:lint": "yarn bazel:format --lint=warn",
     "bazel:lint-fix": "yarn bazel:format --lint=fix"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && yarn bazel:lint-fix"
+      "pre-commit": "pretty-quick --staged && yarn bazel:lint-fix && git add"
     }
   },
   "private": true,
@@ -22,6 +23,7 @@
     "@angular-devkit/schematics": "8.3.0",
     "@angular/animations": "8.2.4",
     "@angular/cli": "8.3.0",
+    "@bazel/bazel": "0.29.0",
     "@angular/common": "8.2.4",
     "@angular/compiler": "8.2.4",
     "@angular/compiler-cli": "8.2.4",
@@ -29,7 +31,6 @@
     "@angular/platform-browser": "8.2.4",
     "@angular/platform-browser-dynamic": "8.2.4",
     "@angular/platform-server": "8.2.4",
-    "@bazel/bazel": "0.28.1",
     "@bazel/buildifier": "0.28.0",
     "@bazel/hide-bazel-files": "0.36.1",
     "@bazel/ibazel": "0.10.3",

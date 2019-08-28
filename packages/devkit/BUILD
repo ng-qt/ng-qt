@@ -3,6 +3,11 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
 
 package(default_visibility = ["//visibility:public"])
 
+filegroup(
+    name = "assets",
+    srcs = glob(["**/*.json"]),
+)
+
 ts_library(
     name = "devkit",
     srcs = glob(
@@ -33,10 +38,8 @@ ts_library(
 
 npm_package(
     name = "npm",
-    srcs = [
-        "builders.json",
-        "package.json",
-        "schematics.json",
+    deps = [
+        ":assets",
+        ":devkit",
     ],
-    deps = [":devkit"],
 )

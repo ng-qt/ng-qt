@@ -1,0 +1,50 @@
+#container {
+  flex: 1;
+  flex-direction: column;
+  min-height: '100%';
+}
+
+#row,
+#row0,
+#row1 {
+  flex: 1;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: row;
+  background: #4b4b4b;
+}
+
+#row0 {
+  background: #1e1e1e;
+}
+
+#row1 {
+  background: #2e2e2e;
+}
+
+#valueBtn,
+#opBtn,
+#opBtnY {
+  min-width: '25%';
+  border: 1px solid black;
+  font-size: 20px;
+  color: white;
+}
+
+#opBtnY {
+  background: #fd8d0e;
+}
+
+#valueBtn:pressed,
+#opBtn:pressed,
+#opBtnY:pressed {
+  background: grey;
+}
+
+#result {
+  qproperty-alignment: 'AlignRight|AlignVCenter';
+  padding-horizontal: 5px;
+  font-size: 40px;
+  flex: 1;
+  color: white;
+}
