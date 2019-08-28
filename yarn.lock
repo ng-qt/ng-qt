@@ -853,7 +853,7 @@
   resolved "https://registry.yarnpkg.com/@bazel/bazel-win32_x64/-/bazel-win32_x64-0.28.1.tgz#60a2819618cf7582cc35ac16c01763a5e807b414"
   integrity sha512-T4xksGfKikaHS4zxnGT6r5R436mz9j2lz//L1vc5sJnaEF/1e2Gv6MLl86vfZW2Xxo6iIEi6ntSzgYxP2Blohw==
 
-"@bazel/bazel@^0.28.1":
+"@bazel/bazel@0.28.1":
   version "0.28.1"
   resolved "https://registry.yarnpkg.com/@bazel/bazel/-/bazel-0.28.1.tgz#3a6b9b7a74d566c66805242ccaa2f907592b5bff"
   integrity sha512-s4bn5/vegEec66l15ZjyUe4jNybQ5J/cg9gFzR5f8deKj8lM+2WtCfvTLO3XfUe2pbrB4BG7C31jpyFPOC+6aw==
@@ -879,7 +879,7 @@
   resolved "https://registry.yarnpkg.com/@bazel/buildifier-win32_x64/-/buildifier-win32_x64-0.28.0.tgz#1d2c239753a389f48669a194bf16477c1f15befd"
   integrity sha512-6E9QZPVzMolcQQKDi5tRJjAFylgzBWbV01/3RiFZb1x4ITZJ74h/FuTRhdYAUPA3n59ge2F3sPtf9Q97RxJU7g==
 
-"@bazel/buildifier@^0.28.0":
+"@bazel/buildifier@0.28.0":
   version "0.28.0"
   resolved "https://registry.yarnpkg.com/@bazel/buildifier/-/buildifier-0.28.0.tgz#cce8a5b67520f27b611c149bf334b5f86e5e5aa7"
   integrity sha512-g9F7rEQayXU4SHgbOYhDLk8AzDMhqFNnZVb/xVDeCkbg20MbCGIZDj9pN8NBnowB7OJF4VsvnSV0FB4BVGfpxQ==
@@ -888,17 +888,17 @@
     "@bazel/buildifier-linux_x64" "0.28.0"
     "@bazel/buildifier-win32_x64" "0.28.0"
 
-"@bazel/hide-bazel-files@^0.36.1", "@bazel/hide-bazel-files@latest":
+"@bazel/hide-bazel-files@0.36.1", "@bazel/hide-bazel-files@latest":
   version "0.36.1"
   resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.36.1.tgz#36311ee6a5538d71fbea84cb7274d44373f94065"
   integrity sha512-Ln45d61Iqbhp9fwI9D66NsbFCPX6GkFou+i+FKXrNo7/yFatT5DHNmoSPB0jRc++gNUCi5PSMOOVPu6ltlVF8g==
 
-"@bazel/ibazel@^0.10.3":
+"@bazel/ibazel@0.10.3":
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.10.3.tgz#2e2b8a1d3e885946eac41db2b1aa6801fb319887"
   integrity sha512-v1nXbMTHVlMM4z4uWp6XiRoHAyUlYggF1SOboLLWRp0+D22kWixqArWqnozLw2mOtnxr97BdLjluWiho6A8Hjg==
 
-"@bazel/typescript@^0.35.0":
+"@bazel/typescript@0.35.0":
   version "0.35.0"
   resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.35.0.tgz#ffc69b7db0c1c7acd9dce1ecbd4381d6af2773a8"
   integrity sha512-HklbkwL+eSLHD1Q+rQgoVMlwPpP+zdMDozqhCsFOUbR2BCU0HedASzaJ5y7wdpnVeCUXwJO5vO7JqqzfvdsBLw==
