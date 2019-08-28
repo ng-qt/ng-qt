@@ -1,5 +1,5 @@
 import { QMainWindow, QMainWindowEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QMainWindow';
-import { createWidgetAttributes, createWidgetEvents } from '../../src';
+import { createWidgetAttributes, createWidgetEvents } from '../../index';
 
 import { ViewAttrs } from '../view';
 

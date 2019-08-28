@@ -1,6 +1,6 @@
 import { WindowType, WidgetAttribute } from '@nodegui/nodegui/dist/lib/QtEnums';
 import { QWidget, QWidgetEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QWidget';
-import { createWidgetAttributes, createWidgetEvents } from '../../src';
+import { createWidgetAttributes, createWidgetEvents } from '../../index';
 
 export interface ViewAttrs {
   id?: string;

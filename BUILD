@@ -1,5 +1,6 @@
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//:__subpackages__"])
 
-exports_files([
-  "tsconfig.json"
-])
+alias(
+	name = "tsconfig.json",
+	actual = "//packages:tsconfig-build.json",
+)

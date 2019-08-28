@@ -1,5 +1,5 @@
 import { QIcon, QPushButton, QPushButtonEvents } from '@nodegui/nodegui';
-import { createWidgetAttributes, createWidgetEvents } from '../../src';
+import { createWidgetAttributes, createWidgetEvents } from '../../index';
 import { ViewAttrs } from '../view';
 
 export interface ButtonAttrs {

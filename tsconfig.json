@@ -10,11 +10,11 @@
     "importHelpers": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": true,
     "types": ["node", "zone.js"],
     "paths": {
-      "@ng-qt/*": ["./packages/*/src"]
+      "@ng-qt/*": ["./packages/*"]
     }
   },
   "exclude": ["node_modules", "bazel-*"]

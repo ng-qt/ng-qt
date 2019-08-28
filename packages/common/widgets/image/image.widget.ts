@@ -1,5 +1,5 @@
 import { QLabel, QLabelEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
-import { createWidgetAttributes, createWidgetEvents } from '../../src';
+import { createWidgetAttributes, createWidgetEvents } from '../../index';
 
 export class Image extends QLabel {
   static readonly events = createWidgetEvents(QLabelEvents);
