@@ -5,24 +5,20 @@ import { NodeWidget } from '@nodegui/nodegui';
   providedIn: 'root',
 })
 export class NgQtSharedStylesHost /*implements SharedStylesHost */ {
-  constructor(
-    private readonly ngZone: NgZone,
-  ) {}
+  constructor(private readonly ngZone: NgZone) {}
 
   addStyles(hostWidget: NodeWidget, type: RendererType2) {
-    const style = type.styles
-      .join()
-      .trim()
-      .split('[_ngcontent-%COMP%]')
-      .join('');
+    let styles = type.styles.join().trim();
 
-    if (style !== '') {
+    if (styles !== '') {
       this.ngZone.run(async () => {
+        styles = styles.split('[_ngcontent-%COMP%]').join('');
+
         if (!hostWidget.objectName()) {
           hostWidget.setObjectName(type.id);
         }
 
-        await hostWidget.setStyleSheet(style);
+        await hostWidget.setStyleSheet(styles);
       });
     }
   }

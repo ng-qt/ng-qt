@@ -1,7 +1,19 @@
 {
   "name": "@ng-qt/core",
   "version": "0.0.1",
+  "scripts": {
+    "build": "rm -rf lib && tsc"
+  },
   "dependencies": {
-    "@angular/core": "*"
+    "@angular/core": "*",
+    "change-case": "*",
+    "@angular/platform-browser": "*",
+    "@ng-qt/platform": "*",
+    "@ng-qt/common": "*"
+  },
+  "peerDependencies": {
+    "@nodegui/nodegui": "*",
+    "rxjs": "*",
+    "zone.js": "*"
   }
 }

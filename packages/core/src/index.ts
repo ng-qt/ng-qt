@@ -1,3 +1,2 @@
-export * from './ng-qt.module';
-export * from './widget-type.interface';
+export * from './@ng-qt.module';
 export * from './utils';

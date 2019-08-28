@@ -6,7 +6,6 @@ import { PlatformLocation } from '@angular/common';
 import { FileSystemResourceLoader } from './fs-resource-loader';
 import { NgQtElementSchemaRegistry } from './registry';
 import { NgQtPlatformLocation } from './location';
-import { APP_ROOT_VIEW, AppRootView } from './app-root-view';
 
 export const PLATFORM_NGQT_ID = 'nodegui';
 

@@ -1,5 +1,5 @@
-import { WidgetType } from '@ng-qt/core';
 import { NodeWidget } from '@nodegui/nodegui';
+import { WidgetType } from '@ng-qt/common';
 
 export type WidgetResolver = () => WidgetType<any>;
 

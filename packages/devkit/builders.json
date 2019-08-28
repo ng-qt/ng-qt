@@ -1,0 +1,20 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/architect/src/builders-schema.json",
+  "builders": {
+    "serve": {
+      "implementation": "./src/builders/serve",
+      "schema": "./src/builders/serve/schema.json",
+      "description": "Serve your native Angular app"
+    },
+    "build": {
+      "implementation": "./src/builders/build",
+      "schema": "./src/builders/build/schema.json",
+      "description": "Build your native Angular app"
+    },
+    "package": {
+      "implementation": "./src/builders/package",
+      "schema": "./src/builders/package/schema.json",
+      "description": "Package your native Angular app"
+    }
+  }
+}

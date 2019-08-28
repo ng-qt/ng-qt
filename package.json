@@ -1,10 +1,9 @@
 {
   "version": "0.0.1",
   "description": "Angular renderer for NodeGui",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "sudo chmod -R 777 ."
+    "build": "bazel build //..."
   },
   "husky": {
     "hooks": {
@@ -27,9 +26,13 @@
     "@angular/platform-browser": "8.2.3",
     "@angular/platform-browser-dynamic": "8.2.3",
     "@angular/platform-server": "8.2.3",
+    "@bazel/bazel": "^0.28.1",
+    "@bazel/buildifier": "^0.28.0",
+    "@bazel/hide-bazel-files": "^0.36.1",
+    "@bazel/ibazel": "^0.10.3",
+    "@bazel/typescript": "^0.35.0",
     "@ngtools/webpack": "8.3.0",
-    "@nodegui/nodegui": "file:../nodegui",
-    "@nodegui/qode": "1.0.3",
+    "@nodegui/nodegui": "*",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
     "@types/webpack": "4.39.1",
@@ -55,7 +58,6 @@
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.1",
     "webpack-node-externals": "1.7.2",
-    "yarn": "1.17.3",
     "zone.js": "0.10.2"
   }
 }

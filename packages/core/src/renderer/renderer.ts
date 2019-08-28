@@ -1,14 +1,10 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { FlexLayout, NodeLayout, NodeWidget, QLabel } from '@nodegui/nodegui';
+import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 import { AppRootView, isKnownWidget, resolveWidget } from '@ng-qt/platform';
-
-import { getWidgetCtor, isFlexLayout } from '../utils';
+import { getWidgetCtor, isFlexLayout } from '@ng-qt/common';
 
 export class NgQtRenderer implements Renderer2 {
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly rootView: AppRootView,
-  ) {}
+  constructor(private readonly ngZone: NgZone, private readonly rootView: AppRootView) {}
 
   readonly data: { [p: string]: any };
   destroyNode: ((node: any) => void) | null;
