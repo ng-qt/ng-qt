@@ -32,7 +32,7 @@
     "@angular/platform-browser-dynamic": "8.2.4",
     "@angular/platform-server": "8.2.4",
     "@bazel/buildifier": "0.28.0",
-    "@bazel/hide-bazel-files": "0.36.1",
+    "@bazel/hide-bazel-files": "0.36.2",
     "@bazel/ibazel": "0.10.3",
     "@bazel/typescript": "0.36.1",
     "@ngtools/webpack": "8.3.2",
