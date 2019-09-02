@@ -1,5 +1,11 @@
 {
   "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../dist",
+    "noEmit": true
+  },
+  "include": ["**/*.ts"],
   "bazelOptions": {
     "devmodeTargetOverride": "es2018",
     "suppressTsconfigOverrideWarnings": true

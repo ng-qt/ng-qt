@@ -3,13 +3,13 @@ import { createWidgetAttributes, createWidgetEvents } from '../../index';
 import { ViewAttrs } from '../view';
 
 export interface ButtonAttrs {
-  text?: string;
+  // text?: string;
   icon?: string;
   isFlat?: boolean;
 }
 
 export const ButtonAttrs = Object.freeze({
-  text: 'setText',
+  // text: 'setText',
   flat: 'setFlat',
   icon: 'createIcon',
 });
@@ -20,6 +20,12 @@ export class Button extends QPushButton {
     ...ViewAttrs,
     ...ButtonAttrs,
   });
+
+  meta = {
+    insertChild(text: string) {
+      this.setText(text);
+    },
+  };
 
   createIcon(iconUrl: string): void {
     const icon = new QIcon(iconUrl);

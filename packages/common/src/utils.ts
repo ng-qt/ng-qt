@@ -1,7 +1,8 @@
-import { FlexLayout, NodeWidget } from '@nodegui/nodegui';
+import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 import { camelCase } from 'change-case';
 
 import { WidgetType } from './widget-type.interface';
+import { NgQtView } from './ng-qt-view.interface';
 
 export function createWidgetAttributes(attrs: Record<string, string>): Map<string, string> {
   return new Map(Object.entries(attrs));
@@ -17,10 +18,38 @@ export function createWidgetEvents(events: Record<string, string>): Map<string, 
   );
 }
 
-export function getWidgetCtor<W extends NodeWidget>(widget: NodeWidget): WidgetType<W> {
-  return <WidgetType<W>>widget.constructor;
+export function getWidgetCtor(widget: NgQtView): WidgetType {
+  return <WidgetType>widget.constructor;
+}
+
+export function isNodeWidget(widget: any): widget is NodeWidget {
+  return widget instanceof NodeWidget;
 }
 
 export function isFlexLayout(layout: any): layout is FlexLayout {
   return layout instanceof FlexLayout;
+}
+
+export function isNodeLayout(layout: any): layout is NodeLayout {
+  return layout instanceof NodeLayout;
+}
+
+export function isStr(val: any): val is string {
+  return typeof val === 'string';
+}
+
+export function isNil(val: any): val is undefined | null {
+  return val == null;
+}
+
+export function hasViewMeta(view: NgQtView): boolean {
+  return isNodeWidget(view) && 'meta' in view;
+}
+
+export function isFunc(val: any): val is Function {
+  return typeof val === 'function';
+}
+
+export function isDetachedElement(view: NgQtView): boolean {
+  return hasViewMeta(view) && view.meta.skipAddToDom;
 }

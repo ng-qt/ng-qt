@@ -1,10 +1,9 @@
 import { FlexLayout, QMainWindow, QWidget } from '@nodegui/nodegui';
 import { InjectionToken } from '@angular/core';
 
-export const APP_ROOT_VIEW = new InjectionToken<QMainWindow>('APP_ROOT_VIEW');
+export const APP_ROOT_WINDOW = new InjectionToken<QMainWindow>('APP_ROOT_WINDOW');
 
-
-export class AppRootView extends QMainWindow {
+export class AppWindow extends QMainWindow {
   public readonly centralWidget: QWidget;
   public readonly rootLayout: FlexLayout;
 

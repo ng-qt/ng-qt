@@ -1,7 +1,8 @@
 import { Type } from '@angular/core';
-import { NodeWidget } from '@nodegui/nodegui';
 
-export interface WidgetType<W extends NodeWidget> extends Type<W> {
+import { NgQtView } from './ng-qt-view.interface';
+
+export interface WidgetType extends Type<NgQtView> {
   events: Map<string, string>;
   attrs: Map<string, string>;
 }

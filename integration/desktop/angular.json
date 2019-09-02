@@ -10,7 +10,7 @@
       "prefix": "app",
       "targets": {
         "build": {
-          "builder": "../../bazel-bin/packages/devkit/npm:build",
+          "builder": "../../dist/devkit:build",
           "options": {
             "outputPath": "dist",
             "main": "src/main.ts",
@@ -19,7 +19,7 @@
           }
         },
         "serve": {
-          "builder": "../../bazel-bin/packages/devkit/npm:serve",
+          "builder": "../../dist/devkit:serve",
           "options": {
             "buildTarget": "app:build"
           }

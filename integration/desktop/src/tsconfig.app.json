@@ -6,7 +6,7 @@
     "module": "commonjs",
     "types": ["node", "zone.js"]
   },
-  "files": ["polyfills.ts", "main.ts"],
+  "files": ["main.ts"],
   "include": ["**/*.ts"],
   "exclude": ["test.ts", "**/*.spec.ts"]
 }

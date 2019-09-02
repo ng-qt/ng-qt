@@ -1,15 +1,19 @@
 import { ElementSchemaRegistry } from '@angular/compiler';
+import { SecurityContext } from '@angular/compiler/src/core';
 import { Injectable, SchemaMetadata } from '@angular/core';
 
-import { isKnownWidget } from './widget-registry';
+import { isKnownWidget, resolveWidget } from './widget-registry';
+import { getWidgetCtor } from '@ng-qt/common';
 
 @Injectable()
 export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   allKnownElementNames(): string[] {
+    console.log('allKnownElementNames');
     return [];
   }
 
   getDefaultComponentElementName(): string {
+    console.log('getDefaultComponentElementName');
     return '';
   }
 
@@ -19,12 +23,15 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   }
 
   hasElement(tagName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log('hasElement', arguments);
     return isKnownWidget(tagName);
   }
 
-  hasProperty(tagName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log('hasProperty', arguments);
+  hasProperty(widgetName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
+    try {
+      const widgetCtor = resolveWidget(widgetName);
+      return widgetCtor.attrs.has(propName);
+    } catch {}
+
     return false;
   }
 
@@ -43,7 +50,7 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   }
 
   securityContext(elementName: string, propName: string, isAttribute: boolean): any {
-    console.log('securityContext', arguments);
+    return SecurityContext.NONE;
   }
 
   validateAttribute(name: string): { error: boolean; msg?: string } {
@@ -52,7 +59,6 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   }
 
   validateProperty(name: string): { error: boolean; msg?: string } {
-    console.log('validateProperty', arguments);
     return { error: false };
   }
 }

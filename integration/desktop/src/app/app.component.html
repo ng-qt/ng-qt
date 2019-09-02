@@ -1,10 +1,42 @@
-<View (keyRelease)="onKeyRelease($event)" id="container" visible>
-	<View id="row0">
-		<Button
-			(clicked)="onOperator('~')"
-			id="opBtn"
-			text="AC"
-		></Button>
-		{{ result$ | async | number }}
-	</View>
+<View (keyRelease)="onKeyRelease($event)" id="container">
+  <View id="row0">
+    <Button (clicked)="onOperator('~')" id="opBtn">
+      AC
+    </Button>
+    <Text>{{ result$ | async }}</Text>
+  </View>
+  <View *ngFor="let view of views" [id]="view.id">
+    <Button *ngFor="let btn of view.buttons" [id]="btn.id" (clicked)="btn.clicked()">
+      {{ btn.text }}
+    </Button>
+  </View>
+  <!--<View id="row1">
+    <Button
+      id="valueBtn"
+      (clicked)="onValue(7)"
+    >
+      7
+    </Button>
+    <Button
+      id="valueBtn"
+      (clicked)="onValue(8)"
+    >
+      8
+    </Button>
+    <Button
+      id="valueBtn"
+      (clicked)="onValue(9)"
+    >
+      9
+    </Button>
+    <Button
+      id="opBtnY"
+      (clicked)="onOperator('/')"
+    >
+      /
+    </Button>
+  </View>
+  <View id="row">
+
+  </View>-->
 </View>

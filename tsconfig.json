@@ -18,5 +18,5 @@
       "@ng-qt/*": ["./packages/*"]
     }
   },
-  "exclude": ["node_modules", "bazel-*"]
+  "exclude": ["**/*.spec.ts", "node_modules", "bazel-*"]
 }
