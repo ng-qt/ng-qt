@@ -6,6 +6,7 @@ import {
   isDetachedElement,
   isFlexLayout,
   isFunc,
+  isNodeWidget,
   isParentNodeFlexLayout,
   NgQtView,
 } from '@ng-qt/common';
@@ -68,23 +69,29 @@ export class ViewUtil {
     }
   }
 
+  private appendChild(parent: NgQtView, child: NgQtView) {
+    // appendChild
+    if (!isFlexLayout(parent.layout)) {
+      const flexLayout = new FlexLayout();
+
+      const parentFlexNode = parent.getFlexNode();
+      flexLayout.setFlexNode(parentFlexNode);
+
+      parent.layout = flexLayout;
+      parent.setLayout(parent.layout);
+    }
+
+    parent.layout.addWidget(child);
+    parent.show();
+  }
+
   private addToVisualTree(parent: NgQtView, child: NgQtView, next: NgQtView): void {
     if (hasViewMeta(parent) && isFunc(parent.meta.insertChild)) {
       parent.meta.insertChild.call(parent, child, next);
+    } else if (isParentNodeFlexLayout(parent)) {
+      parent.layout.insertChildBefore(child, next);
     } else {
-      // appendChild
-      if (!isFlexLayout(parent.layout)) {
-        const flexLayout = new FlexLayout();
-
-        const parentFlexNode = parent.getFlexNode();
-        flexLayout.setFlexNode(parentFlexNode);
-
-        parent.layout = flexLayout;
-        parent.setLayout(parent.layout);
-      }
-
-      parent.layout.addWidget(child);
-      parent.show();
+      this.appendChild(parent, child);
     }
   }
 
@@ -136,16 +143,7 @@ export class ViewUtil {
 
     if (!isDetachedElement(child)) {
       const nextVisual = this.findNextVisual(next);
-
-      if (isParentNodeFlexLayout(parent, previous)) {
-        // parent.layout.insertChildBefore(child, previous);
-        // console.log(parent, next);
-        previous.parentNode.layout.insertChildBefore(child, previous);
-        previous.parentNode.show();
-      } else {
-        // console.log(parent.constructor.name, child.constructor.name);
-        this.addToVisualTree(parent, child, nextVisual);
-      }
+      this.addToVisualTree(parent, child, nextVisual);
     }
   }
 }

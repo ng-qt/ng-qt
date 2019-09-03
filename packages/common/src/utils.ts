@@ -54,13 +54,11 @@ export function isDetachedElement(view: NgQtView): boolean {
   return hasViewMeta(view) && view.meta.skipAddToDom;
 }
 
-export function isParentNodeFlexLayout(parent: NgQtView, previous: NgQtView | string): boolean {
+export function isParentNodeFlexLayout(parent: NgQtView): boolean {
   return (
-    parent &&
-    isNodeWidget(previous) &&
-    isNodeWidget(previous.parentNode) &&
-    isFlexLayout(previous.parentNode.layout) &&
-    parent === previous.parentNode
+    isNodeWidget(parent) &&
+    isNodeWidget(parent.parentNode) &&
+    isFlexLayout(parent.parentNode.layout)
   );
 }
 

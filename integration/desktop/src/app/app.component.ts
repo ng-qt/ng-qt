@@ -7,7 +7,7 @@ export type Operator = '+' | '-' | '*' | '/' | '=' | '=' | '~';
 @Component({
   selector: 'App',
   templateUrl: './app.component.html',
-  // styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   // TODO
@@ -45,7 +45,7 @@ export class AppComponent {
   onKeyRelease(e: NativeEvent) {}
 
   onValue(value: number) {
-    this.result += value;
+    this.result$.next(value);
   }
 
   onOperator(operator: Operator) {}

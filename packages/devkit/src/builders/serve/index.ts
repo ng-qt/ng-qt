@@ -68,15 +68,10 @@ function runProcess(file: string, options: NodeExecuteBuilderOptions, context: B
 
   const args = [...getExecArgv(options), ...options.args];
 
-  subProcess = spawn('qode', [...args, file]);
+  subProcess = spawn('qode', [...args, file], { stdio: 'inherit' });
 
-  subProcess.stdout!.on('data', data => context.logger.info(data.toString()));
-  subProcess.stderr!.on('data', err => context.logger.error(err.toString()));
-  /*subProcess.once('exit', (code) => {
-    if (code === 0) {
-      process.exit();
-    }
-  });*/
+  subProcess.stdout.on('data', data => context.logger.info(data.toString()));
+  subProcess.stderr.on('data', err => context.logger.error(err.toString()));
 }
 
 function getExecArgv(options: NodeExecuteBuilderOptions): string[] {

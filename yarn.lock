@@ -1086,7 +1086,7 @@
     node-gyp "^4.0.0"
     postcss-nodegui-autoprefixer "0.0.7"
 
-"@nodegui/qode@^1.0.4":
+"@nodegui/qode@1.0.4", "@nodegui/qode@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.4.tgz#fe4c2fedc9f1f27c8755c4565f9d6a1adf4e1e26"
   integrity sha512-CEEAI1mJ+4eH6G2OlNtn75vUxTBw/06IcEkXlwkDMI/mU5iE52WHToybYba77gOeoxrGx3uIwkfWRV2LRVyp/Q==
