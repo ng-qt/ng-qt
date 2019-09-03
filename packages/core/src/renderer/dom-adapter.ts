@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 import {
-  ɵsetRootDomAdapter as setRootDomAdapter,
   ɵDomAdapter as DomAdapter,
+  ɵsetRootDomAdapter as setRootDomAdapter,
 } from '@angular/platform-browser';
 
 export class NgQtDomAdapter implements DomAdapter {

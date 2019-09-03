@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { AppWindow, APP_ROOT_WINDOW } from '@ng-qt/platform';
+import { APP_ROOT_WINDOW, AppWindow } from '@ng-qt/platform';
 import { CommonModule } from '@angular/common';
 import { NgQtModule } from '@ng-qt/core';
 
@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [NgQtModule, CommonModule],
+  imports: [CommonModule, NgQtModule],
   bootstrap: [AppComponent],
   providers: [
     {

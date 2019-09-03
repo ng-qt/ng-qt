@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { NativeEvent } from '@nodegui/nodegui';
+import { BehaviorSubject } from 'rxjs';
 
 export type Operator = '+' | '-' | '*' | '/' | '=' | '=' | '~';
 
@@ -45,7 +45,7 @@ export class AppComponent {
   onKeyRelease(e: NativeEvent) {}
 
   onValue(value: number) {
-    console.log(value);
+    this.result += value;
   }
 
   onOperator(operator: Operator) {}

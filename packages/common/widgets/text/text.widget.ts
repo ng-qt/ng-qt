@@ -1,15 +1,15 @@
 import { QLabel, QLabelEvents, QPixmap } from '@nodegui/nodegui';
-import { createWidgetAttributes, createWidgetEvents } from '../../index';
+import { createWidgetAttributes, createWidgetEvents } from '../../src/utils';
 import { ViewAttrs } from '../view';
 
 export interface TextAttrs {
-  // children?: string;
+  children?: string;
   wordWrap?: boolean;
   pixmap?: QPixmap;
 }
 
 export const TextAttrs = Object.freeze({
-  // children: 'setText',
+  children: 'setText',
   wordWrap: 'setWordWrap',
   pixMap: 'setPixmap',
 });

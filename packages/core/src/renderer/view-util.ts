@@ -1,7 +1,14 @@
 // Inspired from NativeScript Angular
 
 import { NgZone } from '@angular/core';
-import { NgQtView, isDetachedElement, hasViewMeta, isFunc, isFlexLayout } from '@ng-qt/common';
+import {
+  hasViewMeta,
+  isDetachedElement,
+  isFlexLayout,
+  isFunc,
+  isParentNodeFlexLayout,
+  NgQtView,
+} from '@ng-qt/common';
 import { FlexLayout } from '@nodegui/nodegui';
 
 export class ViewUtil {
@@ -129,7 +136,16 @@ export class ViewUtil {
 
     if (!isDetachedElement(child)) {
       const nextVisual = this.findNextVisual(next);
-      this.addToVisualTree(parent, child, nextVisual);
+
+      if (isParentNodeFlexLayout(parent, previous)) {
+        // parent.layout.insertChildBefore(child, previous);
+        // console.log(parent, next);
+        previous.parentNode.layout.insertChildBefore(child, previous);
+        previous.parentNode.show();
+      } else {
+        // console.log(parent.constructor.name, child.constructor.name);
+        this.addToVisualTree(parent, child, nextVisual);
+      }
     }
   }
 }

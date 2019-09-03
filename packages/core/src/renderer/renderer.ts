@@ -1,8 +1,8 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { FlexLayout, NodeLayout, NodeWidget, QKeyEvent, QWidget } from '@nodegui/nodegui';
+import { QWidget } from '@nodegui/nodegui';
 import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
 import { AppWindow, isKnownWidget, resolveWidget } from '@ng-qt/platform';
-import { getWidgetCtor, isFlexLayout, isNodeWidget, NgQtView } from '@ng-qt/common';
+import { getWidgetCtor, NgQtView } from '@ng-qt/common';
 
 import { ViewUtil } from './view-util';
 
@@ -46,7 +46,6 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   appendChild(parent: NgQtView, newChild: NgQtView): void {
-    console.log(parent && parent.constructor.name, newChild.constructor.name);
     this.viewUtil.insertChild(parent, newChild);
     /*if (newChild instanceof CommentNode) {
       newChild.parent = parent;
@@ -83,13 +82,13 @@ export class NgQtRenderer implements Renderer2 {
 
   // do validation when appending child
   createText(value: string): string {
+    console.log(value);
     return value;
   }
 
   destroy(): void {}
 
   insertBefore(parent: NgQtView, newChild: NgQtView, { previous, next }: ElementReference): void {
-    console.log(parent && parent.constructor.name, newChild.constructor.name);
     this.viewUtil.insertChild(parent, newChild, previous, next);
     /*console.log(isNodeWidget(parent) && isFlexLayout(parent.layout));
     if (isNodeWidget(parent) && isFlexLayout(parent.layout)) {
@@ -110,9 +109,6 @@ export class NgQtRenderer implements Renderer2 {
     }
 
     const zonedCallback = (nativeEvent: NativeEvent) => {
-      //const keyEvt = new QKeyEvent(nativeEvent);
-      //const nodeText = keyEvt.text();
-
       this.ngZone.run(() => callback.call(undefined, nativeEvent));
     };
 
@@ -129,16 +125,8 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   parentNode(view: NgQtView): NgQtView {
+    console.log('parentNode');
     return view.parentNode;
-    /*if (node instanceof CommentNode) {
-      return node.parent;
-    }
-
-    console.log(node.constructor.name);
-
-    return isNodeWidget(node)
-      ? node.layout
-      : null;*/
   }
 
   removeAttribute(el: any, name: string, namespace?: string | null): void {
@@ -164,6 +152,7 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   setAttribute(widget: NgQtView, name: string, value: any, namespace?: string | null): void {
+    // console.log('setAttribute', name, value);
     const { name: widgetName, attrs } = getWidgetCtor(widget);
 
     if (attrs) {
@@ -178,6 +167,7 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   setProperty(widget: NgQtView, name: string, value: any): void {
+    // console.log('setProperty');
     this.setAttribute(widget, name, value);
   }
 

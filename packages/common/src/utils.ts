@@ -1,8 +1,8 @@
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 import { camelCase } from 'change-case';
 
-import { WidgetType } from './widget-type.interface';
 import { NgQtView } from './ng-qt-view.interface';
+import { WidgetType } from './widget-type.interface';
 
 export function createWidgetAttributes(attrs: Record<string, string>): Map<string, string> {
   return new Map(Object.entries(attrs));
@@ -52,4 +52,18 @@ export function isFunc(val: any): val is Function {
 
 export function isDetachedElement(view: NgQtView): boolean {
   return hasViewMeta(view) && view.meta.skipAddToDom;
+}
+
+export function isParentNodeFlexLayout(parent: NgQtView, previous: NgQtView | string): boolean {
+  return (
+    parent &&
+    isNodeWidget(previous) &&
+    isNodeWidget(previous.parentNode) &&
+    isFlexLayout(previous.parentNode.layout) &&
+    parent === previous.parentNode
+  );
+}
+
+export function isInstance<T = object>(obj: T): boolean {
+  return typeof obj === 'object' && 'constructor' in obj;
 }
