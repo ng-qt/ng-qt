@@ -44,7 +44,7 @@
     "circular-dependency-plugin": "5.2.0",
     "copy-webpack-plugin": "5.0.4",
     "fork-ts-checker-webpack-plugin": "1.5.0",
-    "husky": "3.0.4",
+    "husky": "3.0.5",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
