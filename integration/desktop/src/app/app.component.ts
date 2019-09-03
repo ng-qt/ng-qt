@@ -18,7 +18,7 @@ export class AppComponent {
     {
       id: 'row1',
       buttons: [
-        {
+        /*{
           id: 'valueBtn',
           text: '7',
           clicked: () => this.onValue(7),
@@ -27,7 +27,7 @@ export class AppComponent {
           id: 'valueBtn',
           text: '8',
           clicked: () => this.onValue(8),
-        },
+        },*/
         {
           id: 'valueBtn',
           text: '9',

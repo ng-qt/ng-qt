@@ -1,16 +1,16 @@
 // Inspired from NativeScript Angular
 
+import { FlexLayout } from '@nodegui/nodegui';
 import { NgZone } from '@angular/core';
 import {
   hasViewMeta,
   isDetachedElement,
   isFlexLayout,
   isFunc,
+  isInvisibleNode,
   isNodeWidget,
-  isParentNodeFlexLayout,
   NgQtView,
 } from '@ng-qt/common';
-import { FlexLayout } from '@nodegui/nodegui';
 
 export class ViewUtil {
   constructor(private readonly ngZone: NgZone) {}
@@ -53,12 +53,12 @@ export class ViewUtil {
     }
   }
 
-  private appendToQueue(parent: NgQtView, view: NgQtView): void {
+  private appendToQueue(parent: NgQtView, child: NgQtView): void {
     if (parent.lastChild) {
-      parent.lastChild.nextSibling = view;
+      parent.lastChild.nextSibling = child;
     }
 
-    parent.lastChild = view;
+    parent.lastChild = child;
   }
 
   private removeFromVisualTree(parent: NgQtView, child: NgQtView) {
@@ -69,8 +69,7 @@ export class ViewUtil {
     }
   }
 
-  private appendChild(parent: NgQtView, child: NgQtView) {
-    // appendChild
+  private addWidget(parent: NgQtView, child: NgQtView): void {
     if (!isFlexLayout(parent.layout)) {
       const flexLayout = new FlexLayout();
 
@@ -86,12 +85,14 @@ export class ViewUtil {
   }
 
   private addToVisualTree(parent: NgQtView, child: NgQtView, next: NgQtView): void {
+    // console.log('addVisualTree', !!next);
+
     if (hasViewMeta(parent) && isFunc(parent.meta.insertChild)) {
       parent.meta.insertChild.call(parent, child, next);
-    } else if (isParentNodeFlexLayout(parent)) {
+    } else if (next && isNodeWidget(parent) && isFlexLayout(parent.layout)) {
       parent.layout.insertChildBefore(child, next);
-    } else {
-      this.appendChild(parent, child);
+    } else if (isNodeWidget(child)) {
+      this.addWidget(parent, child);
     }
   }
 
@@ -136,8 +137,7 @@ export class ViewUtil {
 
     this.addToQueue(parent, child, previous, next);
 
-    // is detached node
-    if (isDetachedElement(child)) {
+    if (isInvisibleNode(child)) {
       child.parentNode = parent;
     }
 

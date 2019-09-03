@@ -2,14 +2,14 @@ import { ChildProcess, spawn } from 'child_process';
 import * as treeKill from 'tree-kill';
 import { stripIndents } from '@angular-devkit/core/src/utils/literals';
 import { JsonObject } from '@angular-devkit/core';
-import { Observable, bindCallback, of, zip, from } from 'rxjs';
-import { concatMap, tap, mapTo, first, map, filter } from 'rxjs/operators';
+import { bindCallback, from, Observable, of, zip } from 'rxjs';
+import { concatMap, filter, first, map, mapTo, tap } from 'rxjs/operators';
 import {
   BuilderContext,
-  createBuilder,
   BuilderOutput,
-  targetFromTargetString,
+  createBuilder,
   scheduleTargetAndForget,
+  targetFromTargetString,
 } from '@angular-devkit/architect';
 
 import { NodeBuildEvent } from '../build';
@@ -70,8 +70,10 @@ function runProcess(file: string, options: NodeExecuteBuilderOptions, context: B
 
   subProcess = spawn('qode', [...args, file], { stdio: 'inherit' });
 
-  subProcess.stdout.on('data', data => context.logger.info(data.toString()));
-  subProcess.stderr.on('data', err => context.logger.error(err.toString()));
+  subProcess.stdout!.on('data', data => context.logger.info(data.toString()));
+  subProcess.stderr!.on('data', err => context.logger.error(err.toString()));
+
+  process.on('SIGTERM', () => subProcess.kill());
 }
 
 function getExecArgv(options: NodeExecuteBuilderOptions): string[] {
@@ -102,7 +104,6 @@ function killProcess(context: BuilderContext): Observable<void | Error> {
     return of(undefined);
   }
 
-  // @ts-ignore
   const observableTreeKill = bindCallback<number, string, Error>(treeKill);
   return observableTreeKill(subProcess.pid, 'SIGTERM').pipe(
     tap((err: any) => {

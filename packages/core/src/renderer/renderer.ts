@@ -1,26 +1,9 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { QWidget } from '@nodegui/nodegui';
 import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
 import { AppWindow, isKnownWidget, resolveWidget } from '@ng-qt/platform';
-import { getWidgetCtor, NgQtView } from '@ng-qt/common';
+import { CommentNode, getWidgetCtor, NgQtView, TextNode } from '@ng-qt/common';
 
 import { ViewUtil } from './view-util';
-
-export class TextNode extends QWidget {
-  /*meta = {
-    skipAddToDom: true,
-  };*/
-
-  constructor(readonly value: string) {
-    super();
-  }
-}
-
-export class CommentNode extends QWidget {
-  meta = {
-    skipAddToDom: true,
-  };
-}
 
 export interface ElementReference {
   previous: NgQtView;
@@ -38,7 +21,13 @@ export class NgQtRenderer implements Renderer2 {
   destroyNode: ((node: any) => void) | null;
 
   createComment(value: string): CommentNode {
+    console.log(value);
     return new CommentNode();
+  }
+
+  // do validation when appending child
+  createText(value: string): TextNode {
+    return new TextNode();
   }
 
   addClass(el: any, name: string): void {
@@ -47,30 +36,6 @@ export class NgQtRenderer implements Renderer2 {
 
   appendChild(parent: NgQtView, newChild: NgQtView): void {
     this.viewUtil.insertChild(parent, newChild);
-    /*if (newChild instanceof CommentNode) {
-      newChild.parent = parent;
-
-    } else if (isTextChild(parent) && isStr(newChild)) {
-      parent.setText(newChild);
-
-    } else if (isNodeWidget(newChild)) {
-      if (!isFlexLayout(parent.layout)) {
-        const flexLayout = new FlexLayout();
-
-        const parentFlexNode = parent.getFlexNode();
-        flexLayout.setFlexNode(parentFlexNode);
-
-        parent.layout = flexLayout;
-        parent.setLayout(parent.layout);
-      }
-
-      parent.layout.addWidget(newChild);
-      parent.show();
-
-      (newChild as any).parent = parent;
-    } else {
-      // console.warn(`Use <Text /> component to add the text: ${value}`);
-    }*/
   }
 
   createElement(name: string, namespace?: string | null): NgQtView {
@@ -80,20 +45,11 @@ export class NgQtRenderer implements Renderer2 {
     return new widgetCtor();
   }
 
-  // do validation when appending child
-  createText(value: string): string {
-    console.log(value);
-    return value;
-  }
-
   destroy(): void {}
 
   insertBefore(parent: NgQtView, newChild: NgQtView, { previous, next }: ElementReference): void {
+    console.log(arguments);
     this.viewUtil.insertChild(parent, newChild, previous, next);
-    /*console.log(isNodeWidget(parent) && isFlexLayout(parent.layout));
-    if (isNodeWidget(parent) && isFlexLayout(parent.layout)) {
-      parent.layout.insertChildBefore(newChild, refChild);
-    }*/
   }
 
   listen(
@@ -125,7 +81,6 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   parentNode(view: NgQtView): NgQtView {
-    console.log('parentNode');
     return view.parentNode;
   }
 

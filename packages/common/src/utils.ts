@@ -3,6 +3,7 @@ import { camelCase } from 'change-case';
 
 import { NgQtView } from './ng-qt-view.interface';
 import { WidgetType } from './widget-type.interface';
+import { InvisibleNode } from '@ng-qt/common';
 
 export function createWidgetAttributes(attrs: Record<string, string>): Map<string, string> {
   return new Map(Object.entries(attrs));
@@ -43,7 +44,7 @@ export function isNil(val: any): val is undefined | null {
 }
 
 export function hasViewMeta(view: NgQtView): boolean {
-  return isNodeWidget(view) && 'meta' in view;
+  return isInstance(view) && 'meta' in view;
 }
 
 export function isFunc(val: any): val is Function {
@@ -64,4 +65,8 @@ export function isParentNodeFlexLayout(parent: NgQtView): boolean {
 
 export function isInstance<T = object>(obj: T): boolean {
   return typeof obj === 'object' && 'constructor' in obj;
+}
+
+export function isInvisibleNode(val: any): val is InvisibleNode {
+  return val instanceof InvisibleNode;
 }
