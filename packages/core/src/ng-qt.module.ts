@@ -1,4 +1,4 @@
-import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/platform';
+import { APP_ROOT_WINDOW, AppWindow } from '@ng-qt/platform';
 import { ɵSharedStylesHost as SharedStylesHost } from '@angular/platform-browser';
 import {
   ErrorHandler,
@@ -22,7 +22,7 @@ import { NgQtSanitizer } from './sanitizer';
     { provide: APP_ROOT, useValue: true },
     { provide: Sanitizer, useClass: NgQtSanitizer },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
-    { provide: APP_ROOT_VIEW, useClass: AppRootView },
+    { provide: APP_ROOT_WINDOW, useClass: AppWindow },
     { provide: SharedStylesHost, useExisting: NgQtSharedStylesHost },
     { provide: RendererFactory2, useExisting: NgQtRendererFactory },
   ],

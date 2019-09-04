@@ -1,117 +1,108 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
-import { AppRootView, isKnownWidget, resolveWidget } from '@ng-qt/platform';
-import { getWidgetCtor, isFlexLayout } from '@ng-qt/common';
+import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
+import { CommentNode, ElementReference, getWidgetMeta, NgQtView, TextNode } from '@ng-qt/common';
+import { AppWindow, isKnownWidget, resolveWidget } from '@ng-qt/platform';
+
+import { ViewUtil } from './view-util';
 
 export class NgQtRenderer implements Renderer2 {
-  constructor(private readonly ngZone: NgZone, private readonly rootView: AppRootView) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly rootView: AppWindow,
+    private readonly viewUtil: ViewUtil,
+  ) {}
 
   readonly data: { [p: string]: any };
   destroyNode: ((node: any) => void) | null;
+
+  createComment(value: string): CommentNode {
+    return new CommentNode(value);
+  }
+
+  // do validation when appending child
+  createText(value: string): TextNode {
+    return new TextNode(value);
+  }
 
   addClass(el: any, name: string): void {
     // console.log('addClass', arguments);
   }
 
-  appendChild(parent: NodeWidget, newChild: NodeWidget): void {
-    if (!isFlexLayout(parent.layout)) {
-      const flexLayout = new FlexLayout();
-
-      const parentFlexNode = parent.getFlexNode();
-      flexLayout.setFlexNode(parentFlexNode);
-
-      parent.layout = flexLayout;
-    }
-
-    parent.layout.addWidget(newChild);
+  appendChild(parent: NgQtView, newChild: NgQtView): void {
+    this.viewUtil.insertChild(parent, newChild);
   }
 
-  createComment(value: string): any {
-    // console.log('createComment', value);
-  }
-
-  createElement<W extends NodeWidget>(name: string, namespace?: string | null): W {
+  createElement(name: string, namespace?: string | null): NgQtView {
     if (!isKnownWidget(name)) name = 'View';
 
-    const widgetCtor = resolveWidget<W>(name);
+    const widgetCtor = resolveWidget(name);
     return new widgetCtor();
-  }
-
-  createText(value: string) {
-    const text = this.createElement<any>('Text');
-    text.setText(value);
-    return text;
-    /*console.warn(`Use <Text /> component to add the text: ${value}`);
-    throw new TypeError(
-      this.constructor.name + ': createText called when platform doesnt have host level text.',
-    );*/
   }
 
   destroy(): void {}
 
-  insertBefore({ layout }: NodeWidget, newChild: NodeWidget, refChild: NodeWidget): void {
-    if (isFlexLayout(layout)) {
-      layout.insertChildBefore(newChild, refChild);
-    }
+  insertBefore(parent: NgQtView, newChild: NgQtView, { previous, next }: ElementReference): void {
+    this.viewUtil.insertChild(parent, newChild, previous, next);
   }
 
   listen(
-    widget: NodeWidget,
+    widget: NgQtView,
     eventName: string,
     callback: (event: any) => boolean | void,
   ): () => void {
-    const { events, name } = getWidgetCtor(widget);
+    const { events, name } = getWidgetMeta(widget);
     const realEvent = events.get(eventName);
 
     if (!realEvent) {
       throw new TypeError(`${name} doesn't have event: ${eventName}`);
     }
 
-    const zonedCallback = (...args: any) => this.ngZone.run(() => callback.apply(undefined, args));
+    const zonedCallback = (nativeEvent: NativeEvent) => {
+      this.ngZone.run(() => callback.call(undefined, nativeEvent));
+    };
 
     widget.addEventListener(realEvent, zonedCallback);
 
     return () => widget.removeEventListener(realEvent, zonedCallback);
   }
 
-  nextSibling({ layout }: NodeWidget) {
-    /*return isNodeLayout(layout)
-      ? getNextSibling(layout)
-      : null;*/
+  nextSibling(node: NgQtView): ElementReference {
+    return {
+      previous: node,
+      next: node.nextSibling,
+    };
   }
 
-  parentNode(node: NodeWidget): NodeLayout | null {
-    // console.log('parentNode', arguments);
-    return node.layout || null;
+  parentNode(view: NgQtView): NgQtView {
+    return view.parentNode;
   }
 
   removeAttribute(el: any, name: string, namespace?: string | null): void {
-    // console.log('removeAttribute', arguments);
+    console.log('removeAttribute', arguments);
   }
 
-  removeChild({ layout }: NodeWidget, oldChild: NodeWidget, isHostElement?: boolean): void {
-    if (isFlexLayout(layout)) {
-      layout.removeWidget(oldChild);
-    }
+  removeChild(parent: NgQtView, oldChild: NgQtView, isHostElement?: boolean): void {
+    this.viewUtil.removeChild(parent, oldChild);
   }
 
   removeClass(el: any, name: string): void {
-    // console.log('removeClass', arguments);
+    console.log('removeClass', arguments);
   }
 
   removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void {
-    // console.log('removeStyle', arguments);
+    console.log('removeStyle', arguments);
   }
 
-  selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): NodeWidget {
+  selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): AppWindow {
+    // console.log('selectRootElement', arguments);
     this.rootView.centralWidget.setObjectName(selectorOrNode);
-    this.rootView.show();
-
     return this.rootView;
   }
 
-  setAttribute(widget: NodeWidget, name: string, value: string, namespace?: string | null): void {
-    const { name: widgetName, attrs } = getWidgetCtor(widget);
+  setAttribute(widget: NgQtView, name: string, value: any, namespace?: string | null): void {
+    if (name === 'ng-version') return;
+    // console.log('setAttribute', name, value);
+    const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
       const method = attrs.get(name);
@@ -124,8 +115,9 @@ export class NgQtRenderer implements Renderer2 {
     }
   }
 
-  setProperty(el: any, name: string, value: any): void {
-    console.log('setProperty', arguments);
+  setProperty(widget: NgQtView, name: string, value: any): void {
+    // console.log('setProperty');
+    this.setAttribute(widget, name, value);
   }
 
   setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void {

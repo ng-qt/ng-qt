@@ -1,7 +1,6 @@
-import { NodeWidget } from '@nodegui/nodegui';
 import { WidgetType } from '@ng-qt/common';
 
-export type WidgetResolver = () => WidgetType<any>;
+export type WidgetResolver = () => WidgetType;
 
 export const widgetRegistry = new Map<string, WidgetResolver>();
 
@@ -13,7 +12,7 @@ export function registerWidget(name: string, resolver: WidgetResolver): void {
   widgetRegistry.set(name, resolver);
 }
 
-export function resolveWidget<W extends NodeWidget>(name: string): WidgetType<W> {
+export function resolveWidget(name: string): WidgetType {
   const resolver = widgetRegistry.get(name);
 
   if (!resolver) {
@@ -28,11 +27,11 @@ export function resolveWidget<W extends NodeWidget>(name: string): WidgetType<W>
 }
 
 // Register core widgets
-registerWidget('Window', () => require('@ng-qt/core/widgets/window').Window);
-registerWidget('View', () => require('@ng-qt/core/widgets/view').View);
-registerWidget('Image', () => require('@ng-qt/core/widgets/image').Image);
-registerWidget('Text', () => require('@ng-qt/core/widgets/text').Text);
-registerWidget('Button', () => require('@ng-qt/core/widgets/button').Button);
+registerWidget('Window', () => require('@ng-qt/common/widgets/window').Window);
+registerWidget('View', () => require('@ng-qt/common/widgets/view').View);
+registerWidget('Image', () => require('@ng-qt/common/widgets/image').Image);
+registerWidget('Text', () => require('@ng-qt/common/widgets/text').Text);
+registerWidget('Button', () => require('@ng-qt/common/widgets/button').Button);
 
 /*@Injectable()
 export class WidgetRegistry {

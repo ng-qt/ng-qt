@@ -1,15 +1,19 @@
 import { ElementSchemaRegistry } from '@angular/compiler';
+import { SecurityContext } from '@angular/compiler/src/core';
 import { Injectable, SchemaMetadata } from '@angular/core';
 
-import { isKnownWidget } from './widget-registry';
+import { isKnownWidget, resolveWidget } from './widget-registry';
+import { getWidgetMeta } from '@ng-qt/common';
 
 @Injectable()
 export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   allKnownElementNames(): string[] {
+    console.log('allKnownElementNames');
     return [];
   }
 
   getDefaultComponentElementName(): string {
+    console.log('getDefaultComponentElementName');
     return '';
   }
 
@@ -19,13 +23,13 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
   }
 
   hasElement(tagName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log('hasElement', arguments);
     return isKnownWidget(tagName);
   }
 
-  hasProperty(tagName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
-    console.log('hasProperty', arguments);
-    return false;
+  hasProperty(widgetName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
+    const widgetCtor = resolveWidget(widgetName);
+    const { attrs } = getWidgetMeta(widgetCtor);
+    return attrs.has(propName);
   }
 
   normalizeAnimationStyleProperty(propName: string): string {
@@ -44,6 +48,7 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
 
   securityContext(elementName: string, propName: string, isAttribute: boolean): any {
     console.log('securityContext', arguments);
+    return SecurityContext.NONE;
   }
 
   validateAttribute(name: string): { error: boolean; msg?: string } {

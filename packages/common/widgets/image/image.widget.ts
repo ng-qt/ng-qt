@@ -1,8 +1,10 @@
 import { QLabel, QLabelEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QLabel';
-import { createWidgetAttributes, createWidgetEvents } from '../../index';
+import { Widget } from '@ng-qt/common';
 
+@Widget({
+  events: QLabelEvents,
+})
 export class Image extends QLabel {
-  static readonly events = createWidgetEvents(QLabelEvents);
   /*private readonly subs = new Subscription();
   private originalPixmap: QPixmap;
 

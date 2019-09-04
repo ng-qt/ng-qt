@@ -1,11 +1,7 @@
 import { QMainWindow, QMainWindowEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QMainWindow';
-import { createWidgetAttributes, createWidgetEvents } from '../../index';
+import { Widget } from '@ng-qt/common';
 
-import { ViewAttrs } from '../view';
-
-export class Window extends QMainWindow {
-  static readonly events = createWidgetEvents(QMainWindowEvents);
-  static readonly attrs = createWidgetAttributes({
-    ...ViewAttrs,
-  });
-}
+@Widget({
+  events: QMainWindowEvents,
+})
+export class Window extends QMainWindow {}

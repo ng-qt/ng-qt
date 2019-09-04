@@ -1,6 +1,6 @@
-import { WindowType, WidgetAttribute } from '@nodegui/nodegui/dist/lib/QtEnums';
+import { WidgetAttribute, WindowType } from '@nodegui/nodegui/dist/lib/QtEnums';
 import { QWidget, QWidgetEvents } from '@nodegui/nodegui/dist/lib/QtWidgets/QWidget';
-import { createWidgetAttributes, createWidgetEvents } from '../../index';
+import { Widget } from '@ng-qt/common';
 
 export interface ViewAttrs {
   id?: string;
@@ -15,24 +15,10 @@ export interface ViewAttrs {
   visible?: boolean;
 }
 
-// Available widget attributes and what they map to
-export const ViewAttrs = Object.freeze({
-  id: 'setObjectName',
-  mouseTracking: 'setMouseTracking',
-  enabled: 'setEnabled',
-  windowFlags: 'setWindowFlags',
-  attributes: 'setAttributes',
-  style: 'setInlineStyle',
-  styleSheet: 'setStyleSheet',
-  // geometry: 'geometry',
-  windowOpacity: 'setWindowOpacity',
-  visible: 'setVisible',
-});
-
+@Widget({
+  events: QWidgetEvents,
+})
 export class View extends QWidget {
-  static readonly events = createWidgetEvents(QWidgetEvents);
-  static readonly attrs = createWidgetAttributes(ViewAttrs);
-
   private oldAttributes: WidgetAttribute[] = [];
   private oldFlags: WindowType[] = [];
 

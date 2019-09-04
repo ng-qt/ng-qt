@@ -13,8 +13,8 @@
           "builder": "../../dist/devkit:build",
           "options": {
             "outputPath": "dist",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "main": "main.ts",
+            "tsConfig": "tsconfig.app.json",
             "showCircularDependencies": false
           }
         },

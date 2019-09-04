@@ -1,10 +1,10 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
     "sourceMap": false,
     "module": "commonjs",
-    "types": ["node", "zone.js"]
+    "types": ["node"]
   },
   "files": ["main.ts"],
   "include": ["**/*.ts"],

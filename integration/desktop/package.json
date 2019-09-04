@@ -1,1 +1,15 @@
-{}
+{
+  "name": "test",
+  "dependencies": {
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "reflect-metadata": "*",
+    "rxjs": "*",
+    "tslib": "*",
+    "zone.js": "*"
+  },
+  "devDependencies": {
+    "@angular/cli": "*",
+    "typescript": "*"
+  }
+}
