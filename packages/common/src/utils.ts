@@ -58,7 +58,10 @@ export function isFunc(val: any): val is Function {
 }
 
 export function isDetachedElement(view: NgQtView): boolean {
-  return hasViewMeta(view) && view.meta.skipAddToDom;
+  if (!isInstance(view)) return true;
+
+  const { skipAddToDom } = getWidgetMeta(view);
+  return skipAddToDom;
 }
 
 export function isParentNodeFlexLayout(parent: NgQtView): boolean {

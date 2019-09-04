@@ -3,7 +3,6 @@
 import { FlexLayout } from '@nodegui/nodegui';
 import { NgZone } from '@angular/core';
 import {
-  hasViewMeta,
   isDetachedElement,
   isFlexLayout,
   isFunc,
@@ -62,8 +61,8 @@ export class ViewUtil {
   }
 
   private removeFromVisualTree(parent: NgQtView, child: NgQtView) {
-    if (hasViewMeta(parent) && isFunc(parent.meta.removeChild)) {
-      parent.meta.removeChild.call(parent, child);
+    if (isNodeWidget(parent) && isFunc(parent.removeChild)) {
+      parent.removeChild.call(parent, child);
     } else if (isFlexLayout(parent.layout)) {
       parent.layout.removeWidget(child);
     }
@@ -85,10 +84,8 @@ export class ViewUtil {
   }
 
   private addToVisualTree(parent: NgQtView, child: NgQtView, next: NgQtView): void {
-    // console.log('addVisualTree', !!next);
-
-    if (hasViewMeta(parent) && isFunc(parent.meta.insertChild)) {
-      parent.meta.insertChild.call(parent, child, next);
+    if (isNodeWidget(parent) && isFunc(parent.insertChild)) {
+      parent.insertChild.call(parent, child, next);
     } else if (next && isNodeWidget(parent) && isFlexLayout(parent.layout)) {
       parent.layout.insertChildBefore(child, next);
     } else if (isNodeWidget(child)) {

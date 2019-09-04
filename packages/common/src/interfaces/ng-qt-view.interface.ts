@@ -1,10 +1,9 @@
 import { FlexLayout, NodeWidget } from '@nodegui/nodegui';
 
-import { ViewClassMeta } from './view-class-meta.interface';
+import { CustomViewClass } from './custom-view-class.interface';
 
-export interface NgQtView extends NodeWidget {
+export interface NgQtView extends NodeWidget, CustomViewClass {
   layout: FlexLayout;
-  meta: ViewClassMeta;
   parentNode: NgQtView;
   nextSibling: NgQtView;
   firstChild: NgQtView;

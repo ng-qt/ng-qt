@@ -18,6 +18,7 @@ export function Widget(options: WidgetMetaOptions = {}): ClassDecorator {
 
     const meta: WidgetMeta = {
       name: options.name || target.name,
+      skipAddToDom: options.skipAddToDom,
       attrs,
       events,
     };

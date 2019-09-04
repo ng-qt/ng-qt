@@ -13,7 +13,7 @@
     "skipDefaultLibCheck": true,
     "sourceMap": true,
     "declaration": true,
-    "types": ["node", "zone.js"],
+    "types": ["node", "zone.js", "reflect-metadata"],
     "paths": {
       "@ng-qt/*": ["./packages/*"]
     }
