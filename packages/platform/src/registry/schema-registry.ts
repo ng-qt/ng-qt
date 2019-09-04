@@ -3,6 +3,7 @@ import { SecurityContext } from '@angular/compiler/src/core';
 import { Injectable, SchemaMetadata } from '@angular/core';
 
 import { isKnownWidget, resolveWidget } from './widget-registry';
+import { getWidgetMeta } from '@ng-qt/common';
 
 @Injectable()
 export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
@@ -27,7 +28,8 @@ export class NgQtElementSchemaRegistry implements ElementSchemaRegistry {
 
   hasProperty(widgetName: string, propName: string, schemaMetas: SchemaMetadata[]): boolean {
     const widgetCtor = resolveWidget(widgetName);
-    return widgetCtor.attrs.has(propName);
+    const { attrs } = getWidgetMeta(widgetCtor);
+    return attrs.has(propName);
   }
 
   normalizeAnimationStyleProperty(propName: string): string {

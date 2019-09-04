@@ -1,22 +1,28 @@
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
 import { camelCase } from 'change-case';
 
-import { NgQtView } from './ng-qt-view.interface';
-import { WidgetType } from './widget-type.interface';
-import { InvisibleNode } from '@ng-qt/common';
+import { NgQtView, WidgetMeta, WidgetMetaOptions, WidgetType } from './interfaces';
+import { InvisibleNode } from './nodes';
+import { WIDGET_META } from './tokens';
 
-export function createWidgetAttributes(attrs: Record<string, string>): Map<string, string> {
+export function createWidgetAttrs(attrs: WidgetMetaOptions['attrs']): WidgetMeta['attrs'] {
   return new Map(Object.entries(attrs));
 }
 
 // TODO: we need a past tense to present converter
-export function createWidgetEvents(events: Record<string, string>): Map<string, string> {
+export function createWidgetEvents(events: WidgetMetaOptions['events']): WidgetMeta['events'] {
   return new Map(
     Object.entries(events).map(([eventName, realEventName]) => [
       camelCase(eventName),
       realEventName,
     ]),
   );
+}
+
+export function getWidgetMeta(widget: WidgetType | NgQtView): WidgetMeta {
+  const target = isInstance(widget) ? widget.constructor : widget;
+
+  return Reflect.getMetadata(WIDGET_META, target);
 }
 
 export function getWidgetCtor(widget: NgQtView): WidgetType {

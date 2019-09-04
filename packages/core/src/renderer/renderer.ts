@@ -1,14 +1,9 @@
 import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
 import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
+import { CommentNode, ElementReference, getWidgetMeta, NgQtView, TextNode } from '@ng-qt/common';
 import { AppWindow, isKnownWidget, resolveWidget } from '@ng-qt/platform';
-import { CommentNode, getWidgetCtor, NgQtView, TextNode } from '@ng-qt/common';
 
 import { ViewUtil } from './view-util';
-
-export interface ElementReference {
-  previous: NgQtView;
-  next: NgQtView;
-}
 
 export class NgQtRenderer implements Renderer2 {
   constructor(
@@ -48,7 +43,6 @@ export class NgQtRenderer implements Renderer2 {
   destroy(): void {}
 
   insertBefore(parent: NgQtView, newChild: NgQtView, { previous, next }: ElementReference): void {
-    console.log(arguments);
     this.viewUtil.insertChild(parent, newChild, previous, next);
   }
 
@@ -57,7 +51,7 @@ export class NgQtRenderer implements Renderer2 {
     eventName: string,
     callback: (event: any) => boolean | void,
   ): () => void {
-    const { events, name } = getWidgetCtor(widget);
+    const { events, name } = getWidgetMeta(widget);
     const realEvent = events.get(eventName);
 
     if (!realEvent) {
@@ -108,7 +102,7 @@ export class NgQtRenderer implements Renderer2 {
 
   setAttribute(widget: NgQtView, name: string, value: any, namespace?: string | null): void {
     // console.log('setAttribute', name, value);
-    const { name: widgetName, attrs } = getWidgetCtor(widget);
+    const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
       const method = attrs.get(name);

@@ -1,6 +1,5 @@
 import { QIcon, QPushButton, QPushButtonEvents } from '@nodegui/nodegui';
-import { createWidgetAttributes, createWidgetEvents } from '../../index';
-import { ViewAttrs } from '../view';
+import { Widget } from '@ng-qt/common';
 
 export interface ButtonAttrs {
   text?: string;
@@ -8,19 +7,15 @@ export interface ButtonAttrs {
   isFlat?: boolean;
 }
 
-export const ButtonAttrs = Object.freeze({
-  text: 'setText',
-  flat: 'setFlat',
-  icon: 'createIcon',
-});
-
+@Widget({
+  events: QPushButtonEvents,
+  attrs: {
+    text: 'setText',
+    flat: 'setFlat',
+    icon: 'createIcon',
+  },
+})
 export class Button extends QPushButton {
-  static readonly events = createWidgetEvents(QPushButtonEvents);
-  static readonly attrs = createWidgetAttributes({
-    ...ViewAttrs,
-    ...ButtonAttrs,
-  });
-
   meta = {
     insertChild(text: string) {
       this.setText(text);

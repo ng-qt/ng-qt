@@ -1,6 +1,5 @@
 import { QLabel, QLabelEvents, QPixmap } from '@nodegui/nodegui';
-import { createWidgetAttributes, createWidgetEvents } from '../../src/utils';
-import { ViewAttrs } from '../view';
+import { Widget } from '@ng-qt/common';
 
 export interface TextAttrs {
   children?: string;
@@ -8,19 +7,15 @@ export interface TextAttrs {
   pixmap?: QPixmap;
 }
 
-export const TextAttrs = Object.freeze({
-  children: 'setText',
-  wordWrap: 'setWordWrap',
-  pixMap: 'setPixmap',
-});
-
+@Widget({
+  events: QLabelEvents,
+  attrs: {
+    children: 'setText',
+    wordWrap: 'setWordWrap',
+    pixMap: 'setPixmap',
+  },
+})
 export class Text extends QLabel {
-  static readonly events = createWidgetEvents(QLabelEvents);
-  static readonly attrs = createWidgetAttributes({
-    ...ViewAttrs,
-    ...TextAttrs,
-  });
-
   meta = {
     insertChild(text: string) {
       this.setText(text);
