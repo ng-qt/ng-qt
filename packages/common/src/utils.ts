@@ -22,11 +22,15 @@ export function createWidgetEvents(events: WidgetMetaOptions['events']): WidgetM
 export function getWidgetMeta(widget: WidgetType | NgQtView): WidgetMeta {
   const target = isInstance(widget) ? widget.constructor : widget;
 
-  return Reflect.getMetadata(WIDGET_META, target);
+  return Reflect.getMetadata(WIDGET_META, target) || {};
 }
 
 export function getWidgetCtor(widget: NgQtView): WidgetType {
   return <WidgetType>widget.constructor;
+}
+
+export function isView(view: any): view is NgQtView {
+  return view instanceof NodeWidget;
 }
 
 export function isNodeWidget(widget: any): widget is NodeWidget {
@@ -58,17 +62,15 @@ export function isFunc(val: any): val is Function {
 }
 
 export function isDetachedElement(view: NgQtView): boolean {
-  if (!isInstance(view)) return true;
+  if (isInvisibleNode(view)) return true;
 
   const { skipAddToDom } = getWidgetMeta(view);
   return skipAddToDom;
 }
 
-export function isParentNodeFlexLayout(parent: NgQtView): boolean {
+export function isParentNodeFlexLayout(child: NgQtView): boolean {
   return (
-    isNodeWidget(parent) &&
-    isNodeWidget(parent.parentNode) &&
-    isFlexLayout(parent.parentNode.layout)
+    isNodeWidget(child) && isNodeWidget(child.parentNode) && isFlexLayout(child.parentNode.layout)
   );
 }
 

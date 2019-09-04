@@ -2,14 +2,7 @@
 
 import { FlexLayout } from '@nodegui/nodegui';
 import { NgZone } from '@angular/core';
-import {
-  isDetachedElement,
-  isFlexLayout,
-  isFunc,
-  isInvisibleNode,
-  isNodeWidget,
-  NgQtView,
-} from '@ng-qt/common';
+import { isDetachedElement, isFlexLayout, isFunc, isView, NgQtView } from '@ng-qt/common';
 
 export class ViewUtil {
   constructor(private readonly ngZone: NgZone) {}
@@ -61,7 +54,7 @@ export class ViewUtil {
   }
 
   private removeFromVisualTree(parent: NgQtView, child: NgQtView) {
-    if (isNodeWidget(parent) && isFunc(parent.removeChild)) {
+    if (isView(parent) && isFunc(parent.removeChild)) {
       parent.removeChild.call(parent, child);
     } else if (isFlexLayout(parent.layout)) {
       parent.layout.removeWidget(child);
@@ -69,6 +62,13 @@ export class ViewUtil {
   }
 
   private addWidget(parent: NgQtView, child: NgQtView): void {
+    this.ensureParentFlexLayout(parent);
+
+    parent.layout.addWidget(child);
+    parent.show();
+  }
+
+  private ensureParentFlexLayout(parent: NgQtView) {
     if (!isFlexLayout(parent.layout)) {
       const flexLayout = new FlexLayout();
 
@@ -77,18 +77,21 @@ export class ViewUtil {
 
       parent.layout = flexLayout;
       parent.setLayout(parent.layout);
-    }
 
-    parent.layout.addWidget(child);
-    parent.show();
+      parent.show();
+    }
   }
 
-  private addToVisualTree(parent: NgQtView, child: NgQtView, next: NgQtView): void {
-    if (isNodeWidget(parent) && isFunc(parent.insertChild)) {
-      parent.insertChild.call(parent, child, next);
-    } else if (next && isNodeWidget(parent) && isFlexLayout(parent.layout)) {
+  private addToVisualTree(
+    parent: NgQtView,
+    child: NgQtView,
+    previous: NgQtView,
+    next: NgQtView,
+  ): void {
+    if (previous && isDetachedElement(previous) && next) {
+      // this.ensureParentFlexLayout(parent);
       parent.layout.insertChildBefore(child, next);
-    } else if (isNodeWidget(child)) {
+    } else {
       this.addWidget(parent, child);
     }
   }
@@ -134,13 +137,15 @@ export class ViewUtil {
 
     this.addToQueue(parent, child, previous, next);
 
-    if (isInvisibleNode(child)) {
+    //if (isInvisibleNode(child)) {
+    if (!child.parentNode) {
       child.parentNode = parent;
     }
+    //}
 
     if (!isDetachedElement(child)) {
       const nextVisual = this.findNextVisual(next);
-      this.addToVisualTree(parent, child, nextVisual);
+      this.addToVisualTree(parent, child, previous, nextVisual);
     }
   }
 }

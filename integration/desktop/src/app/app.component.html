@@ -1,8 +1,7 @@
-<!--<Text>{{ result$ | async }}</Text>-->
 <View (keyRelease)="onKeyRelease($event)" id="container">
   <View id="row0">
     <Button (clicked)="onOperator('~')" id="opBtn" text="AC"></Button>
-    <Text [children]="result$ | async"></Text>
+    <Text id="result" [value]="display$ | async"></Text>
   </View>
   <View *ngFor="let view of views" [id]="view.id">
     <Button
@@ -12,11 +11,4 @@
       [text]="btn.text"
     ></Button>
   </View>
-  <!--<View id="row1">
-		<Button id="valueBtn" (clicked)="onValue(7)" text="7"></Button>
-		<Button id="valueBtn" (clicked)="onValue(8)" text="8"></Button>
-		<Button id="valueBtn" (clicked)="onValue(9)" text="9"></Button>
-		<Button id="opBtnY" (clicked)="onOperator('/')" text="/"></Button>
-	</View>
-	<View id="row"></View>-->
 </View>

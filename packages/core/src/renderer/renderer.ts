@@ -16,13 +16,12 @@ export class NgQtRenderer implements Renderer2 {
   destroyNode: ((node: any) => void) | null;
 
   createComment(value: string): CommentNode {
-    console.log(value);
-    return new CommentNode();
+    return new CommentNode(value);
   }
 
   // do validation when appending child
   createText(value: string): TextNode {
-    return new TextNode();
+    return new TextNode(value);
   }
 
   addClass(el: any, name: string): void {
@@ -101,6 +100,7 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   setAttribute(widget: NgQtView, name: string, value: any, namespace?: string | null): void {
+    if (name === 'ng-version') return;
     // console.log('setAttribute', name, value);
     const { name: widgetName, attrs } = getWidgetMeta(widget);
 

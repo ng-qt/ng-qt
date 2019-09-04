@@ -15,4 +15,5 @@ export {
   isNil,
   isStr,
   hasViewMeta,
+  isView,
 } from './src/utils';
