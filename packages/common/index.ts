@@ -2,6 +2,7 @@ export * from './src/interfaces';
 export * from './src/widget.decorator';
 export * from './src/nodes';
 
+export { APP_ROOT_VIEW } from './src/tokens';
 export {
   getWidgetMeta,
   isNodeWidget,
@@ -15,5 +16,6 @@ export {
   isNil,
   isStr,
   hasViewMeta,
+  throwIfAlreadyLoaded,
   isView,
 } from './src/utils';

@@ -1,12 +1,9 @@
 // Inspired from NativeScript Angular
 
 import { FlexLayout } from '@nodegui/nodegui';
-import { NgZone } from '@angular/core';
 import { isDetachedElement, isFlexLayout, isFunc, isView, NgQtView } from '@ng-qt/common';
 
 export class ViewUtil {
-  constructor(private readonly ngZone: NgZone) {}
-
   private removeFromQueue(parent: NgQtView, child: NgQtView): void {
     if (parent.firstChild === child && parent.lastChild === child) {
       parent.firstChild = null;

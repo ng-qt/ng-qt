@@ -11,7 +11,8 @@
     "clean:dist": "rm -rf dist/",
     "cp:dist": "cp -R packages/ dist/",
     "build:tsc": "yarn clean:dist && yarn cp:dist && tsc -p packages/tsconfig-build.json",
-    "build:tsc:watch": "yarn build:tsc -w"
+    "build:tsc:watch": "yarn build:tsc -w",
+    "test": "qode node_modules/.bin/jest --runInBand --detectOpenHandles"
   },
   "husky": {
     "hooks": {
@@ -66,6 +67,7 @@
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
-    "zone.js": "0.10.2"
+    "zone.js": "0.10.2",
+    "jest-preset-angular": "7.1.1"
   }
 }

@@ -1,15 +1,24 @@
-import { NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
+import { Inject, NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
 import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
-import { CommentNode, ElementReference, getWidgetMeta, NgQtView, TextNode } from '@ng-qt/common';
-import { AppWindow, isKnownWidget, resolveWidget } from '@ng-qt/platform';
+import { isKnownWidget, resolveWidget } from '@ng-qt/platform';
+import {
+  APP_ROOT_VIEW,
+  AppRootView,
+  CommentNode,
+  ElementReference,
+  getWidgetMeta,
+  NgQtView,
+  TextNode,
+} from '@ng-qt/common';
 
 import { ViewUtil } from './view-util';
 
 export class NgQtRenderer implements Renderer2 {
   constructor(
     private readonly ngZone: NgZone,
-    private readonly rootView: AppWindow,
     private readonly viewUtil: ViewUtil,
+    @Inject(APP_ROOT_VIEW)
+    private readonly rootView: AppRootView,
   ) {}
 
   readonly data: { [p: string]: any };
@@ -93,9 +102,8 @@ export class NgQtRenderer implements Renderer2 {
     console.log('removeStyle', arguments);
   }
 
-  selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): AppWindow {
-    // console.log('selectRootElement', arguments);
-    this.rootView.centralWidget.setObjectName(selectorOrNode);
+  selectRootElement(selectorOrNode: string, preserveContent?: boolean): AppRootView {
+    this.rootView.setHostObjectName(selectorOrNode);
     return this.rootView;
   }
 

@@ -81,3 +81,11 @@ export function isInstance<T = object>(obj: T): boolean {
 export function isInvisibleNode(val: any): val is InvisibleNode {
   return val instanceof InvisibleNode;
 }
+
+export function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
+  if (parentModule) {
+    throw new Error(
+      `${moduleName} has already been loaded. Import ${moduleName} in the AppModule only.`,
+    );
+  }
+}

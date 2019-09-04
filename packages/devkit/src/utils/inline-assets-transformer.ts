@@ -1,13 +1,12 @@
 import * as ts from 'typescript';
 import {
+  Identifier,
   Node,
+  PropertyAssignment,
   SourceFile,
   TransformationContext,
   Transformer,
   Visitor,
-  PropertyAssignment,
-  Identifier,
-  Program,
 } from 'typescript';
 
 /** Angular component decorator TemplateUrl property name */
@@ -21,6 +20,16 @@ const STYLES = 'styles';
 
 const REQUIRE = 'require';
 const EXPORT_DEFAULT = 'default';
+
+/**
+ * @internal
+ */
+export const name = 'inline-assets-transformer';
+// increment this each time the code is modified
+/**
+ * @internal
+ */
+export const version = 1;
 
 /**
  * Property names anywhere in an angular project to transform
@@ -113,3 +122,5 @@ export function inlineAssetsTransformer() {
   return (ctx: TransformationContext): Transformer<SourceFile> => (sf: SourceFile) =>
     ts.visitNode(sf, createVisitor(ctx));
 }
+
+export const factory = inlineAssetsTransformer;
