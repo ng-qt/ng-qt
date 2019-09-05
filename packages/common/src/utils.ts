@@ -1,16 +1,30 @@
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
+import { PlatformRef, StaticProvider } from '@angular/core';
 import { camelCase } from 'change-case';
 
-import { NgQtView, WidgetMeta, WidgetMetaOptions, WidgetType } from './interfaces';
+import {
+  NgQtView,
+  WidgetMeta,
+  WidgetMetaOptions,
+  WidgetType,
+} from './interfaces';
 import { InvisibleNode } from './nodes';
 import { WIDGET_META } from './tokens';
 
-export function createWidgetAttrs(attrs: WidgetMetaOptions['attrs']): WidgetMeta['attrs'] {
+export type NgQtPlatformRef = (
+  extraProviders?: StaticProvider[],
+) => PlatformRef;
+
+export function createWidgetAttrs(
+  attrs: WidgetMetaOptions['attrs'],
+): WidgetMeta['attrs'] {
   return new Map(Object.entries(attrs));
 }
 
 // TODO: we need a past tense to present converter
-export function createWidgetEvents(events: WidgetMetaOptions['events']): WidgetMeta['events'] {
+export function createWidgetEvents(
+  events: WidgetMetaOptions['events'],
+): WidgetMeta['events'] {
   return new Map(
     Object.entries(events).map(([eventName, realEventName]) => [
       camelCase(eventName),
@@ -61,18 +75,18 @@ export function isFunc(val: any): val is Function {
   return typeof val === 'function';
 }
 
-export function isDetachedElement(view: NgQtView): boolean {
-  if (isInvisibleNode(view)) return true;
+export function isDetachedElement(node: NodeWidget): boolean {
+  if (isInvisibleNode(node)) return true;
 
-  const { skipAddToDom } = getWidgetMeta(view);
+  const { skipAddToDom } = getWidgetMeta(node);
   return skipAddToDom;
 }
 
-export function isParentNodeFlexLayout(child: NgQtView): boolean {
+/*export function isParentNodeFlexLayout(child: NgQtView): boolean {
   return (
     isNodeWidget(child) && isNodeWidget(child.parentNode) && isFlexLayout(child.parentNode.layout)
   );
-}
+}*/
 
 export function isInstance<T = object>(obj: T): boolean {
   return typeof obj === 'object' && 'constructor' in obj;
@@ -80,4 +94,12 @@ export function isInstance<T = object>(obj: T): boolean {
 
 export function isInvisibleNode(val: any): val is InvisibleNode {
   return val instanceof InvisibleNode;
+}
+
+export function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
+  if (parentModule) {
+    throw new Error(
+      `${moduleName} has already been loaded. Import ${moduleName} in the AppModule only.`,
+    );
+  }
 }

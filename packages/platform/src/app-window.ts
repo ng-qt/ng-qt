@@ -1,12 +1,9 @@
 import { FlexLayout, QWidget } from '@nodegui/nodegui';
-import { InjectionToken } from '@angular/core';
 import { Window } from '@ng-qt/common/widgets/window';
+import { AppRootView } from '@ng-qt/common';
 
-export const APP_ROOT_WINDOW = new InjectionToken<AppWindow>('APP_ROOT_WINDOW');
-
-export class AppWindow extends Window {
-  public readonly centralWidget: QWidget;
-  public readonly rootLayout: FlexLayout;
+export class AppWindow extends Window implements AppRootView {
+  private readonly rootLayout: FlexLayout;
 
   constructor() {
     super();
@@ -18,5 +15,9 @@ export class AppWindow extends Window {
     this.rootLayout.setFlexNode(flexNode);
     this.centralWidget.setLayout(this.rootLayout);
     this.setCentralWidget(this.centralWidget);
+  }
+
+  setHostObjectName(name: string) {
+    this.centralWidget.setObjectName(name);
   }
 }

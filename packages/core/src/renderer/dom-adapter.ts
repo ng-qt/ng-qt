@@ -16,12 +16,14 @@ export class NgQtDomAdapter implements DomAdapter {
 
   adoptNode(node: any): any {}
 
+  // TODO
   appendChild(el: any, node: any): any {}
 
   attributeMap(element: any): Map<string, string> {
     return new Map();
   }
 
+  // TODO
   childNodes(el: any): any[] {
     return [];
   }
@@ -38,14 +40,17 @@ export class NgQtDomAdapter implements DomAdapter {
 
   clone(node: any): any {}
 
+  // TODO
   contains(nodeA: any, nodeB: any): boolean {
     return false;
   }
 
   content(node: any): any {}
 
+  // TODO
   createComment(text: string): any {}
 
+  // TODO
   createElement(tagName: any, doc?: any): any {}
 
   createElementNS(ns: string, tagName: string, doc?: any): any {}
@@ -66,6 +71,7 @@ export class NgQtDomAdapter implements DomAdapter {
     return undefined;
   }
 
+  // TODO
   createTextNode(text: string, doc?: any): any {}
 
   dispatchEvent(el: any, evt: any): any {}
@@ -74,6 +80,7 @@ export class NgQtDomAdapter implements DomAdapter {
     return false;
   }
 
+  // TODO
   firstChild(el: any): any {}
 
   getAnimationPrefix(): string {
@@ -198,6 +205,7 @@ export class NgQtDomAdapter implements DomAdapter {
 
   invoke(el: any, methodName: string, args: any[]): any {}
 
+  // TODO
   isCommentNode(node: any): boolean {
     return false;
   }
@@ -218,6 +226,7 @@ export class NgQtDomAdapter implements DomAdapter {
     return false;
   }
 
+  // TODO
   isTextNode(node: any): boolean {
     return false;
   }
@@ -230,6 +239,7 @@ export class NgQtDomAdapter implements DomAdapter {
 
   logGroupEnd(): any {}
 
+  // TODO
   nextSibling(el: any): any {}
 
   nodeName(node: any): string {
@@ -254,8 +264,10 @@ export class NgQtDomAdapter implements DomAdapter {
 
   preventDefault(evt: any): any {}
 
+  // TODO
   querySelector(el: any, selector: string): any {}
 
+  // TODO
   querySelectorAll(el: any, selector: string): any[] {
     return [];
   }
@@ -278,6 +290,7 @@ export class NgQtDomAdapter implements DomAdapter {
 
   resolveAndSetHref(element: any, baseUrl: string, href: string): any {}
 
+  // TODO
   setAttribute(element: any, name: string, value: string): any {}
 
   setAttributeNS(element: any, ns: string, name: string, value: string): any {}

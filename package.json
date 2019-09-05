@@ -3,6 +3,7 @@
   "description": "Angular renderer for NodeGui",
   "license": "MIT",
   "scripts": {
+    "install:ci": "yarn install --frozen-lockfile",
     "build": "bazel build //packages/...",
     "build:watch": "ibazel build //packages/...",
     "bazel:format": "find . -type f \\( -name \"*.bzl\" -or -name WORKSPACE -or -name BUILD -or -name BUILD.bazel \\) ! -path \"*/node_modules/*\" | xargs buildifier -v --warnings=attr-cfg,attr-license,attr-non-empty,attr-output-default,attr-single-file,constant-glob,ctx-args,depset-iteration,depset-union,dict-concatenation,duplicated-name,filetype,git-repository,http-archive,integer-division,load,load-on-top,native-build,native-package,output-group,package-name,package-on-top,positional-args,redefined-variable,repository-name,same-origin-load,string-iteration,unused-variable",
@@ -11,7 +12,10 @@
     "clean:dist": "rm -rf dist/",
     "cp:dist": "cp -R packages/ dist/",
     "build:tsc": "yarn clean:dist && yarn cp:dist && tsc -p packages/tsconfig-build.json",
-    "build:tsc:watch": "yarn build:tsc -w"
+    "build:tsc:watch": "yarn build:tsc -w",
+    "test": "qode node_modules/.bin/jest",
+    "test:ci": "yarn test --ci",
+    "lint": "yarn bazel:lint"
   },
   "husky": {
     "hooks": {
@@ -40,7 +44,8 @@
     "@bazel/ibazel": "0.10.3",
     "@bazel/typescript": "0.36.2",
     "@ngtools/webpack": "8.3.2",
-    "@nodegui/nodegui": "*",
+    "@nodegui/nodegui": "0.1.7",
+    "@nodegui/qode": "1.0.4",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.4",
     "@types/webpack": "4.39.1",
@@ -66,6 +71,7 @@
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
-    "zone.js": "0.10.2"
+    "zone.js": "0.10.2",
+    "jest-preset-angular": "7.1.1"
   }
 }

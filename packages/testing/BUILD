@@ -4,31 +4,30 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
 package(default_visibility = ["//visibility:public"])
 
 ts_library(
-    name = "core",
+    name = "testing",
     srcs = glob(
-        include = ["**/*.ts"],
-        exclude = ["**/*.spec.ts"],
+        include = ["src/**/*.ts"],
+        exclude = ["src/**/*.spec.ts"],
     ),
-    module_name = "@ng-qt/core",
+    module_name = "@ng-qt/testing",
     deps = [
         "//packages/common",
         "//packages/platform",
+        "//packages/core",
         "@npm//@angular/core",
-        "@npm//@angular/common",
         "@npm//@angular/platform-browser",
-        "@npm//@nodegui/nodegui",
-        "@npm//@types",
-        "@npm//rxjs",
-        "@npm//tslib",
+        "@npm//@angular/platform-browser-dynamic",
+        "@npm//reflect-metadata",
+        "@npm//zone.js",
     ],
 )
 
 npm_package(
     name = "npm",
     srcs = [
-        "package.json",
+        ":package.json",
     ],
     deps = [
-        ":core",
+        ":testing",
     ],
 )

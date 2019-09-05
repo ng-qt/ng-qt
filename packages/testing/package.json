@@ -1,0 +1,8 @@
+{
+  "name": "@ng-qt/testing",
+  "dependencies": {
+    "@ng-qt/platform": "*",
+    "@ng-qt/core": "*",
+    "@ng-qt/common": "*"
+  }
+}

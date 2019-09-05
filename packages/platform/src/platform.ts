@@ -1,9 +1,14 @@
 import { ɵplatformCoreDynamic as platformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { createPlatformFactory } from '@angular/core';
+import { NgQtPlatformRef } from '@ng-qt/common';
 
-import { NGQT_COMPILER_PROVIDERS, NGQT_INTERNAL_PLATFORM_PROVIDERS } from './providers';
+import {
+  NGQT_COMPILER_PROVIDERS,
+  NGQT_INTERNAL_PLATFORM_PROVIDERS,
+} from './providers';
 
-export const platformDesktop = createPlatformFactory(platformCoreDynamic, 'platformNGQTDynamic', [
-  ...NGQT_INTERNAL_PLATFORM_PROVIDERS,
-  ...NGQT_COMPILER_PROVIDERS,
-]) as any;
+export const platformDesktop: NgQtPlatformRef = createPlatformFactory(
+  platformCoreDynamic,
+  'platformNgQtDynamic',
+  [...NGQT_INTERNAL_PLATFORM_PROVIDERS, ...NGQT_COMPILER_PROVIDERS],
+);
