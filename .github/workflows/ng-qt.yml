@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          bazel run @nodejs://yarn install --frozen-lockfile
+          bazel run @nodejs://yarn install:ci
 
   build:
     name: Build packages
@@ -36,4 +36,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          bazel run @nodejs//:yarn test --ci
+          bazel run @nodejs//:yarn test:ci
