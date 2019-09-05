@@ -61,18 +61,18 @@ export function isFunc(val: any): val is Function {
   return typeof val === 'function';
 }
 
-export function isDetachedElement(view: NgQtView): boolean {
-  if (isInvisibleNode(view)) return true;
+export function isDetachedElement(node: NodeWidget): boolean {
+  if (isInvisibleNode(node)) return true;
 
-  const { skipAddToDom } = getWidgetMeta(view);
+  const { skipAddToDom } = getWidgetMeta(node);
   return skipAddToDom;
 }
 
-export function isParentNodeFlexLayout(child: NgQtView): boolean {
+/*export function isParentNodeFlexLayout(child: NgQtView): boolean {
   return (
     isNodeWidget(child) && isNodeWidget(child.parentNode) && isFlexLayout(child.parentNode.layout)
   );
-}
+}*/
 
 export function isInstance<T = object>(obj: T): boolean {
   return typeof obj === 'object' && 'constructor' in obj;
