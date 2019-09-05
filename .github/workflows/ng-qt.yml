@@ -14,9 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: docker://gcr.io/cloud-builders/bazel
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - run: |
-          bazel run @nodejs//:yarn install:ci
+          yarn install:ci
 
   build:
     name: Build packages
@@ -24,9 +26,11 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v1
-      - uses: docker://gcr.io/cloud-builders/bazel
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - run: |
-          bazel run @nodejs//:yarn build
+          yarn build
 
   test:
     name: Run unit tests
@@ -34,6 +38,8 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v1
-      - uses: docker://gcr.io/cloud-builders/bazel
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - run: |
-          bazel run @nodejs//:yarn test:ci
+          yarn test:ci
