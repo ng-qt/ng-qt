@@ -13,8 +13,8 @@ ts_library(
     deps = [
         "@npm//@angular/core",
         "@npm//@nodegui/nodegui",
-        "@npm//reflect-metadata",
         "@npm//change-case",
+        "@npm//reflect-metadata",
         "@npm//tslib",
     ],
 )

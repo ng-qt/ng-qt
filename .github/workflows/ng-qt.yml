@@ -12,28 +12,28 @@ jobs:
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    container: gcr.io/cloud-builders/bazel
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://gcr.io/cloud-builders/bazel
       - run: |
           bazel run @nodejs//:yarn install:ci
 
   build:
     name: Build packages
     runs-on: ubuntu-latest
-    container: gcr.io/cloud-builders/bazel
     needs: install
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://gcr.io/cloud-builders/bazel
       - run: |
           bazel run @nodejs//:yarn build
 
   test:
     name: Run unit tests
     runs-on: ubuntu-latest
-    container: gcr.io/cloud-builders/bazel
     needs: build
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://gcr.io/cloud-builders/bazel
       - run: |
           bazel run @nodejs//:yarn test:ci
