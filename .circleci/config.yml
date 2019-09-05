@@ -1,54 +1,60 @@
-version: 2.1
-
-orbs:
-  node: circleci/node@1.1
+version: 2
 
 defaults: &defaults
-  working_directory: ~/workspace
-  executor:
-    name: node/default
-    tag: 12.9.1
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12
 
 jobs:
   install:
     <<: *defaults
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Install dependencies
-                command: yarn install:ci
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - root-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install:ci
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: root-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - persist_to_workspace:
+          root: ~/repo
+          paths: ./node_modules
 
   lint:
     <<: *defaults
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Lint project
-                command: yarn lint
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Lint
+          command: yarn lint
 
   build:
     <<: *defaults
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Build packages
-                command: yarn build
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build packages
+          command: yarn build
 
   test:
     <<: *defaults
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Run unit tests
-                command: yarn test:ci
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run unit tests
+          command: yarn test:ci
 
 workflows:
   version: 2
