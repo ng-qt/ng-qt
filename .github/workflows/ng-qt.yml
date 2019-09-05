@@ -1,0 +1,39 @@
+name: 'NG-QT workflow'
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    container: gcr.io/cloud-builders/bazel
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          bazel run @nodejs://yarn install --frozen-lockfile
+
+  build:
+    name: Build packages
+    runs-on: ubuntu-latest
+    container: gcr.io/cloud-builders/bazel
+    needs: install
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          bazel build //packages/...
+
+  test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    container: gcr.io/cloud-builders/bazel
+    needs: build
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          bazel run @nodejs//:yarn test --ci
