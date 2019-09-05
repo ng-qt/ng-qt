@@ -1,6 +1,6 @@
 import { Inject, NgZone, Renderer2, RendererStyleFlags2 } from '@angular/core';
-import { NativeEvent } from '@nodegui/nodegui/src/lib/core/EventWidget';
 import { isKnownWidget, resolveWidget } from '@ng-qt/platform';
+import { NativeEvent } from '@nodegui/nodegui';
 import {
   APP_ROOT_VIEW,
   AppRootView,
@@ -50,7 +50,11 @@ export class NgQtRenderer implements Renderer2 {
 
   destroy(): void {}
 
-  insertBefore(parent: NgQtView, newChild: NgQtView, { previous, next }: ElementReference): void {
+  insertBefore(
+    parent: NgQtView,
+    newChild: NgQtView,
+    { previous, next }: ElementReference,
+  ): void {
     this.viewUtil.insertChild(parent, newChild, previous, next);
   }
 
@@ -90,7 +94,11 @@ export class NgQtRenderer implements Renderer2 {
     console.log('removeAttribute', arguments);
   }
 
-  removeChild(parent: NgQtView, oldChild: NgQtView, isHostElement?: boolean): void {
+  removeChild(
+    parent: NgQtView,
+    oldChild: NgQtView,
+    isHostElement?: boolean,
+  ): void {
     this.viewUtil.removeChild(parent, oldChild);
   }
 
@@ -102,12 +110,20 @@ export class NgQtRenderer implements Renderer2 {
     console.log('removeStyle', arguments);
   }
 
-  selectRootElement(selectorOrNode: string, preserveContent?: boolean): AppRootView {
+  selectRootElement(
+    selectorOrNode: string,
+    preserveContent?: boolean,
+  ): AppRootView {
     this.rootView.setHostObjectName(selectorOrNode);
     return this.rootView;
   }
 
-  setAttribute(widget: NgQtView, name: string, value: any, namespace?: string | null): void {
+  setAttribute(
+    widget: NgQtView,
+    name: string,
+    value: any,
+    namespace?: string | null,
+  ): void {
     if (name === 'ng-version') return;
     // console.log('setAttribute', name, value);
     const { name: widgetName, attrs } = getWidgetMeta(widget);
@@ -128,7 +144,12 @@ export class NgQtRenderer implements Renderer2 {
     this.setAttribute(widget, name, value);
   }
 
-  setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void {
+  setStyle(
+    el: any,
+    style: string,
+    value: any,
+    flags?: RendererStyleFlags2,
+  ): void {
     // console.log('setStyle', arguments);
   }
 

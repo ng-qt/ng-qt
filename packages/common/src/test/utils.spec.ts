@@ -1,9 +1,14 @@
 import { Type } from '@angular/core';
-
-import { createWidgetAttrs, createWidgetEvents, getWidgetMeta, isDetachedElement } from '../utils';
-import { WIDGET_META } from '../tokens';
-import { CommentNode } from '@ng-qt/common';
 import { QWidget } from '@nodegui/nodegui';
+
+import {
+  createWidgetAttrs,
+  createWidgetEvents,
+  getWidgetMeta,
+  isDetachedElement,
+} from '../utils';
+import { WIDGET_META } from '../tokens';
+import { CommentNode } from '../nodes';
 
 describe('createWidgetAttrs', () => {
   it('should create attributes map from record', () => {
@@ -11,7 +16,9 @@ describe('createWidgetAttrs', () => {
       id: 'setObjectName',
     };
 
-    expect(createWidgetAttrs(attrs)).toEqual(new Map<string, string>([['id', 'setObjectName']]));
+    expect(createWidgetAttrs(attrs)).toEqual(
+      new Map<string, string>([['id', 'setObjectName']]),
+    );
   });
 });
 
@@ -21,7 +28,9 @@ describe('createWidgetEvents', () => {
       KeyPress: 'KeyPress',
     };
 
-    expect(createWidgetEvents(events)).toEqual(new Map<string, string>([['keyPress', 'KeyPress']]));
+    expect(createWidgetEvents(events)).toEqual(
+      new Map<string, string>([['keyPress', 'KeyPress']]),
+    );
   });
 });
 

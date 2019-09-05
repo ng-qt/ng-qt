@@ -18,4 +18,5 @@ export {
   hasViewMeta,
   throwIfAlreadyLoaded,
   isView,
+  NgQtPlatformRef,
 } from './src/utils';

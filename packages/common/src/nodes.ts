@@ -1,8 +1,3 @@
-// import { Widget } from './widget.decorator';
-
-/*@Widget({
-  skipAddToDom: true,
-})*/
 import { QWidget } from '@nodegui/nodegui';
 
 export abstract class InvisibleNode extends QWidget {}

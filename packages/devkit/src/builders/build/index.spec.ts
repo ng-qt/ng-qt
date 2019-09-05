@@ -1,10 +1,5 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost, TestProjectHost } from '@angular-devkit/architect/testing';
-import { getSystemPath, join, normalize, schema, workspaces } from '@angular-devkit/core';
-import { WorkspaceNodeModulesArchitectHost } from '@angular-devkit/architect/node';
-
-describe('NGQT Build', () => {
-  const target = { project: 'app', target: 'server' };
+describe('NgQt Build', () => {
+  /*const target = { project: 'app', target: 'server' };
 
   let architect: Architect;
   let architectHost: TestingArchitectHost;
@@ -12,7 +7,7 @@ describe('NGQT Build', () => {
 
   beforeEach(async () => {
     const devkitRoot = normalize(process.cwd());
-    const workspaceRoot = join(devkitRoot, '../../integration/hello-world-app');
+    const workspaceRoot = join(devkitRoot, 'integration/desktop');
     host = new TestProjectHost(workspaceRoot);
     await host.initialize().toPromise();
 
@@ -40,5 +35,5 @@ describe('NGQT Build', () => {
     const run = await architect.scheduleTarget(target);
     const output = await run.result;
     console.log(output);
-  });
+  });*/
 });

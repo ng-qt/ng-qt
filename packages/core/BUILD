@@ -14,6 +14,7 @@ ts_library(
         "//packages/common",
         "//packages/platform",
         "@npm//@angular/core",
+        "@npm//@angular/common",
         "@npm//@angular/platform-browser",
         "@npm//@nodegui/nodegui",
         "@npm//@types",

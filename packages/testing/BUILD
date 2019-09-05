@@ -10,7 +10,16 @@ ts_library(
         exclude = ["src/**/*.spec.ts"],
     ),
     module_name = "@ng-qt/testing",
-    deps = [],
+    deps = [
+        "//packages/common",
+        "//packages/platform",
+        "//packages/core",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/platform-browser-dynamic",
+        "@npm//reflect-metadata",
+        "@npm//zone.js",
+    ],
 )
 
 npm_package(
