@@ -1,0 +1,52 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: gcr.io/cloud-builders/bazel
+  steps:
+    - checkout
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - run:
+          name: Install dependencies
+          command: bazel run @nodejs//:yarn install:ci
+
+  lint:
+    <<: *defaults
+    steps:
+      - run:
+          name: Lint
+          command: bazel run @nodejs//:yarn lint
+
+  build:
+    <<: *defaults
+    steps:
+      - run:
+          name: Build packages
+          command: bazel run @nodejs//:yarn build
+
+  test:
+    <<: *defaults
+    steps:
+      - run:
+          name: Run unit tests
+          command: bazel run @nodejs//:yarn test:ci
+
+workflows:
+  version: 2
+  install-build-and-test:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - build:
+          requires:
+            - lint
+      - test:
+          requires:
+            - build
