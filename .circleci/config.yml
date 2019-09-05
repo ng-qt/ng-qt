@@ -1,40 +1,54 @@
-version: 2
+version: 2.1
+
+orbs:
+  node: circleci/node@1.1
 
 defaults: &defaults
   working_directory: ~/workspace
-  docker:
-    - image: gcr.io/cloud-builders/bazel
-  steps:
-    - checkout
+  executor:
+    name: node/default
+    tag: 12.9.1
 
 jobs:
   install:
     <<: *defaults
     steps:
-      - run:
-          name: Install dependencies
-          command: bazel run @nodejs//:yarn install:ci
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: Install dependencies
+                command: yarn install:ci
 
   lint:
     <<: *defaults
     steps:
-      - run:
-          name: Lint
-          command: bazel run @nodejs//:yarn lint
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: Lint project
+                command: yarn lint
 
   build:
     <<: *defaults
     steps:
-      - run:
-          name: Build packages
-          command: bazel run @nodejs//:yarn build
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: Build packages
+                command: yarn build
 
   test:
     <<: *defaults
     steps:
-      - run:
-          name: Run unit tests
-          command: bazel run @nodejs//:yarn test:ci
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: Run unit tests
+                command: yarn test:ci
 
 workflows:
   version: 2
