@@ -12,28 +12,28 @@ jobs:
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    container: node:12.9.1-alpine
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://node:12.9.1-alpine
       - run: |
           yarn install:ci
 
   build:
     name: Build packages
     runs-on: ubuntu-latest
-    container: node:12.9.1-alpine
     needs: install
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://node:12.9.1-alpine
       - run: |
           yarn build
 
   test:
     name: Run unit tests
     runs-on: ubuntu-latest
-    container: node:12.9.1-alpine
     needs: build
     steps:
       - uses: actions/checkout@v1
+      - uses: docker://node:12.9.1-alpine
       - run: |
           yarn test:ci
