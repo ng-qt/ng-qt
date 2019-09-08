@@ -22,6 +22,11 @@ jobs:
           key: root-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+      - run:
+          name: Install libxkbcommon-x11-0
+          command: | 
+            sudo apt update
+            sudo apt install -y libxkbcommon-x11-0
       - persist_to_workspace:
           root: ~/repo
           paths: ./node_modules
