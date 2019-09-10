@@ -8,5 +8,9 @@
   },
   "files": ["main.ts"],
   "include": ["**/*.ts"],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts"],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "strictMetadataEmit": true
+  }
 }

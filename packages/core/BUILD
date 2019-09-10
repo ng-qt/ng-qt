@@ -1,9 +1,10 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
+load("@npm_angular_bazel//:index.bzl", "ng_module")
 
 package(default_visibility = ["//visibility:public"])
 
-ts_library(
+ng_module(
     name = "core",
     srcs = glob(
         include = ["**/*.ts"],

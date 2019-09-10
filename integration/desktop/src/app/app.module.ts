@@ -4,19 +4,21 @@ import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/common';
 
 import { AppComponent } from './app.component';
 
+export function appRootViewFactory(rootView: AppRootView) {
+  rootView.setMinimumSize(300, 400);
+  rootView.setMaximumSize(500, 700);
+}
+
 @NgModule({
   imports: [NgQtModule],
   declarations: [AppComponent],
-  providers: [
+  /*providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: (rootView: AppRootView) => {
-        rootView.setMinimumSize(300, 400);
-        rootView.setMaximumSize(500, 700);
-      },
+      useFactory: appRootViewFactory,
       deps: [APP_ROOT_VIEW],
     },
-  ],
+  ],*/
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
 })

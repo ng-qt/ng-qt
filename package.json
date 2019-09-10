@@ -30,8 +30,8 @@
     "@angular-devkit/core": "8.3.2",
     "@angular-devkit/schematics": "8.3.2",
     "@angular/animations": "8.2.5",
+    "@angular/bazel": "^8.2.5",
     "@angular/cli": "8.3.2",
-    "@bazel/bazel": "0.29.0",
     "@angular/common": "8.2.5",
     "@angular/compiler": "8.2.5",
     "@angular/compiler-cli": "8.2.5",
@@ -39,6 +39,7 @@
     "@angular/platform-browser": "8.2.5",
     "@angular/platform-browser-dynamic": "8.2.5",
     "@angular/platform-server": "8.2.5",
+    "@bazel/bazel": "0.29.0",
     "@bazel/buildifier": "0.28.0",
     "@bazel/hide-bazel-files": "0.36.2",
     "@bazel/ibazel": "0.10.3",
@@ -55,6 +56,7 @@
     "fork-ts-checker-webpack-plugin": "1.5.0",
     "husky": "3.0.5",
     "jest": "24.9.0",
+    "jest-preset-angular": "7.1.1",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
     "raw-loader": "3.1.0",
@@ -71,7 +73,6 @@
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
-    "zone.js": "0.10.2",
-    "jest-preset-angular": "7.1.1"
+    "zone.js": "0.10.2"
   }
 }

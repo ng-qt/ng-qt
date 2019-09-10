@@ -18,6 +18,7 @@ ts_library(
     deps = [
         "//packages/common",
         "@npm//@angular-devkit",
+        "@npm//@ngtools/webpack",
         "@npm//@nodegui/qode",
         "@npm//@schematics/angular",
         "@npm//@types",
@@ -33,7 +34,6 @@ ts_library(
         "@npm//webpack",
         "@npm//webpack-merge",
         "@npm//webpack-node-externals",
-        "@npm//@ngtools/webpack",
     ],
 )
 

@@ -1,5 +1,5 @@
 {
-  "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
   "projects": {
@@ -10,17 +10,17 @@
       "prefix": "app",
       "targets": {
         "build": {
-          "builder": "../../dist/devkit:build",
+          "builder": "@ng-qt/devkit:build",
           "options": {
             "outputPath": "dist",
-            "main": "src/main.aot.ts",
+            "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "entryModule": "src/app/app.module.ts#AppModule",
             "aot": true
           }
         },
         "serve": {
-          "builder": "../../dist/devkit:serve",
+          "builder": "@ng-qt/devkit:serve",
           "options": {
             "buildTarget": "app:build"
           }

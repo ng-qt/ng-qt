@@ -1,5 +1,5 @@
 import { Configuration } from 'webpack';
-import { AngularCompilerPlugin } from '@ngtools/webpack';
+import { AngularCompilerPlugin, NgToolsLoader } from '@ngtools/webpack';
 import { BuildOptimizerWebpackPlugin } from '@angular-devkit/build-optimizer';
 
 import { AotBuildOptions } from '../builders/build/types';

@@ -5,13 +5,12 @@
     "build": "rm -rf lib && tsc"
   },
   "dependencies": {
-    "@angular/core": "*",
-    "change-case": "*",
     "@angular/platform-browser": "*",
     "@ng-qt/platform": "*",
     "@ng-qt/common": "*"
   },
   "peerDependencies": {
+    "@angular/core": "*",
     "@nodegui/nodegui": "*",
     "rxjs": "*",
     "zone.js": "*"

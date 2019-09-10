@@ -2,11 +2,13 @@
   "name": "@ng-qt/platform",
   "version": "0.0.1",
   "dependencies": {
-    "@ng-qt/common": "0.0.1",
+    "@ng-qt/common": "*",
     "@angular/platform-browser-dynamic": "*",
-    "@angular/common": "*",
     "@angular/compiler": "*",
-    "@angular/core": "*",
     "tslib": "*"
+  },
+  "peerDependencies": {
+    "@angular/core": "*",
+    "@angular/common": "*"
   }
 }

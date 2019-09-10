@@ -1,12 +1,11 @@
 {
   "name": "@ng-qt/common",
   "version": "0.0.1",
-  "main": "src/index.js",
   "dependencies": {
-    "@angular/core": "*",
     "change-case": "*"
   },
   "peerDependencies": {
+    "@angular/core": "*",
     "@nodegui/nodegui": "*"
   }
 }
