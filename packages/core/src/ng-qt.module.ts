@@ -6,6 +6,7 @@ import {
   ApplicationModule,
   ErrorHandler,
   NgModule,
+  NO_ERRORS_SCHEMA,
   Optional,
   RendererFactory2,
   Sanitizer,
@@ -27,6 +28,7 @@ import { NgQtSanitizer } from './sanitizer';
     { provide: RendererFactory2, useExisting: NgQtRendererFactory },
   ],
   exports: [ApplicationModule, CommonModule],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class NgQtModule {
   constructor(@Optional() @SkipSelf() parentModule: NgQtModule) {

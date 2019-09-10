@@ -4,9 +4,9 @@
     "declaration": false,
     "sourceMap": false,
     "module": "commonjs",
-    "types": ["node", "zone.js"]
+    "types": ["node", "zone.js", "reflect-metadata"]
   },
   "files": ["main.ts"],
   "include": ["**/*.ts"],
-  "exclude": ["test.ts", "**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts"]
 }

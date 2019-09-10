@@ -13,8 +13,8 @@ ts_library(
     deps = [
         "//packages/common",
         "//packages/platform",
-        "@npm//@angular/core",
         "@npm//@angular/common",
+        "@npm//@angular/core",
         "@npm//@angular/platform-browser",
         "@npm//@nodegui/nodegui",
         "@npm//@types",

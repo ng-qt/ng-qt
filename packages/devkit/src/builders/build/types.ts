@@ -17,28 +17,42 @@ export interface SourceMapOptions {
   hidden: boolean;
 }
 
-export interface BuildOptions {
+export interface BaseBuildOptions {
   main: string;
   outputPath: string;
   tsConfig: string;
-  debug: boolean;
-  showCircularDependencies: boolean;
-  watch?: boolean;
-  sourceMap?: boolean | SourceMapOptions;
   optimization?: boolean | OptimizationOptions;
-  maxWorkers?: number;
-  poll?: number;
-  useTypescriptIncrementalApi: boolean;
-
+  showCircularDependencies: boolean;
   fileReplacements: FileReplacement[];
   assets?: any[];
-
   progress?: boolean;
   statsJson?: boolean;
   verbose?: boolean;
-
   webpackConfig?: string;
-
   root?: string;
   sourceRoot?: Path;
+  sourceMap?: boolean | SourceMapOptions;
+  watch?: boolean;
+  poll?: number;
+}
+
+export interface NodeBuildOptions extends BaseBuildOptions {
+  useTypescriptIncrementalApi: boolean;
+  debug: boolean;
+  maxWorkers?: number;
+}
+
+export interface AotBuildOptions extends BaseBuildOptions {
+  aot: boolean;
+  forkTypeChecker: boolean;
+  sourceMap: boolean;
+  entryModule: string;
+}
+
+export type BuildOptionsUnion = NodeBuildOptions | AotBuildOptions;
+
+export function isAotBuild(
+  options: BuildOptionsUnion,
+): options is AotBuildOptions {
+  return 'aot' in options && options.aot; // && 'entryModule' in options;
 }

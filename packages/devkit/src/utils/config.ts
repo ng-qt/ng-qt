@@ -1,59 +1,31 @@
 // https://github.com/nrwl/nx/blob/master/packages/node/src/utils/config.ts
-import { Configuration, Stats, Plugin, ProgressPlugin, Options } from 'webpack';
+import { Configuration, Plugin } from 'webpack';
 import CircularDependencyPlugin = require('circular-dependency-plugin');
-import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
+import * as nodeExternals from 'webpack-node-externals';
+import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { inlineAssetsTransformer } from './inline-assets-transformer';
-import { BuildOptions } from '../builders/build/types';
+import { BaseBuildOptions } from '../builders/build/types';
+import { resolveModulesDir } from './normalize';
 
-function getAliases(options: BuildOptions): Record<string, string> {
-  return options.fileReplacements.reduce(
-    (aliases, replacement) => ({
-      ...aliases,
-      [replacement.replace]: replacement.with,
-    }),
-    {},
-  );
-}
-
-function getStatsConfig(options: BuildOptions): Stats.ToStringOptions {
-  return {
-    hash: true,
-    timings: false,
-    cached: false,
-    cachedAssets: false,
-    modules: false,
-    warnings: true,
-    errors: true,
-    colors: !options.verbose && !options.statsJson,
-    chunks: !options.verbose,
-    assets: !!options.verbose,
-    chunkOrigins: !!options.verbose,
-    chunkModules: !!options.verbose,
-    children: !!options.verbose,
-    reasons: !!options.verbose,
-    version: !!options.verbose,
-    errorDetails: !!options.verbose,
-    moduleTrace: !!options.verbose,
-    usedExports: !!options.verbose,
-  };
-}
-
-export function getBaseWebpackPartial(options: BuildOptions): Configuration {
-  const extensions = ['.ts', '.mjs', '.js'];
+export function getBaseWebpackConfig(options: BaseBuildOptions): Configuration {
+  const modulesDir = resolveModulesDir(options.root);
+  const extensions = ['.ts', '.mjs', '.js', '.json'];
   const mainFields = ['module', 'main'];
 
   const webpackConfig: Configuration = {
     entry: {
       main: [options.main],
     },
+    target: 'node',
     // @ts-ignore
     devtool: options.sourceMap && 'source-map',
+    node: false,
+    externals: [nodeExternals({ modulesDir })],
     mode: options.optimization ? 'production' : 'development',
     output: {
       path: options.outputPath,
+      libraryTarget: 'commonjs',
       filename: 'main.js',
     },
     module: {
@@ -62,26 +34,15 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
           test: /\.(html|css)$/,
           loader: 'raw-loader',
         },
-        {
-          test: /\.(j|t)sx?$/,
-          loader: 'ts-loader',
-          options: {
-            configFile: options.tsConfig,
-            transpileOnly: true,
-            compilerOptions: {
-              declaration: false,
-              noEmit: true,
-            },
-            getCustomTransformers: () => ({
-              before: [inlineAssetsTransformer()],
-            }),
-          },
-        },
       ],
+    },
+    watch: options.watch,
+    watchOptions: {
+      poll: options.poll,
     },
     resolve: {
       extensions,
-      alias: getAliases(options),
+      mainFields,
       plugins: [
         new TsConfigPathsPlugin({
           configFile: options.tsConfig,
@@ -89,32 +50,9 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
           mainFields,
         }),
       ],
-      mainFields,
     },
-    watch: options.watch,
-    watchOptions: {
-      poll: options.poll,
-    },
-    performance: {
-      hints: false,
-    },
-    plugins: [
-      new ForkTsCheckerWebpackPlugin({
-        tsconfig: options.tsConfig,
-        useTypescriptIncrementalApi: options.useTypescriptIncrementalApi,
-        workers: options.useTypescriptIncrementalApi
-          ? ForkTsCheckerWebpackPlugin.ONE_CPU
-          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
-      }),
-    ],
-    stats: getStatsConfig(options),
+    plugins: [],
   };
-
-  const extraPlugins: Plugin[] = [];
-
-  if (options.progress) {
-    extraPlugins.push(new ProgressPlugin());
-  }
 
   // process asset entries
   if (options.assets) {
@@ -139,18 +77,16 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
       copyWebpackPluginPatterns,
       copyWebpackPluginOptions,
     );
-    extraPlugins.push(copyWebpackPluginInstance);
+    webpackConfig.plugins.push(copyWebpackPluginInstance);
   }
 
   if (options.showCircularDependencies) {
-    extraPlugins.push(
+    webpackConfig.plugins.push(
       new CircularDependencyPlugin({
         exclude: /[\\\/]node_modules[\\\/]/,
       }),
     );
   }
-
-  webpackConfig.plugins = [...webpackConfig.plugins!, ...extraPlugins];
 
   return webpackConfig;
 }

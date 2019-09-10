@@ -11,16 +11,17 @@
     "@angular-devkit/build-webpack": "*",
     "@schematics/angular": "*",
     "copy-webpack-plugin": "*",
-    "typescript": "*",
     "webpack": "*",
     "tsconfig-paths-webpack-plugin": "*",
     "fork-ts-checker-webpack-plugin": "*",
     "circular-dependency-plugin": "*",
     "webpack-merge": "*",
     "webpack-node-externals": "*",
-    "raw-loader": "*"
+    "raw-loader": "*",
+    "@ngtools/webpack": "*"
   },
   "peerDependencies": {
+    "typescript": "*",
     "@nodegui/nodegui": "*"
   }
 }

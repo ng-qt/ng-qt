@@ -3,51 +3,20 @@
   "title": "Node Application Build Target",
   "description": "Node application build target options for Build Facade",
   "type": "object",
+  "required": ["tsConfig", "main"],
   "properties": {
-    "main": {
-      "type": "string",
-      "description": "The name of the main entry-point file."
-    },
-    "aot": {
-      "type": "boolean",
-      "description": "Enable AOT compilation",
-      "default": false
-    },
     "tsConfig": {
       "type": "string",
       "description": "The name of the Typescript configuration file."
     },
-    "watch": {
-      "type": "boolean",
-      "description": "Run build when files change.",
-      "default": false
-    },
-    "poll": {
-      "type": "number",
-      "description": "Frequency of file watcher in ms."
-    },
-    "useTypescriptIncrementalApi": {
-      "type": "boolean",
-      "description": "Use Typescript incremental API",
-      "default": true
+    "main": {
+      "type": "string",
+      "description": "The name of the main entry-point file."
     },
     "sourceMap": {
       "type": "boolean",
       "description": "Produce source maps.",
       "default": true
-    },
-    "progress": {
-      "type": "boolean",
-      "description": "Log progress to the console while building.",
-      "default": false
-    },
-    "assets": {
-      "type": "array",
-      "description": "List of static application assets.",
-      "default": [],
-      "items": {
-        "$ref": "#/definitions/assetPattern"
-      }
     },
     "externalDependencies": {
       "oneOf": [
@@ -64,6 +33,33 @@
       ],
       "description": "Dependencies to keep external to the bundle. (\"all\" (default), \"none\", or an array of module names)",
       "default": "all"
+    },
+    "showCircularDependencies": {
+      "type": "boolean",
+      "description": "Show circular dependency warnings on builds.",
+      "default": true
+    },
+    "webpackConfig": {
+      "type": "string",
+      "description": "Path to a function which takes a webpack config, context and returns the resulting webpack config"
+    },
+    "fileReplacements": {
+      "description": "Replace files with other files in the build.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "replace": {
+            "type": "string"
+          },
+          "with": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["replace", "with"]
+      },
+      "default": []
     },
     "statsJson": {
       "type": "boolean",
@@ -85,72 +81,81 @@
       "description": "Defines the optimization level of the build.",
       "default": false
     },
-    "showCircularDependencies": {
+    "progress": {
       "type": "boolean",
-      "description": "Show circular dependency warnings on builds.",
+      "description": "Log progress to the console while building.",
+      "default": false
+    },
+    "assets": {
+      "type": "array",
+      "description": "List of static application assets.",
+      "default": []
+    },
+    "definitions": {
+      "assetPattern": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "glob": {
+                "type": "string",
+                "description": "The pattern to match."
+              },
+              "input": {
+                "type": "string",
+                "description": "The input directory path in which to apply 'glob'. Defaults to the project root."
+              },
+              "ignore": {
+                "description": "An array of globs to ignore.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "output": {
+                "type": "string",
+                "description": "Absolute path within the output."
+              }
+            },
+            "additionalProperties": false,
+            "required": ["glob", "input", "output"]
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "aot": {
+      "type": "boolean",
+      "description": "Enable AOT compilation"
+    },
+    "entryModule": {
+      "type": "string",
+      "description": "Entry module for AOT compilation"
+    },
+    "forkTypeChecker": {
+      "type": "boolean",
+      "description": "",
+      "default": true
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Run build when files change.",
+      "default": false
+    },
+    "poll": {
+      "type": "number",
+      "description": "Frequency of file watcher in ms."
+    },
+    "useTypescriptIncrementalApi": {
+      "type": "boolean",
+      "description": "Use Typescript incremental API",
       "default": true
     },
     "maxWorkers": {
       "type": "number",
       "description": "Number of workers to use for type checking. (defaults to # of CPUS - 2)"
-    },
-    "fileReplacements": {
-      "description": "Replace files with other files in the build.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "replace": {
-            "type": "string"
-          },
-          "with": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false,
-        "required": ["replace", "with"]
-      },
-      "default": []
-    },
-    "webpackConfig": {
-      "type": "string",
-      "description": "Path to a function which takes a webpack config, context and returns the resulting webpack config"
-    }
-  },
-  "required": ["tsConfig", "main"],
-  "definitions": {
-    "assetPattern": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "glob": {
-              "type": "string",
-              "description": "The pattern to match."
-            },
-            "input": {
-              "type": "string",
-              "description": "The input directory path in which to apply 'glob'. Defaults to the project root."
-            },
-            "ignore": {
-              "description": "An array of globs to ignore.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "output": {
-              "type": "string",
-              "description": "Absolute path within the output."
-            }
-          },
-          "additionalProperties": false,
-          "required": ["glob", "input", "output"]
-        },
-        {
-          "type": "string"
-        }
-      ]
     }
   }
 }

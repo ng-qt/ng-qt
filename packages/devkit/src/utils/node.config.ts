@@ -1,38 +1,79 @@
-import { Configuration } from 'webpack';
-import { resolve } from 'path';
-import * as fs from 'fs';
-import * as mergeWebpack from 'webpack-merge';
-import * as nodeExternals from 'webpack-node-externals';
+import { Configuration, Stats } from 'webpack';
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-import { BuildOptions } from '../builders/build/types';
-import { getBaseWebpackPartial } from './config';
+import { inlineAssetsTransformer } from './inline-assets-transformer';
+import { BaseBuildOptions, NodeBuildOptions } from '../builders/build/types';
 
-export function resolveModulesDir(root: string): string {
-  const dir = resolve(root, 'node_modules');
-
-  try {
-    fs.accessSync(dir, fs.constants.R_OK);
-    return dir;
-  } catch {}
-
-  const parentDir = resolve(root, '..');
-  return resolveModulesDir(parentDir);
+function getAliases(options: BaseBuildOptions): Record<string, string> {
+  return options.fileReplacements.reduce(
+    (aliases, replacement) => ({
+      ...aliases,
+      [replacement.replace]: replacement.with,
+    }),
+    {},
+  );
 }
 
-export function getNodePartial(options: BuildOptions) {
-  const modulesDir = resolveModulesDir(options.root!);
+function getStatsConfig(options: BaseBuildOptions): Stats.ToStringOptions {
+  return {
+    hash: true,
+    timings: false,
+    cached: false,
+    cachedAssets: false,
+    modules: false,
+    warnings: true,
+    errors: true,
+    colors: !options.verbose && !options.statsJson,
+    chunks: !options.verbose,
+    assets: !!options.verbose,
+    chunkOrigins: !!options.verbose,
+    chunkModules: !!options.verbose,
+    children: !!options.verbose,
+    reasons: !!options.verbose,
+    version: !!options.verbose,
+    errorDetails: !!options.verbose,
+    moduleTrace: !!options.verbose,
+    usedExports: !!options.verbose,
+  };
+}
 
+export function getNodeWebpackConfig(options: NodeBuildOptions): Configuration {
   const webpackConfig: Configuration = {
-    output: {
-      libraryTarget: 'commonjs',
+    module: {
+      rules: [
+        {
+          test: /\.(j|t)sx?$/,
+          loader: 'ts-loader',
+          options: {
+            configFile: options.tsConfig,
+            transpileOnly: true,
+            compilerOptions: {
+              declaration: false,
+              noEmit: true,
+            },
+            getCustomTransformers: () => ({
+              before: [inlineAssetsTransformer()],
+            }),
+          },
+        },
+      ],
     },
-    target: 'node',
-    node: false,
-    externals: [
-      nodeExternals({
-        modulesDir,
+    resolve: {
+      alias: getAliases(options),
+    },
+    performance: {
+      hints: false,
+    },
+    plugins: [
+      new ForkTsCheckerWebpackPlugin({
+        tsconfig: options.tsConfig,
+        useTypescriptIncrementalApi: options.useTypescriptIncrementalApi,
+        workers: options.useTypescriptIncrementalApi
+          ? ForkTsCheckerWebpackPlugin.ONE_CPU
+          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
       }),
     ],
+    stats: getStatsConfig(options),
   };
 
   if (options.optimization) {
@@ -42,24 +83,5 @@ export function getNodePartial(options: BuildOptions) {
     };
   }
 
-  /*if (options.externalDependencies === 'all') {
-    webpackConfig.externals = [nodeExternals()];
-  } else if (Array.isArray(options.externalDependencies)) {
-    webpackConfig.externals = [
-      function(context, request, callback: Function) {
-        if (options.externalDependencies.includes(request)) {
-          // not bundled
-          return callback(null, 'commonjs ' + request);
-        }
-        // bundled
-        callback();
-      }
-    ];
-  }*/
-
   return webpackConfig;
-}
-
-export function getNodeWebpackConfig(options: BuildOptions) {
-  return mergeWebpack([getBaseWebpackPartial(options), getNodePartial(options)]);
 }

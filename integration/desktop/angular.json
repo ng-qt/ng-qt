@@ -13,9 +13,10 @@
           "builder": "../../dist/devkit:build",
           "options": {
             "outputPath": "dist",
-            "main": "src/main.ts",
+            "main": "src/main.aot.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "showCircularDependencies": false
+            "entryModule": "src/app/app.module.ts#AppModule",
+            "aot": true
           }
         },
         "serve": {
@@ -25,6 +26,12 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
     }
   }
 }

@@ -12,8 +12,8 @@ ts_library(
     module_name = "@ng-qt/testing",
     deps = [
         "//packages/common",
-        "//packages/platform",
         "//packages/core",
+        "//packages/platform",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
         "@npm//@angular/platform-browser-dynamic",

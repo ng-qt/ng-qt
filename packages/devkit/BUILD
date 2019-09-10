@@ -33,6 +33,7 @@ ts_library(
         "@npm//webpack",
         "@npm//webpack-merge",
         "@npm//webpack-node-externals",
+        "@npm//@ngtools/webpack",
     ],
 )
 

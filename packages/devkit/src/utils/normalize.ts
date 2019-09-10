@@ -1,35 +1,49 @@
 import { normalize } from '@angular-devkit/core';
 import { resolve, dirname, relative, basename } from 'path';
-import { statSync } from 'fs';
+import * as fs from 'fs';
 
-import { BuildOptions } from '../builders/build/types';
+import {
+  AotBuildOptions,
+  NodeBuildOptions,
+  BuildOptionsUnion,
+} from '../builders/build/types';
 
 export interface FileReplacement {
   replace: string;
   with: string;
 }
 
-export function normalizeBuildOptions<T extends BuildOptions>(
-  options: T,
-  root: string,
-  sourceRoot: string,
-): T {
-  return {
-    ...options,
-    root: root,
-    sourceRoot: sourceRoot,
-    main: resolve(root, options.main),
-    outputPath: resolve(root, options.outputPath),
-    tsConfig: resolve(root, options.tsConfig),
-    fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
-    assets: normalizeAssets(options.assets!, root, sourceRoot),
-    webpackConfig: options.webpackConfig
-      ? resolve(root, options.webpackConfig)
-      : options.webpackConfig,
-  };
+export function resolveModulesDir(root: string): string {
+  const dir = resolve(root, 'node_modules');
+
+  try {
+    fs.accessSync(dir, fs.constants.R_OK);
+    return dir;
+  } catch {}
+
+  const parentDir = resolve(root, '..');
+  return resolveModulesDir(parentDir);
 }
 
-function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[] {
+function resolveOptional(root: string, property: string): string {
+  return property ? resolve(root, property) : property;
+}
+
+function normalizeFileReplacements(
+  root: string,
+  fileReplacements: FileReplacement[],
+): FileReplacement[] {
+  return fileReplacements.map(fileReplacement => ({
+    replace: resolve(root, fileReplacement.replace),
+    with: resolve(root, fileReplacement.with),
+  }));
+}
+
+function normalizeAssets(
+  assets: any[],
+  root: string,
+  sourceRoot: string,
+): any[] {
   return assets.map(asset => {
     if (typeof asset === 'string') {
       const assetPath = normalize(asset);
@@ -42,8 +56,10 @@ function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[]
         );
       }
 
-      const isDirectory = statSync(resolvedAssetPath).isDirectory();
-      const input = isDirectory ? resolvedAssetPath : dirname(resolvedAssetPath);
+      const isDirectory = fs.statSync(resolvedAssetPath).isDirectory();
+      const input = isDirectory
+        ? resolvedAssetPath
+        : dirname(resolvedAssetPath);
       const output = relative(resolvedSourceRoot, resolve(root, input));
       const glob = isDirectory ? '**/*' : basename(resolvedAssetPath);
       return {
@@ -53,7 +69,9 @@ function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[]
       };
     } else {
       if (asset.output.startsWith('..')) {
-        throw new Error('An asset cannot be written to a location outside of the output path.');
+        throw new Error(
+          'An asset cannot be written to a location outside of the output path.',
+        );
       }
 
       const assetPath = normalize(asset.input);
@@ -68,12 +86,39 @@ function normalizeAssets(assets: any[], root: string, sourceRoot: string): any[]
   });
 }
 
-function normalizeFileReplacements(
+export function normalizeBaseBuildOptions<T extends BuildOptionsUnion>(
+  options: T,
   root: string,
-  fileReplacements: FileReplacement[],
-): FileReplacement[] {
-  return fileReplacements.map(fileReplacement => ({
-    replace: resolve(root, fileReplacement.replace),
-    with: resolve(root, fileReplacement.with),
-  }));
+  sourceRoot: string,
+): BuildOptionsUnion {
+  return {
+    ...options,
+    root,
+    sourceRoot,
+    main: resolve(root, options.main),
+    outputPath: resolve(root, options.outputPath),
+    tsConfig: resolve(root, options.tsConfig),
+    fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
+    assets: normalizeAssets(options.assets!, root, sourceRoot),
+    webpackConfig: resolveOptional(root, options.webpackConfig),
+  };
+}
+
+export function normalizeAotBuildOptions<T extends AotBuildOptions>(
+  options: T,
+  root: string,
+): T {
+  return {
+    ...options,
+    entryModule: resolve(root, options.entryModule),
+  };
+}
+
+export function normalizeNodeBuildOptions<T extends NodeBuildOptions>(
+  options: T,
+  root: string,
+): T {
+  return {
+    ...options,
+  };
 }
