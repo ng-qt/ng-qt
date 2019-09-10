@@ -8,6 +8,11 @@
       "type": "string",
       "description": "The name of the main entry-point file."
     },
+    "aot": {
+      "type": "boolean",
+      "description": "Enable AOT compilation",
+      "default": false
+    },
     "tsConfig": {
       "type": "string",
       "description": "The name of the Typescript configuration file."
