@@ -1,8 +1,8 @@
 import { Configuration, Stats } from 'webpack';
-import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-import { inlineAssetsTransformer } from './inline-assets-transformer';
+import { inlineAssetsTransformer } from '../transformers/inline-assets-transformer';
 import { BaseBuildOptions, NodeBuildOptions } from '../builders/build/types';
+import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getAliases(options: BaseBuildOptions): Record<string, string> {
   return options.fileReplacements.reduce(

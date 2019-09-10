@@ -8,19 +8,19 @@
     "zone.js": "*",
     "@nodegui/nodegui": "*",
     "@nodegui/qode": "*",
-    "@ng-qt/core": "file:../../bazel-bin/packages/core/npm",
-    "@ng-qt/common": "file:../../bazel-bin/packages/common/npm",
-    "@ng-qt/platform": "file:../../bazel-bin/packages/platform/npm"
+    "@ng-qt/core": "file:../../dist/packages/core",
+    "@ng-qt/common": "file:../../dist/packages/common",
+    "@ng-qt/platform": "file:../../dist/packages/platform"
   },
   "devDependencies": {
     "@angular/cli": "*",
-    "@ng-qt/devkit": "file:../../bazel-bin/packages/devkit/npm",
+    "@ng-qt/devkit": "file:../../dist/packages/devkit",
     "typescript": "*"
   },
   "resolutions": {
-    "@ng-qt/core": "file:../../bazel-bin/packages/core/npm",
-    "@ng-qt/common": "file:../../bazel-bin/packages/common/npm",
-    "@ng-qt/platform": "file:../../bazel-bin/packages/platform/npm",
-    "@ng-qt/devkit": "file:../../bazel-bin/packages/devkit/npm"
+    "@ng-qt/core": "file:../../dist/packages/core",
+    "@ng-qt/common": "file:../../dist/packages/common",
+    "@ng-qt/platform": "file:../../dist/packages/platform",
+    "@ng-qt/devkit": "file:../../dist/packages/devkit"
   }
 }

@@ -1,16 +1,25 @@
 import { normalize } from '@angular-devkit/core';
-import { resolve, dirname, relative, basename } from 'path';
+import { basename, dirname, relative, resolve } from 'path';
 import * as fs from 'fs';
 
 import {
   AotBuildOptions,
-  NodeBuildOptions,
   BuildOptionsUnion,
+  NodeBuildOptions,
 } from '../builders/build/types';
 
 export interface FileReplacement {
   replace: string;
   with: string;
+}
+
+export const NG_FACTORY_EXT = '.ngfactory.ts';
+export const NG_STYLE_EXT = '.ngstyle.ts';
+
+export function normalizeFactoryPath(path: string): string {
+  return path.endsWith('.ts')
+    ? path.replace('.ts', '.ngfactory')
+    : path + '.ngfactory';
 }
 
 export function resolveModulesDir(root: string): string {

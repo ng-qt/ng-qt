@@ -1,14 +1,18 @@
-import { Inject, Injectable, NgZone, RendererFactory2, RendererType2 } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  NgZone,
+  RendererFactory2,
+  RendererType2,
+} from '@angular/core';
 import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/common';
 import { NodeWidget } from '@nodegui/nodegui';
 
 import { NgQtSharedStylesHost } from './shared-styles-host';
 import { NgQtRenderer } from './renderer';
-import { ViewUtil } from '@ng-qt/core/src/renderer/view-util';
+import { ViewUtil } from './view-util';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class NgQtRendererFactory implements RendererFactory2 {
   private readonly rendererByCompId = new Map<string, NgQtRenderer>();
   private readonly viewUtil = new ViewUtil();
@@ -20,10 +24,17 @@ export class NgQtRendererFactory implements RendererFactory2 {
     @Inject(APP_ROOT_VIEW)
     private readonly rootView: AppRootView,
   ) {
-    this.defaultRenderer = new NgQtRenderer(this.ngZone, this.viewUtil, this.rootView);
+    this.defaultRenderer = new NgQtRenderer(
+      this.ngZone,
+      this.viewUtil,
+      this.rootView,
+    );
   }
 
-  createRenderer(hostWidget: NodeWidget, type: RendererType2 | null): NgQtRenderer {
+  createRenderer(
+    hostWidget: NodeWidget,
+    type: RendererType2 | null,
+  ): NgQtRenderer {
     if (!hostWidget || !type) {
       return this.defaultRenderer;
     }

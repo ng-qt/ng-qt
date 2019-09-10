@@ -7,10 +7,10 @@
     "types": ["node", "zone.js", "reflect-metadata"]
   },
   "files": ["main.ts"],
-  "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
-    "skipTemplateCodegen": false,
-    "strictMetadataEmit": true
+    "annotateForClosureCompiler": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

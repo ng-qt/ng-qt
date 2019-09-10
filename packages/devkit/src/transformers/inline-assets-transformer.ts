@@ -41,7 +41,9 @@ export function inlineAssetsTransformer() {
    * Traverses the AST down to the relevant assignments anywhere in the file
    * and returns a boolean indicating if it should be transformed.
    */
-  function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
+  function isPropertyAssignmentToTransform(
+    node: Node,
+  ): node is PropertyAssignment {
     return (
       ts.isPropertyAssignment(node) &&
       ts.isIdentifier(node.name) &&
@@ -119,8 +121,9 @@ export function inlineAssetsTransformer() {
     return visitor;
   }
 
-  return (ctx: TransformationContext): Transformer<SourceFile> => (sf: SourceFile) =>
-    ts.visitNode(sf, createVisitor(ctx));
+  return (ctx: TransformationContext): Transformer<SourceFile> => (
+    sf: SourceFile,
+  ) => ts.visitNode(sf, createVisitor(ctx));
 }
 
 export const factory = inlineAssetsTransformer;

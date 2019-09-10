@@ -22,6 +22,9 @@ node_repositories(package_json = ["//:package.json"])
 yarn_install(
     # Name this npm so that Bazel Label references look like @npm//package
     name = "npm",
+    data = [
+        "//:angular-metadata.tsconfig.json",
+    ],
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )

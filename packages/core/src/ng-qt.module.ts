@@ -11,6 +11,7 @@ import {
   RendererFactory2,
   Sanitizer,
   SkipSelf,
+  SystemJsNgModuleLoader,
   ɵAPP_ROOT as APP_ROOT,
 } from '@angular/core';
 
@@ -19,7 +20,11 @@ import { errorHandlerFactory } from './error-handler';
 import { NgQtSanitizer } from './sanitizer';
 
 @NgModule({
+  imports: [ApplicationModule, CommonModule],
   providers: [
+    SystemJsNgModuleLoader,
+    NgQtRendererFactory,
+    NgQtSharedStylesHost,
     { provide: APP_ROOT, useValue: true },
     { provide: Sanitizer, useClass: NgQtSanitizer },
     { provide: ErrorHandler, useFactory: errorHandlerFactory },
@@ -32,7 +37,6 @@ import { NgQtSanitizer } from './sanitizer';
 })
 export class NgQtModule {
   constructor(@Optional() @SkipSelf() parentModule: NgQtModule) {
-    // Prevents NativeScriptModule from getting imported multiple times
     throwIfAlreadyLoaded(parentModule, NgQtModule.name);
   }
 }

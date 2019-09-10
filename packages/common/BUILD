@@ -1,6 +1,4 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
-load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
-load("@npm_angular_bazel//:index.bzl", "ng_module")
+load("@npm_angular_bazel//:index.bzl", "ng_module", "ng_package")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -20,11 +18,12 @@ ng_module(
     ],
 )
 
-npm_package(
+ng_package(
     name = "npm",
     srcs = [
         "package.json",
     ],
+    entry_point = ":index.ts",
     deps = [
         ":common",
     ],

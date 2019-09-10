@@ -157,15 +157,15 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/bazel@^8.2.5":
-  version "8.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/bazel/-/bazel-8.2.5.tgz#48f1c521c7e1739303eac39156302e186ccdab32"
-  integrity sha512-0wEKCA1BhKwK8TwO8gEAHTafnI/UF+MBf39bz7Q+FD5LH0g20gRAqOoufSDL6/IxpX4RDHdOUwbgo5QqUNRO8A==
+"@angular/bazel@9.0.0-next.5":
+  version "9.0.0-next.5"
+  resolved "https://registry.yarnpkg.com/@angular/bazel/-/bazel-9.0.0-next.5.tgz#9b7945efa824e9b46dc55a144f60c8ae405a42f8"
+  integrity sha512-zj2RmhdHHgkhpjwkUTAlulUTtyd8IL4Z5+xFN2pWIscGk8r47neJp5zmI9fay9ys72c6Sj6+NZlSwplDIDUsuA==
   dependencies:
     "@angular-devkit/architect" "^0.800.0-beta.15"
     "@angular-devkit/core" "^8.0.0-beta.15"
     "@angular-devkit/schematics" "^8.0.0-beta.15"
-    "@microsoft/api-extractor" "7.0.21"
+    "@microsoft/api-extractor" "^7.3.9"
     "@schematics/angular" "^8.0.0-beta.15"
     "@types/node" "6.0.84"
     semver "^5.6.0"
@@ -1118,26 +1118,34 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@microsoft/api-extractor@7.0.21":
-  version "7.0.21"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.0.21.tgz#d5ff9bba4ff7283503aac83ad489b16cad293fc7"
-  integrity sha512-7lFcHNykVz0tvgOz9juXqP+a1j0EmnJ9J080CBE/171IxL4fBrpslPhqN86dNuavuPragRpBLc8Okv/bV7FJPQ==
+"@microsoft/api-extractor-model@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.3.4.tgz#5c3efee4022cab856516d0d447d4ee7dca5336c5"
+  integrity sha512-a9gXhWG7PWcUNpJRtxGZ/Vepq1ke5ES2B6NnBH0M3zT//vGYXymf7aOQepCHfmY4p1cJvvmJoJNGMwtoC0eF5A==
   dependencies:
-    "@microsoft/node-core-library" "3.12.0"
-    "@microsoft/ts-command-line" "4.2.3"
-    "@microsoft/tsdoc" "0.12.5"
+    "@microsoft/node-core-library" "3.14.1"
+    "@microsoft/tsdoc" "0.12.14"
     "@types/node" "8.5.8"
-    "@types/z-schema" "3.16.31"
-    colors "~1.2.1"
-    lodash "~4.17.5"
-    resolve "1.8.1"
-    typescript "~3.1.6"
-    z-schema "~3.18.3"
 
-"@microsoft/node-core-library@3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@microsoft/node-core-library/-/node-core-library-3.12.0.tgz#f9c27b8bb6b55d60b91d4e1962f42b03b9f8f47f"
-  integrity sha512-9T2dEXmmxZqnqcpHuIB8mTAOM/DNSi/QcAwKYDjvZvkd+PGT5lCUXjM9GL7SaR2NPa3UrWDGgFhNoqLqLfEPbw==
+"@microsoft/api-extractor@^7.3.9":
+  version "7.3.11"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.3.11.tgz#558e5244357f7f0e111b69f7bea190eb466ae908"
+  integrity sha512-i/hBovsbk1btBIQFWHHbAQdcXxL07+nYwF6wxDabtM+rJgySQ/flsjZJYXJV+ADlP0L3jyKdWZNF03M3zlQUlw==
+  dependencies:
+    "@microsoft/api-extractor-model" "7.3.4"
+    "@microsoft/node-core-library" "3.14.1"
+    "@microsoft/ts-command-line" "4.2.7"
+    "@microsoft/tsdoc" "0.12.14"
+    colors "~1.2.1"
+    lodash "~4.17.15"
+    resolve "1.8.1"
+    source-map "~0.6.1"
+    typescript "~3.5.3"
+
+"@microsoft/node-core-library@3.14.1":
+  version "3.14.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/node-core-library/-/node-core-library-3.14.1.tgz#3eaeede8f7dffc030c53895218a3ee925491dbcc"
+  integrity sha512-KVYef9kjK6lmGOOjYRctYFX3ymZ71xobweBftwP8hQS5JTBX+QqpAOvfiFQmlMgfJ7/TS7u3u3QjVzeztuz5cg==
   dependencies:
     "@types/fs-extra" "5.0.4"
     "@types/jju" "~1.4.0"
@@ -1148,20 +1156,20 @@
     jju "~1.4.0"
     z-schema "~3.18.3"
 
-"@microsoft/ts-command-line@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@microsoft/ts-command-line/-/ts-command-line-4.2.3.tgz#20d6a1684148b9fc0df25ee7335c3bb227d47d4f"
-  integrity sha512-SIs4q7RcG7efBbh5Ffrf6V4jVLxWihD4NDRY3+gPiOG8CYawBzE22tTEloZ1yj/FBvBZQkQ0GYwXoPhn6ElYXA==
+"@microsoft/ts-command-line@4.2.7":
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/@microsoft/ts-command-line/-/ts-command-line-4.2.7.tgz#01e963c683ae782e57225c5c424aa65702a9732c"
+  integrity sha512-PwUMIIDl8oWyl64Y5DW5FAuoRk4KWTBZdk4FEh366KEm5xYFBQhCeatHGURIj8nEYm0Xb2coCrXF77dGDlp/Qw==
   dependencies:
     "@types/argparse" "1.0.33"
     "@types/node" "8.5.8"
     argparse "~1.0.9"
     colors "~1.2.1"
 
-"@microsoft/tsdoc@0.12.5":
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.5.tgz#c448a38902ccb5601c1b2ef3b1a105012ef7712c"
-  integrity sha512-xEAyvLXo4Cter/b0EMCWUZTgXOfLOPJ/Xr52WdjVclPx9eDmNTGFtZl8Pn/nqSnZsQBNcHL0eHk/YyRyyXXpiQ==
+"@microsoft/tsdoc@0.12.14":
+  version "0.12.14"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.14.tgz#0e0810a0a174e50e22dfe8edb30599840712f22d"
+  integrity sha512-518yewjSga1jLdiLrcmpMFlaba5P+50b0TWNFUpC+SL9Yzf0kMi57qw+bMl+rQ08cGqH1vLx4eg9YFUbZXgZ0Q==
 
 "@ngtools/webpack@8.3.2":
   version "8.3.2"
@@ -5710,7 +5718,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.5:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -8808,15 +8816,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.5.3:
+typescript@3.5.3, typescript@~3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
   integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
-
-typescript@~3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.6.tgz#b6543a83cfc8c2befb3f4c8fba6896f5b0c9be68"
-  integrity sha512-tDMYfVtvpb96msS1lDX9MEdHrW4yOuZ4Kdc4Him9oU796XldPYF/t2+uKoX0BBa0hXXwDlqYQbXY5Rzjzc5hBA==
 
 uglify-js@^3.1.4:
   version "3.6.0"

@@ -1,13 +1,12 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
-load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
+load("@npm_angular_bazel//:index.bzl", "ng_module", "ng_package")
 
-package(default_visibility = ["//visibility:public"])
+# package(default_visibility = ["//visibility:public"])
 
-ts_library(
+ng_module(
     name = "testing",
     srcs = glob(
-        include = ["src/**/*.ts"],
-        exclude = ["src/**/*.spec.ts"],
+        include = ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
     ),
     module_name = "@ng-qt/testing",
     deps = [
@@ -22,11 +21,12 @@ ts_library(
     ],
 )
 
-npm_package(
+ng_package(
     name = "npm",
     srcs = [
         ":package.json",
     ],
+    entry_point = ":index.ts",
     deps = [
         ":testing",
     ],

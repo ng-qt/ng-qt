@@ -1,9 +1,7 @@
 import { Injectable, NgZone, RendererType2 } from '@angular/core';
 import { NodeWidget } from '@nodegui/nodegui';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class NgQtSharedStylesHost /*implements SharedStylesHost */ {
   constructor(private readonly ngZone: NgZone) {}
 
