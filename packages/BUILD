@@ -1,5 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
 exports_files([
-    "tsconfig-build.json",
+    "tsconfig-bazel-build.json",
 ])
