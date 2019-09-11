@@ -1076,7 +1076,7 @@
     tree-kill "1.2.1"
     webpack-sources "1.4.3"
 
-"@nodegui/nodegui@*":
+"@nodegui/nodegui@0.1.7":
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/@nodegui/nodegui/-/nodegui-0.1.7.tgz#4dd86e7c10b1527fbf6f144098372eb4672780c5"
   integrity sha512-30+VEPKd5kaQyq5NlACOOMVSSQEFH209oVf4rrTS/DFHD2gDkQ/gd68we/l3ZmWVvCss+5igeCnUh8zYYDDwkQ==
@@ -1086,6 +1086,17 @@
     node-addon-api "^1.6.3"
     node-gyp "^4.0.0"
     postcss-nodegui-autoprefixer "0.0.7"
+
+"@nodegui/qode@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.5.tgz#37dbc8e868422b9e8481d314f273dee136571b80"
+  integrity sha512-JKb4JcC03VCdodmiL35VfznsCKHpiKOYbtgf9+KTHhH5p7IXvr+0k/LIq112T6Rpxd5zXa1pbsnfa2F8ReyWEg==
+  dependencies:
+    env-paths "^2.2.0"
+    extract-zip "^1.6.7"
+    fs-extra "^8.1.0"
+    got "^9.6.0"
+    progress "^2.0.3"
 
 "@nodegui/qode@^1.0.4":
   version "1.0.4"
