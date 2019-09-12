@@ -1,5 +1,5 @@
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
-import { PlatformRef, StaticProvider } from '@angular/core';
+import { PlatformRef, StaticProvider, Type } from '@angular/core';
 import { camelCase } from 'change-case';
 
 import {
@@ -31,6 +31,11 @@ export function createWidgetEvents(
       realEventName,
     ]),
   );
+}
+
+export function getClassName<T>(target: Type<T> | T) {
+  const ctor = isInstance(target) ? target.constructor : target;
+  return (ctor as Function).name;
 }
 
 export function getWidgetMeta(widget: WidgetType | NgQtView): WidgetMeta {

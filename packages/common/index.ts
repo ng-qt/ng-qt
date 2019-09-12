@@ -8,7 +8,7 @@ export {
   isNodeWidget,
   isFlexLayout,
   isNodeLayout,
-  // isParentNodeFlexLayout,
+  getClassName,
   isDetachedElement,
   isFunc,
   isInstance,
