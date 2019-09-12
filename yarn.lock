@@ -233,6 +233,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/elements@^8.2.6":
+  version "8.2.6"
+  resolved "https://registry.yarnpkg.com/@angular/elements/-/elements-8.2.6.tgz#7e4def8a13c7ba9e6ba0e034b4a85ca47f26ebaf"
+  integrity sha512-mi3W9t45JuRyi799UgeI+H/pPl5dLeqZXp6AKV52vs7lSkRI2FNDh73gRuz5G08o2I6HS85VvQ35QAEVrwHpSQ==
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/platform-browser-dynamic@8.2.5":
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-8.2.5.tgz#9d10e6a6ab11e541892049f41ea6244723a2c9ab"
@@ -1182,21 +1189,21 @@
     tree-kill "1.2.1"
     webpack-sources "1.4.3"
 
-"@nodegui/nodegui@0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@nodegui/nodegui/-/nodegui-0.1.7.tgz#4dd86e7c10b1527fbf6f144098372eb4672780c5"
-  integrity sha512-30+VEPKd5kaQyq5NlACOOMVSSQEFH209oVf4rrTS/DFHD2gDkQ/gd68we/l3ZmWVvCss+5igeCnUh8zYYDDwkQ==
+"@nodegui/nodegui@0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@nodegui/nodegui/-/nodegui-0.1.9.tgz#eb043eff56789a8779111a9b976fb17088a56422"
+  integrity sha512-W7a7IbmG2KDTgPhz7xusSdDquPbTcZB86vDDObB5bSvnyqbzrBAQsNbX1BjAbU1IQGFU8Wp10R3KyrSYSpEfdQ==
   dependencies:
-    "@nodegui/qode" "^1.0.4"
+    "@nodegui/qode" "^1.0.5"
     cuid "^2.1.6"
     node-addon-api "^1.6.3"
-    node-gyp "^4.0.0"
+    node-gyp "^5.0.3"
     postcss-nodegui-autoprefixer "0.0.7"
 
-"@nodegui/qode@1.0.4", "@nodegui/qode@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.4.tgz#fe4c2fedc9f1f27c8755c4565f9d6a1adf4e1e26"
-  integrity sha512-CEEAI1mJ+4eH6G2OlNtn75vUxTBw/06IcEkXlwkDMI/mU5iE52WHToybYba77gOeoxrGx3uIwkfWRV2LRVyp/Q==
+"@nodegui/qode@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.5.tgz#37dbc8e868422b9e8481d314f273dee136571b80"
+  integrity sha512-JKb4JcC03VCdodmiL35VfznsCKHpiKOYbtgf9+KTHhH5p7IXvr+0k/LIq112T6Rpxd5zXa1pbsnfa2F8ReyWEg==
   dependencies:
     env-paths "^2.2.0"
     extract-zip "^1.6.7"
@@ -3445,6 +3452,11 @@ enhanced-resolve@4.1.0, enhanced-resolve@^4.0.0, enhanced-resolve@^4.1.0:
     graceful-fs "^4.1.2"
     memory-fs "^0.4.0"
     tapable "^1.0.0"
+
+env-paths@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-1.0.0.tgz#4168133b42bb05c38a35b1ae4397c8298ab369e0"
+  integrity sha1-QWgTO0K7BcOKNbGuQ5fIKYqzaeA=
 
 env-paths@^2.2.0:
   version "2.2.0"
@@ -6207,17 +6219,17 @@ node-forge@0.7.5:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.5.tgz#6c152c345ce11c52f465c2abd957e8639cd674df"
   integrity sha512-MmbQJ2MTESTjt3Gi/3yG1wGpIMhUfcIypUCGtTizFR9IiccFwxSpfp0vtIZlkFclEqERemxfnSdZEMR9VqqEFQ==
 
-node-gyp@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-4.0.0.tgz#972654af4e5dd0cd2a19081b4b46fe0442ba6f45"
-  integrity sha512-2XiryJ8sICNo6ej8d0idXDEMKfVfFK7kekGCtJAuelGsYHQxhj13KTf95swTCN2dZ/4lTfZ84Fu31jqJEEgjWA==
+node-gyp@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-5.0.3.tgz#80d64c23790244991b6d44532f0a351bedd3dd45"
+  integrity sha512-z/JdtkFGUm0QaQUusvloyYuGDub3nUbOo5de1Fz57cM++osBTvQatBUSTlF1k/w8vFHPxxXW6zxGvkxXSpaBkQ==
   dependencies:
+    env-paths "^1.0.0"
     glob "^7.0.3"
     graceful-fs "^4.1.2"
     mkdirp "^0.5.0"
     nopt "2 || 3"
     npmlog "0 || 1 || 2 || 3 || 4"
-    osenv "0"
     request "^2.87.0"
     rimraf "2"
     semver "~5.3.0"
@@ -6607,7 +6619,7 @@ os-tmpdir@^1.0.0, os-tmpdir@~1.0.2:
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
   integrity sha1-u+Z0BseaqFxc/sdm/lc0VV36EnQ=
 
-osenv@0, osenv@^0.1.4, osenv@^0.1.5:
+osenv@^0.1.4, osenv@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/osenv/-/osenv-0.1.5.tgz#85cdfafaeb28e8677f416e287592b5f3f49ea410"
   integrity sha512-0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==
