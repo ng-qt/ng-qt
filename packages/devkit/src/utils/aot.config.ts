@@ -3,6 +3,7 @@ import { AngularCompilerPlugin } from '@ngtools/webpack';
 import { BuildOptimizerWebpackPlugin } from '@angular-devkit/build-optimizer';
 import * as ts from 'typescript';
 
+import { importPolyfillsTransformer } from '../transformers/import-polyfills-transformer';
 import { replaceFactoryBootstrap } from '../transformers/replace-factory-bootstrap';
 import { AotBuildOptions } from '../builders/build/types';
 
@@ -18,6 +19,9 @@ export function getAotWebpackConfig(options: AotBuildOptions): Configuration {
     ngCompilerTransformers.push(replaceFactoryBootstrap);
   }
 
+  // has to be the last since it needs to put polyfills as top imports
+  ngCompilerTransformers.push(importPolyfillsTransformer);
+
   const platformTransformers = ngCompilerTransformers.map(t =>
     t(() => ngCompilerPlugin, options),
   );
@@ -30,8 +34,6 @@ export function getAotWebpackConfig(options: AotBuildOptions): Configuration {
     basePath: options.root,
     skipCodeGeneration: !options.aot,
     platformTransformers,
-    // discoverLazyRoutes: true,
-    // skipCodeGeneration: true,
   });
 
   const webpackConfig: Configuration = {
