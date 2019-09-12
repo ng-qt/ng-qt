@@ -39,8 +39,6 @@ export class NgQtRendererFactory implements RendererFactory2 {
       return this.defaultRenderer;
     }
 
-    // console.log(hostWidget);
-
     if (!this.rendererByCompId.has(type.id)) {
       this.sharedStylesHost.addStyles(hostWidget, type);
       this.rendererByCompId.set(type.id, this.defaultRenderer);

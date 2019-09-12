@@ -29,7 +29,7 @@ export interface BaseBuildOptions {
   statsJson?: boolean;
   verbose?: boolean;
   webpackConfig?: string;
-  root?: string;
+  root?: Path;
   sourceRoot?: Path;
   sourceMap?: boolean | SourceMapOptions;
   watch?: boolean;

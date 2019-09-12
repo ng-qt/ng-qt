@@ -1,6 +1,3 @@
-import 'zone.js/dist/zone-node';
-import 'reflect-metadata';
-
 import { platformNgQtDynamic } from '@ng-qt/platform';
 import { enableProdMode } from '@angular/core';
 

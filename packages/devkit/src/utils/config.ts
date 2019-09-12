@@ -25,7 +25,7 @@ export function getBaseWebpackConfig(options: BaseBuildOptions): Configuration {
     mode: options.optimization ? 'production' : 'development',
     output: {
       path: options.outputPath,
-      libraryTarget: 'commonjs',
+      libraryTarget: 'commonjs2',
       filename: 'main.js',
     },
     module: {

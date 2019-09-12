@@ -7,6 +7,10 @@ import {
   CommentNode,
   ElementReference,
   getWidgetMeta,
+  isDetachedElement,
+  isFunc,
+  isInvisibleNode,
+  isView,
   NgQtView,
   TextNode,
 } from '@ng-qt/common';
@@ -30,11 +34,12 @@ export class NgQtRenderer implements Renderer2 {
 
   // do validation when appending child
   createText(value: string): TextNode {
+    console.log('createText', value);
     return new TextNode(value);
   }
 
   addClass(el: any, name: string): void {
-    // console.log('addClass', arguments);
+    console.log('addClass', arguments);
   }
 
   appendChild(parent: NgQtView, newChild: NgQtView): void {
@@ -48,7 +53,9 @@ export class NgQtRenderer implements Renderer2 {
     return new widgetCtor();
   }
 
-  destroy(): void {}
+  destroy(): void {
+    console.log('destroy');
+  }
 
   insertBefore(
     parent: NgQtView,
@@ -99,6 +106,7 @@ export class NgQtRenderer implements Renderer2 {
     oldChild: NgQtView,
     isHostElement?: boolean,
   ): void {
+    console.log('removeChild');
     this.viewUtil.removeChild(parent, oldChild);
   }
 
@@ -114,7 +122,7 @@ export class NgQtRenderer implements Renderer2 {
     selectorOrNode: string,
     preserveContent?: boolean,
   ): AppRootView {
-    this.rootView.setHostObjectName(selectorOrNode);
+    this.rootView.setObjectName(selectorOrNode);
     return this.rootView;
   }
 
@@ -125,7 +133,6 @@ export class NgQtRenderer implements Renderer2 {
     namespace?: string | null,
   ): void {
     if (name === 'ng-version') return;
-    // console.log('setAttribute', name, value);
     const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
@@ -140,7 +147,6 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   setProperty(widget: NgQtView, name: string, value: any): void {
-    // console.log('setProperty');
     this.setAttribute(widget, name, value);
   }
 
@@ -150,10 +156,17 @@ export class NgQtRenderer implements Renderer2 {
     value: any,
     flags?: RendererStyleFlags2,
   ): void {
-    // console.log('setStyle', arguments);
+    console.log('setStyle', arguments);
   }
 
-  setValue(node: any, value: string): void {
-    // console.log('setValue', arguments);
+  setValue(node: NgQtView, value: any): void {
+    if (
+      isInvisibleNode(node) &&
+      node.parentNode &&
+      isFunc(node.parentNode.insertChild)
+    ) {
+      node.value = value;
+      node.parentNode.insertChild(node);
+    }
   }
 }

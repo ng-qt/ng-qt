@@ -3,8 +3,5 @@
   "bazelOptions": {
     "devmodeTargetOverride": "es2018",
     "suppressTsconfigOverrideWarnings": true
-  },
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true
   }
 }

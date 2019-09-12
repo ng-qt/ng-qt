@@ -1,9 +1,17 @@
-// Inspired from NativeScript Angular
-
-import { FlexLayout } from '@nodegui/nodegui';
-import { isDetachedElement, isFlexLayout, isFunc, isView, NgQtView } from '@ng-qt/common';
+import { FlexLayout, NodeWidget, QLabel } from '@nodegui/nodegui';
+import {
+  isDetachedElement,
+  isFlexLayout,
+  isFunc,
+  isInvisibleNode,
+  isView,
+  NgQtView,
+  TextNode,
+} from '@ng-qt/common';
 
 export class ViewUtil {
+  private rootView: NodeWidget;
+
   private removeFromQueue(parent: NgQtView, child: NgQtView): void {
     if (parent.firstChild === child && parent.lastChild === child) {
       parent.firstChild = null;
@@ -28,7 +36,12 @@ export class ViewUtil {
     child.nextSibling = null;
   }
 
-  private addToQueue(parent: NgQtView, child: NgQtView, previous: NgQtView, next?: NgQtView): void {
+  private addToQueue(
+    parent: NgQtView,
+    child: NgQtView,
+    previous: NgQtView,
+    next?: NgQtView,
+  ): void {
     if (previous) {
       previous.nextSibling = child;
     } else {
@@ -74,8 +87,6 @@ export class ViewUtil {
 
       parent.layout = flexLayout;
       parent.setLayout(parent.layout);
-
-      parent.show();
     }
   }
 
@@ -86,7 +97,7 @@ export class ViewUtil {
     next: NgQtView,
   ): void {
     if (previous && isDetachedElement(previous) && next) {
-      // this.ensureParentFlexLayout(parent);
+      this.ensureParentFlexLayout(parent);
       parent.layout.insertChildBefore(child, next);
     } else {
       this.addWidget(parent, child);
@@ -125,7 +136,12 @@ export class ViewUtil {
     }
   }
 
-  insertChild(parent: NgQtView, child: NgQtView, previous?: NgQtView, next?: NgQtView): void {
+  insertChild(
+    parent: NgQtView,
+    child: NgQtView,
+    previous?: NgQtView,
+    next?: NgQtView,
+  ): void {
     if (!parent) return;
 
     if (!previous) {
@@ -134,11 +150,17 @@ export class ViewUtil {
 
     this.addToQueue(parent, child, previous, next);
 
-    //if (isInvisibleNode(child)) {
     if (!child.parentNode) {
       child.parentNode = parent;
     }
-    //}
+
+    if (isInvisibleNode(child)) {
+      if (!isFunc(parent.insertChild)) {
+        throw new TypeError('Parent does not support text nodes');
+      }
+
+      parent.insertChild(child);
+    }
 
     if (!isDetachedElement(child)) {
       const nextVisual = this.findNextVisual(next);

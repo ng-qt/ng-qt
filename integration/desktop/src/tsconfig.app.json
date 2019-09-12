@@ -7,9 +7,13 @@
     "types": ["node", "zone.js", "reflect-metadata"]
   },
   "files": ["main.ts"],
+  "include": [
+    "**/*.ts",
+    "../../../packages/common/widgets/**/*",
+    "../../../packages/platform/static.ts"
+  ],
   "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }

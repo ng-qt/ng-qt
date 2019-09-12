@@ -1,13 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "rootDirs": ["common", "core", "devkit", "platform"],
+    "rootDir": ".",
     "outDir": "../dist"
   },
   "include": ["**/*.ts"],
-  "exclude": ["**/*.spec.ts"],
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictMetadataEmit": true
-  }
+  "exclude": ["**/*.spec.ts"]
 }

@@ -1,5 +1,5 @@
 import { QLabel, QLabelEvents, QPixmap } from '@nodegui/nodegui';
-import { CustomViewClass, Widget } from '@ng-qt/common';
+import { CustomViewClass, TextNode, Widget } from '@ng-qt/common';
 
 export interface TextAttrs {
   value?: string;
@@ -15,12 +15,12 @@ export interface TextAttrs {
     pixMap: 'setPixmap',
   },
 })
-export class Text extends QLabel implements CustomViewClass<string> {
-  insertChild(text: string) {
-    this.setText(text);
+export class Text extends QLabel implements CustomViewClass<TextNode> {
+  insertChild(text: TextNode) {
+    this.setText(text.value);
   }
 
-  removeChild(child: string): void {
-    // TODO
+  removeChild(child: TextNode): void {
+    this.setText('');
   }
 }
