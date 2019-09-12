@@ -75,7 +75,7 @@ export function isFunc(val: any): val is Function {
   return typeof val === 'function';
 }
 
-export function isDetachedElement(node: NodeWidget): boolean {
+export function isDetachedElement(node: any): boolean {
   if (isInvisibleNode(node)) return true;
 
   const { skipAddToDom } = getWidgetMeta(node);

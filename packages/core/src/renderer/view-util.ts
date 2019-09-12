@@ -1,12 +1,12 @@
-import { FlexLayout, NodeWidget, QLabel } from '@nodegui/nodegui';
+import { FlexLayout, NodeWidget } from '@nodegui/nodegui';
 import {
   isDetachedElement,
   isFlexLayout,
   isFunc,
   isInvisibleNode,
   isView,
+  getClassName,
   NgQtView,
-  TextNode,
 } from '@ng-qt/common';
 
 export class ViewUtil {
@@ -64,9 +64,7 @@ export class ViewUtil {
   }
 
   private removeFromVisualTree(parent: NgQtView, child: NgQtView) {
-    if (isView(parent) && isFunc(parent.removeChild)) {
-      parent.removeChild.call(parent, child);
-    } else if (isFlexLayout(parent.layout)) {
+    if (isFlexLayout(parent.layout)) {
       parent.layout.removeWidget(child);
     }
   }
@@ -131,6 +129,10 @@ export class ViewUtil {
 
     this.removeFromQueue(parent, child);
 
+    if (isFunc(parent.removeChild)) {
+      parent.removeChild(child);
+    }
+
     if (!isDetachedElement(child)) {
       this.removeFromVisualTree(parent, child);
     }
@@ -154,11 +156,7 @@ export class ViewUtil {
       child.parentNode = parent;
     }
 
-    if (isInvisibleNode(child)) {
-      if (!isFunc(parent.insertChild)) {
-        throw new TypeError('Parent does not support text nodes');
-      }
-
+    if (isFunc(parent.insertChild)) {
       parent.insertChild(child);
     }
 
