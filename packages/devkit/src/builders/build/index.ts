@@ -53,9 +53,15 @@ export default createBuilder(
       ),
       map(options => {
         const baseConfig = getBaseWebpackConfig(options);
-        let config: Configuration;
 
-        if (isAotBuild(options)) {
+        const aotOptions = normalizeAotBuildOptions(
+          options as any,
+          context.workspaceRoot,
+        );
+
+        let config = getAotWebpackConfig(aotOptions);
+
+        /*if (isAotBuild(options)) {
           const aotOptions = normalizeAotBuildOptions(
             options,
             context.workspaceRoot,
@@ -67,7 +73,7 @@ export default createBuilder(
             context.workspaceRoot,
           );
           config = getNodeWebpackConfig(nodeOptions);
-        }
+        }*/
 
         config = mergeWebpack([baseConfig, config]);
 

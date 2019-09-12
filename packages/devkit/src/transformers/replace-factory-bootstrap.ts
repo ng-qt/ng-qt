@@ -27,9 +27,7 @@ export function replaceFactoryBootstrap(
     !fileName.endsWith(NG_FACTORY_EXT) && !fileName.endsWith(NG_STYLE_EXT);
   const getTypeChecker = () => getNgCompiler().typeChecker;
 
-  const standardTransform: StandardTransform = function(
-    sourceFile: ts.SourceFile,
-  ) {
+  const standardTransform: StandardTransform = (sourceFile: ts.SourceFile) => {
     const ops: TransformOperation[] = [];
     const ngCompiler = getNgCompiler();
     // TODO: use something public when available

@@ -8,6 +8,7 @@ import { AotBuildOptions } from '../builders/build/types';
 
 export type NgCompilerTransformer = (
   ngCompiler: () => AngularCompilerPlugin,
+  options: AotBuildOptions,
 ) => ts.TransformerFactory<ts.SourceFile>;
 
 export function getAotWebpackConfig(options: AotBuildOptions): Configuration {
@@ -18,7 +19,7 @@ export function getAotWebpackConfig(options: AotBuildOptions): Configuration {
   }
 
   const platformTransformers = ngCompilerTransformers.map(t =>
-    t(() => ngCompilerPlugin),
+    t(() => ngCompilerPlugin, options),
   );
 
   const ngCompilerPlugin = new AngularCompilerPlugin({
@@ -27,6 +28,7 @@ export function getAotWebpackConfig(options: AotBuildOptions): Configuration {
     sourceMap: options.sourceMap,
     mainPath: options.main,
     basePath: options.root,
+    skipCodeGeneration: !options.aot,
     platformTransformers,
     // discoverLazyRoutes: true,
     // skipCodeGeneration: true,

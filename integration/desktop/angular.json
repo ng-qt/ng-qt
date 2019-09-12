@@ -15,7 +15,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "entryModule": "src/app/app.module#AppModule",
-            "aot": true
+            "polyfills": "src/polyfills.ts"
           }
         },
         "serve": {

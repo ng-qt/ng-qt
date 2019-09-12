@@ -1,5 +1,5 @@
 // https://github.com/nrwl/nx/blob/master/packages/node/src/utils/config.ts
-import { Configuration, Plugin } from 'webpack';
+import { Configuration } from 'webpack';
 import CircularDependencyPlugin = require('circular-dependency-plugin');
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import * as nodeExternals from 'webpack-node-externals';
@@ -15,7 +15,7 @@ export function getBaseWebpackConfig(options: BaseBuildOptions): Configuration {
 
   const webpackConfig: Configuration = {
     entry: {
-      main: [options.main],
+      main: [options.polyfills, options.main],
     },
     target: 'node',
     // @ts-ignore

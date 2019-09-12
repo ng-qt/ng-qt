@@ -34,6 +34,7 @@ export interface BaseBuildOptions {
   sourceMap?: boolean | SourceMapOptions;
   watch?: boolean;
   poll?: number;
+  polyfills?: string;
 }
 
 export interface NodeBuildOptions extends BaseBuildOptions {

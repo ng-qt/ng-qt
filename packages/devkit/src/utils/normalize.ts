@@ -34,8 +34,8 @@ export function resolveModulesDir(root: string): string {
   return resolveModulesDir(parentDir);
 }
 
-function resolveOptional(root: string, property: string): string {
-  return property ? resolve(root, property) : property;
+function resolveOptional(root: string, property: any): string {
+  return typeof property === 'string' ? resolve(root, property) : property;
 }
 
 function normalizeFileReplacements(
@@ -110,6 +110,7 @@ export function normalizeBaseBuildOptions<T extends BuildOptionsUnion>(
     fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
     assets: normalizeAssets(options.assets!, root, sourceRoot),
     webpackConfig: resolveOptional(root, options.webpackConfig),
+    polyfills: resolveOptional(root, options.polyfills),
   };
 }
 
