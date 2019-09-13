@@ -233,13 +233,6 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/elements@^8.2.6":
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/@angular/elements/-/elements-8.2.6.tgz#7e4def8a13c7ba9e6ba0e034b4a85ca47f26ebaf"
-  integrity sha512-mi3W9t45JuRyi799UgeI+H/pPl5dLeqZXp6AKV52vs7lSkRI2FNDh73gRuz5G08o2I6HS85VvQ35QAEVrwHpSQ==
-  dependencies:
-    tslib "^1.9.0"
-
 "@angular/platform-browser-dynamic@8.2.5":
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-8.2.5.tgz#9d10e6a6ab11e541892049f41ea6244723a2c9ab"
@@ -959,10 +952,10 @@
   resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.10.3.tgz#2e2b8a1d3e885946eac41db2b1aa6801fb319887"
   integrity sha512-v1nXbMTHVlMM4z4uWp6XiRoHAyUlYggF1SOboLLWRp0+D22kWixqArWqnozLw2mOtnxr97BdLjluWiho6A8Hjg==
 
-"@bazel/typescript@0.36.2":
-  version "0.36.2"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.36.2.tgz#bdb1b70f2c10b8424e4be44e2254ef94f10c2a15"
-  integrity sha512-Kvbd0qXRwjEV9sTzeMGssc59ZJ0qMlYl3FsNr5IslM/Ov59DLsdv0h34UgoFefuYO8SXtuYRDI9YgkXWPsgbuA==
+"@bazel/typescript@0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.37.0.tgz#9213d963cf132db614a9780b87815cda256a3e14"
+  integrity sha512-4Pz5x87ihPjKQxo/XMfFXJeGHiNEOdaIqLOqzuIXbwczJvMxPKMwnXzikr9XkjHrHs26zZo4iMtXALqW2j7C5w==
   dependencies:
     protobufjs "6.8.8"
     semver "5.6.0"
