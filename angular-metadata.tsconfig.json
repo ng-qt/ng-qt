@@ -10,7 +10,8 @@
     "moduleResolution": "node"
   },
   "angularCompilerOptions": {
-    "enableSummariesForJit": true
+    "enableSummariesForJit": true,
+    "disableTypeScriptVersionCheck": true
   },
   "include": ["node_modules/@angular/**/*"],
   "exclude": [
@@ -22,3 +23,4 @@
     "node_modules/@angular/common/upgrade*"
   ]
 }
+
