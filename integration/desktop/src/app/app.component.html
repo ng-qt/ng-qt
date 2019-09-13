@@ -1,15 +1,15 @@
 <View (keyRelease)="onKeyRelease($event)" id="container">
   <View id="row0">
-    <Button (clicked)="onOperator('~')" id="opBtn" text="AC"></Button>
+    <Button (clicked)="onOperator('~')" id="opBtn">AC</Button>
     <Text id="result">{{ display$ | async }}</Text>
   </View>
-  <!--<View *ngFor="let view of views" [id]="view.id">
+  <View *ngFor="let view of views" [id]="view.id">
     <Button
       *ngFor="let btn of view.buttons"
       [id]="btn.id"
       (clicked)="btn.clicked()"
-      [text]="btn.text"
-    ></Button>
-  </View>-->
-  <Button *ngIf="show">Hello</Button>
+    >
+      {{ btn.text }}
+    </Button>
+  </View>
 </View>

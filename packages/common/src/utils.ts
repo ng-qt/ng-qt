@@ -8,7 +8,7 @@ import {
   WidgetMetaOptions,
   WidgetType,
 } from './interfaces';
-import { InvisibleNode } from './nodes';
+import { InvisibleNode, TextNode } from './nodes';
 import { WIDGET_META } from './tokens';
 
 export type NgQtPlatformRef = (
@@ -95,6 +95,10 @@ export function isDetachedElement(node: any): boolean {
 
 export function isInstance<T = object>(obj: T): boolean {
   return typeof obj === 'object' && 'constructor' in obj;
+}
+
+export function isTextNode(val: any): val is TextNode {
+  return val instanceof TextNode;
 }
 
 export function isInvisibleNode(val: any): val is InvisibleNode {

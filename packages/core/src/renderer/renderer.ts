@@ -34,7 +34,6 @@ export class NgQtRenderer implements Renderer2 {
 
   // do validation when appending child
   createText(value: string): TextNode {
-    console.log('createText', value);
     return new TextNode(value);
   }
 
@@ -77,9 +76,8 @@ export class NgQtRenderer implements Renderer2 {
       throw new TypeError(`${name} doesn't have event: ${eventName}`);
     }
 
-    const zonedCallback = (nativeEvent: NativeEvent) => {
+    const zonedCallback = (nativeEvent: NativeEvent) =>
       this.ngZone.run(() => callback.call(undefined, nativeEvent));
-    };
 
     widget.addEventListener(realEvent, zonedCallback);
 
