@@ -10,10 +10,7 @@ import { BuildOptions } from '../builders/build/build-options.interface';
 import { resolveModulesDir } from './normalize';
 import { getAliases } from './get-aliases';
 import { getStatsConfig } from './get-stats';
-import {
-  importPolyfillsTransformer,
-  replaceFactoryBootstrap,
-} from '../transformers';
+import { importPolyfills, replaceFactoryBootstrap } from '../transformers';
 
 export type NgCompilerTransformer = (
   ngCompiler: () => AngularCompilerPlugin,
@@ -32,7 +29,7 @@ export function getWebpackConfig(options: BuildOptions): Configuration {
   }
 
   // has to be the last since it needs to put polyfills as top imports
-  ngCompilerTransformers.push(importPolyfillsTransformer);
+  ngCompilerTransformers.push(importPolyfills);
 
   const platformTransformers = ngCompilerTransformers.map(t =>
     t(() => ngCompilerPlugin, options),
