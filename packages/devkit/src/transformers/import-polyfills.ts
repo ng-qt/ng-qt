@@ -8,9 +8,9 @@ import {
 } from '@ngtools/webpack/src/transformers';
 
 import { BuildOptions } from '../builders/build/build-options.interface';
-import { insertAllImport } from '../utils/insert-all-import';
+import { insertAllImport } from '../utils';
 
-export function importPolyfillsTransformer(
+export function importPolyfills(
   getNgCompiler: () => AngularCompilerPlugin,
   options: BuildOptions,
 ): ts.TransformerFactory<ts.SourceFile> {

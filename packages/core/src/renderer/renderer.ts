@@ -6,21 +6,22 @@ import {
   AppRootView,
   CommentNode,
   ElementReference,
+  getClassName,
   getWidgetMeta,
-  isDetachedElement,
   isFunc,
   isInvisibleNode,
-  isView,
   NgQtView,
   TextNode,
 } from '@ng-qt/common';
 
+import { NgQtSharedStylesHost } from './shared-styles-host';
 import { ViewUtil } from './view-util';
 
 export class NgQtRenderer implements Renderer2 {
   constructor(
-    private readonly ngZone: NgZone,
+    private readonly sharedStylesHost: NgQtSharedStylesHost,
     private readonly viewUtil: ViewUtil,
+    private readonly ngZone: NgZone,
     @Inject(APP_ROOT_VIEW)
     private readonly rootView: AppRootView,
   ) {}
@@ -49,7 +50,9 @@ export class NgQtRenderer implements Renderer2 {
     if (!isKnownWidget(name)) name = 'View';
 
     const widgetCtor = resolveWidget(name);
-    return new widgetCtor();
+    const instance = new widgetCtor();
+    instance.styles = new Map();
+    return instance;
   }
 
   destroy(): void {
@@ -104,16 +107,11 @@ export class NgQtRenderer implements Renderer2 {
     oldChild: NgQtView,
     isHostElement?: boolean,
   ): void {
-    console.log('removeChild');
     this.viewUtil.removeChild(parent, oldChild);
   }
 
   removeClass(el: any, name: string): void {
     console.log('removeClass', arguments);
-  }
-
-  removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void {
-    console.log('removeStyle', arguments);
   }
 
   selectRootElement(
@@ -122,6 +120,9 @@ export class NgQtRenderer implements Renderer2 {
   ): AppRootView {
     this.rootView.setObjectName(selectorOrNode);
     return this.rootView;
+    /*const node = this.createElement(selectorOrNode);
+    node.setObjectName(selectorOrNode);
+    return node;*/
   }
 
   setAttribute(
@@ -131,14 +132,21 @@ export class NgQtRenderer implements Renderer2 {
     namespace?: string | null,
   ): void {
     if (name === 'ng-version') return;
+
     const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
       const method = attrs.get(name);
 
       if (method) {
+        if (method === 'setInlineStyle') {
+          // this should clear out styles completely
+          return this.sharedStylesHost.addInlineStyle(widget, value);
+        }
+
         widget[method].call(widget, value);
       } else {
+        // widget.setProperty();
         console.warn(`Attribute ${name} doesn't exist on widget ${widgetName}`);
       }
     }
@@ -149,12 +157,23 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   setStyle(
-    el: any,
-    style: string,
+    node: NgQtView,
+    property: string,
     value: any,
     flags?: RendererStyleFlags2,
   ): void {
-    console.log('setStyle', arguments);
+    this.sharedStylesHost.addInlineStyle(node, {
+      property,
+      value,
+    });
+  }
+
+  removeStyle(
+    node: NgQtView,
+    property: string,
+    flags?: RendererStyleFlags2,
+  ): void {
+    this.sharedStylesHost.removeInlineStyle(node, property);
   }
 
   setValue(node: NgQtView, value: any): void {

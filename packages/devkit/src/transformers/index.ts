@@ -1,2 +1,2 @@
 export * from './replace-factory-bootstrap';
-export * from './import-polyfills-transformer';
+export * from './import-polyfills';
