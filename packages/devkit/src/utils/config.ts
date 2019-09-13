@@ -25,6 +25,7 @@ export function getWebpackConfig(options: BuildOptions): Configuration {
   const modulesDir = resolveModulesDir(options.root);
   const extensions = ['.ts', '.mjs', '.js', '.json'];
   const mainFields = ['module', 'main'];
+  const entries: string[] = [];
 
   if (options.aot) {
     ngCompilerTransformers.push(replaceFactoryBootstrap);
@@ -47,9 +48,13 @@ export function getWebpackConfig(options: BuildOptions): Configuration {
     platformTransformers,
   });
 
+  if (options.polyfills) {
+    entries.push(options.polyfills);
+  }
+
   const webpackConfig: Configuration = {
     entry: {
-      main: [options.polyfills, options.main],
+      main: [...entries, options.main],
     },
     target: 'node',
     // @ts-ignore

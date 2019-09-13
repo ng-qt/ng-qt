@@ -103,10 +103,10 @@ export function normalizeBuildOptions<T extends BuildOptions>(
     main: resolve(root, options.main),
     outputPath: resolve(root, options.outputPath),
     tsConfig: resolve(root, options.tsConfig),
+    polyfills: resolveOptional(root, options.polyfills),
     fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
     assets: normalizeAssets(options.assets!, root, sourceRoot),
     webpackConfig: resolveOptional(root, options.webpackConfig),
-    polyfills: resolveOptional(root, options.polyfills),
     entryModule: resolveOptional(root, options.entryModule),
   };
 }

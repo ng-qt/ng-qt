@@ -15,13 +15,14 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "entryModule": "src/app/app.module#AppModule",
-            "polyfills": "src/polyfills.ts"
+            "aot": true
           }
         },
         "serve": {
           "builder": "../../dist/devkit:serve",
           "options": {
-            "buildTarget": "app:build"
+            "buildTarget": "app:build",
+            "inspect": true
           }
         }
       }
