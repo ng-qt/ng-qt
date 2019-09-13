@@ -46,8 +46,6 @@ export default createBuilder(
       map(options => {
         let config = getWebpackConfig(options);
 
-        config = mergeWebpack([config, config]);
-
         if (options.webpackConfig) {
           config = require(options.webpackConfig)(config, {
             options,

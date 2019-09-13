@@ -5,11 +5,11 @@ import {
   StandardTransform,
   TransformOperation,
 } from '@ngtools/webpack/src/transformers';
-import { AotBuildOptions } from '../builders/build/build-options.interface';
+import { BuildOptions } from '../builders/build/build-options.interface';
 
 export function importPolyfillsTransformer(
   getNgCompiler: () => AngularCompilerPlugin,
-  options: AotBuildOptions,
+  options: BuildOptions,
 ): ts.TransformerFactory<ts.SourceFile> {
   const getTypeChecker = () => getNgCompiler().typeChecker;
 
