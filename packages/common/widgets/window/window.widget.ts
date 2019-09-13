@@ -18,17 +18,21 @@ export interface Size {
   },
 })
 export class Window extends QMainWindow {
-  private readonly rootLayout: FlexLayout;
+  layout: FlexLayout;
 
   constructor() {
     super();
 
     this.centralWidget = new QWidget();
-    this.rootLayout = new FlexLayout();
+
+    Object.defineProperty(this, 'layout', {
+      value: new FlexLayout(),
+      writable: true,
+    });
 
     const flexNode = this.centralWidget.getFlexNode();
-    this.rootLayout.setFlexNode(flexNode);
-    this.centralWidget.setLayout(this.rootLayout);
+    this.layout.setFlexNode(flexNode);
+    this.centralWidget.setLayout(this.layout);
     this.setCentralWidget(this.centralWidget);
   }
 
@@ -44,4 +48,8 @@ export class Window extends QMainWindow {
   setObjectName(name: string) {
     this.centralWidget.setObjectName(name);
   }
+
+  /*removeChild() {
+    this.layout.removeWidget()
+  }*/
 }

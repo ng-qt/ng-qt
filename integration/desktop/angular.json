@@ -21,8 +21,7 @@
         "serve": {
           "builder": "../../dist/devkit:serve",
           "options": {
-            "buildTarget": "app:build",
-            "inspect": true
+            "buildTarget": "app:build"
           }
         }
       }

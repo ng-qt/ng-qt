@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
   pendingOp$ = new BehaviorSubject<Operator>('~');
   valueBuffer$ = new BehaviorSubject<number | null>(null);
 
-  show = false;
+  show = true;
+  backgroundColor = 'red';
+  styles = 'border: none';
 
   views: View[] = [
     {
@@ -148,7 +150,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.show = true;
+      this.backgroundColor = 'green';
+
+      setTimeout(() => {
+        this.backgroundColor = 'red';
+
+        setTimeout(() => {
+          delete this.backgroundColor;
+        }, 1000);
+      }, 1000);
     }, 1000);
   }
 }

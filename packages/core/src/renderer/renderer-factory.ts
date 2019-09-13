@@ -25,8 +25,9 @@ export class NgQtRendererFactory implements RendererFactory2 {
     private readonly rootView: AppRootView,
   ) {
     this.defaultRenderer = new NgQtRenderer(
-      this.ngZone,
+      this.sharedStylesHost,
       this.viewUtil,
+      this.ngZone,
       this.rootView,
     );
   }
@@ -40,7 +41,7 @@ export class NgQtRendererFactory implements RendererFactory2 {
     }
 
     if (!this.rendererByCompId.has(type.id)) {
-      this.sharedStylesHost.addStyles(hostWidget, type);
+      this.sharedStylesHost.addHostStyles(hostWidget, type);
       this.rendererByCompId.set(type.id, this.defaultRenderer);
     }
 

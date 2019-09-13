@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 export function rootViewInit(rootView: AppRootView) {
   rootView.setMaximumSize(500, 700);
   rootView.setMinimumSize(300, 400);
+  rootView.show();
 }
 
 @NgModule({

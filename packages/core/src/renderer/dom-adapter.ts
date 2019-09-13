@@ -305,7 +305,9 @@ export class NgQtDomAdapter implements DomAdapter {
 
   setProperty(el: Element, name: string, value: any): any {}
 
-  setStyle(element: any, styleName: string, styleValue: string): any {}
+  setStyle(element: any, styleName: string, styleValue: string): any {
+    console.log('DomAdapter', styleName, styleValue);
+  }
 
   setText(el: any, value: string): any {}
 
