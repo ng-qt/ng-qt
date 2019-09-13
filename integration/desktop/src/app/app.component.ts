@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NativeEvent } from '@nodegui/nodegui';
 import { BehaviorSubject } from 'rxjs';
 
@@ -18,13 +18,15 @@ export interface View {
 @Component({
   selector: 'App',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  // styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   total$ = new BehaviorSubject<number>(0);
   display$ = new BehaviorSubject<string>('0');
   pendingOp$ = new BehaviorSubject<Operator>('~');
   valueBuffer$ = new BehaviorSubject<number | null>(null);
+
+  show = false;
 
   views: View[] = [
     {
@@ -142,5 +144,11 @@ export class AppComponent {
     }
 
     this.pendingOp$.next(operator);
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.show = true;
+    }, 1000);
   }
 }

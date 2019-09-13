@@ -1,12 +1,14 @@
 {
   "name": "@ng-qt/common",
   "version": "0.0.1",
-  "main": "src/index.js",
   "dependencies": {
-    "@angular/core": "*",
-    "change-case": "*"
+    "tslib": "1.10.0",
+    "change-case": "3.1.0",
+    "reflect-metadata": "0.1.13"
   },
   "peerDependencies": {
-    "@nodegui/nodegui": "*"
-  }
+    "@angular/core": "8.2.5",
+    "@nodegui/nodegui": "0.1.8"
+  },
+  "sideEffects": false
 }

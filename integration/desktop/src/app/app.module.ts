@@ -1,24 +1,25 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { AppWindow } from '@ng-qt/platform';
-import { CommonModule } from '@angular/common';
+import { APP_INITIALIZER, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/common';
 import { NgQtModule } from '@ng-qt/core';
-import { APP_ROOT_VIEW } from '@ng-qt/common';
 
 import { AppComponent } from './app.component';
 
+export function rootViewInit(rootView: AppRootView) {
+  rootView.setMaximumSize(500, 700);
+  rootView.setMinimumSize(300, 400);
+}
+
 @NgModule({
-  declarations: [AppComponent],
-  imports: [CommonModule, NgQtModule],
-  bootstrap: [AppComponent],
+  imports: [NgQtModule],
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: (rootWindow: AppWindow) => {
-        rootWindow.setMinimumSize(300, 400);
-        rootWindow.setMaximumSize(500, 700);
-      },
+      useFactory: rootViewInit,
       deps: [APP_ROOT_VIEW],
     },
   ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {}

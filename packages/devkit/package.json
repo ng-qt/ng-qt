@@ -5,22 +5,24 @@
   "builders": "builders.json",
   "schematics": "schematics.json",
   "dependencies": {
-    "@angular-devkit/architect": "*",
-    "@angular-devkit/core": "*",
-    "@angular-devkit/schematics": "*",
-    "@angular-devkit/build-webpack": "*",
-    "@schematics/angular": "*",
-    "copy-webpack-plugin": "*",
-    "typescript": "*",
-    "webpack": "*",
-    "tsconfig-paths-webpack-plugin": "*",
-    "fork-ts-checker-webpack-plugin": "*",
-    "circular-dependency-plugin": "*",
-    "webpack-merge": "*",
-    "webpack-node-externals": "*",
-    "raw-loader": "*"
+    "@angular-devkit/architect": "0.803.3",
+    "@angular-devkit/core": "8.3.3",
+    "@angular-devkit/schematics": "8.3.3",
+    "@angular-devkit/build-webpack": "0.803.3",
+    "@schematics/angular": "8.3.3",
+    "copy-webpack-plugin": "5.0.4",
+    "webpack": "4.39.3",
+    "tsconfig-paths-webpack-plugin": "3.2.0",
+    "fork-ts-checker-webpack-plugin": "1.5.0",
+    "circular-dependency-plugin": "5.2.0",
+    "webpack-merge": "4.2.2",
+    "webpack-node-externals": "1.7.2",
+    "raw-loader": "3.1.0",
+    "@ngtools/webpack": "8.3.3",
+    "tslib": "1.10.0"
   },
   "peerDependencies": {
-    "@nodegui/nodegui": "*"
+    "typescript": "3.6.2",
+    "@nodegui/nodegui": "0.1.8"
   }
 }

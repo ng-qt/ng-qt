@@ -4,9 +4,17 @@
     "declaration": false,
     "sourceMap": false,
     "module": "commonjs",
-    "types": ["node", "zone.js"]
+    "types": ["node", "zone.js", "reflect-metadata"]
   },
   "files": ["main.ts"],
-  "include": ["**/*.ts"],
-  "exclude": ["test.ts", "**/*.spec.ts"]
+  "include": [
+    "**/*.ts",
+    "../../../packages/common/widgets/**/*",
+    "../../../packages/platform/static.ts"
+  ],
+  "exclude": ["**/*.spec.ts"],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
 }

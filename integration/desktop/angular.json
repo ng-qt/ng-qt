@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
   "projects": {
@@ -15,7 +14,8 @@
             "outputPath": "dist",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "showCircularDependencies": false
+            "entryModule": "src/app/app.module#AppModule",
+            "polyfills": "src/polyfills.ts"
           }
         },
         "serve": {
@@ -25,6 +25,12 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
     }
   }
 }

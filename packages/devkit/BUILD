@@ -1,7 +1,7 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
 
-package(default_visibility = ["//visibility:public"])
+# package(default_visibility = ["//visibility:private"])
 
 filegroup(
     name = "assets",
@@ -16,8 +16,8 @@ ts_library(
     ),
     module_name = "@ng-qt/devkit",
     deps = [
-        "//packages/common",
         "@npm//@angular-devkit",
+        "@npm//@ngtools/webpack",
         "@npm//@nodegui/qode",
         "@npm//@schematics/angular",
         "@npm//@types",
@@ -38,6 +38,7 @@ ts_library(
 
 npm_package(
     name = "npm",
+    visibility = ["//visibility:private"],
     deps = [
         ":assets",
         ":devkit",

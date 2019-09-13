@@ -7,7 +7,7 @@ import {
   NGQT_INTERNAL_PLATFORM_PROVIDERS,
 } from './providers';
 
-export const platformDesktop: NgQtPlatformRef = createPlatformFactory(
+export const platformNgQtDynamic: NgQtPlatformRef = createPlatformFactory(
   platformCoreDynamic,
   'platformNgQtDynamic',
   [...NGQT_INTERNAL_PLATFORM_PROVIDERS, ...NGQT_COMPILER_PROVIDERS],
