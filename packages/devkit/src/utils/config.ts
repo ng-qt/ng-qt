@@ -6,14 +6,14 @@ import { AngularCompilerPlugin } from '@ngtools/webpack';
 import { BuildOptimizerWebpackPlugin } from '@angular-devkit/build-optimizer';
 import * as ts from 'typescript';
 
+import { BuildOptions } from '../builders/build/build-options.interface';
+import { resolveModulesDir } from './normalize';
+import { getAliases } from './get-aliases';
+import { getStatsConfig } from './get-stats';
 import {
   importPolyfillsTransformer,
   replaceFactoryBootstrap,
 } from '../transformers';
-import { resolveModulesDir } from './normalize';
-import { getAliases } from './get-aliases';
-import { getStatsConfig } from './get-stats';
-import { BuildOptions } from '../builders/build/build-options.interface';
 
 export type NgCompilerTransformer = (
   ngCompiler: () => AngularCompilerPlugin,

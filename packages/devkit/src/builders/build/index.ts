@@ -4,7 +4,6 @@ import { JsonObject, resolve, workspaces } from '@angular-devkit/core';
 import { BuildResult, runWebpack } from '@angular-devkit/build-webpack';
 import { from, Observable } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
-import * as mergeWebpack from 'webpack-merge';
 
 import { normalizeBuildOptions, getWebpackConfig } from '../../utils';
 import { BuildOptions } from './build-options.interface';
