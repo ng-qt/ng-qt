@@ -128,7 +128,8 @@
     },
     "aot": {
       "type": "boolean",
-      "description": "Enable AOT compilation"
+      "description": "Enable AOT compilation",
+      "default": false
     },
     "entryModule": {
       "type": "string",

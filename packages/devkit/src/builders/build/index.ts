@@ -5,17 +5,9 @@ import { BuildResult, runWebpack } from '@angular-devkit/build-webpack';
 import { from, Observable } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import * as mergeWebpack from 'webpack-merge';
-import { Configuration } from 'webpack';
 
-import { BuildOptionsUnion, isAotBuild } from './types';
-import {
-  normalizeNodeBuildOptions,
-  normalizeBaseBuildOptions,
-  normalizeAotBuildOptions,
-  getBaseWebpackConfig,
-  getNodeWebpackConfig,
-  getAotWebpackConfig,
-} from '../../utils';
+import { normalizeBuildOptions, getWebpackConfig } from '../../utils';
+import { BuildOptions } from './build-options.interface';
 
 export type NodeBuildEvent = BuildResult & {
   outFile: string;
@@ -44,43 +36,22 @@ async function getSourceRoot(context: BuilderContext) {
 
 export default createBuilder(
   (
-    options: JsonObject & BuildOptionsUnion,
+    options: JsonObject & BuildOptions,
     context: BuilderContext,
   ): Observable<NodeBuildEvent> => {
     return from(getSourceRoot(context)).pipe(
       map(sourceRoot =>
-        normalizeBaseBuildOptions(options, context.workspaceRoot, sourceRoot),
+        normalizeBuildOptions(options, context.workspaceRoot, sourceRoot),
       ),
       map(options => {
-        const baseConfig = getBaseWebpackConfig(options);
+        let config = getWebpackConfig(options);
 
-        const aotOptions = normalizeAotBuildOptions(
-          options as any,
-          context.workspaceRoot,
-        );
-
-        let config = getAotWebpackConfig(aotOptions);
-
-        /*if (isAotBuild(options)) {
-          const aotOptions = normalizeAotBuildOptions(
-            options,
-            context.workspaceRoot,
-          );
-          config = getAotWebpackConfig(aotOptions);
-        } else {
-          const nodeOptions = normalizeNodeBuildOptions(
-            options,
-            context.workspaceRoot,
-          );
-          config = getNodeWebpackConfig(nodeOptions);
-        }*/
-
-        config = mergeWebpack([baseConfig, config]);
+        config = mergeWebpack([config, config]);
 
         if (options.webpackConfig) {
           config = require(options.webpackConfig)(config, {
             options,
-            configuration: context.target!.configuration,
+            configuration: context.target.configuration,
           });
         }
 

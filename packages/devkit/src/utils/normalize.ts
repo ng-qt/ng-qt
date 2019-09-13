@@ -2,11 +2,7 @@ import { normalize } from '@angular-devkit/core';
 import { basename, dirname, relative, resolve } from 'path';
 import * as fs from 'fs';
 
-import {
-  AotBuildOptions,
-  BuildOptionsUnion,
-  NodeBuildOptions,
-} from '../builders/build/types';
+import { BuildOptions } from '../builders/build/build-options.interface';
 
 export interface FileReplacement {
   replace: string;
@@ -95,11 +91,11 @@ function normalizeAssets(
   });
 }
 
-export function normalizeBaseBuildOptions<T extends BuildOptionsUnion>(
+export function normalizeBuildOptions<T extends BuildOptions>(
   options: T,
   root: string,
   sourceRoot: string,
-): BuildOptionsUnion {
+): BuildOptions {
   return {
     ...options,
     root,
@@ -111,24 +107,6 @@ export function normalizeBaseBuildOptions<T extends BuildOptionsUnion>(
     assets: normalizeAssets(options.assets!, root, sourceRoot),
     webpackConfig: resolveOptional(root, options.webpackConfig),
     polyfills: resolveOptional(root, options.polyfills),
-  };
-}
-
-export function normalizeAotBuildOptions<T extends AotBuildOptions>(
-  options: T,
-  root: string,
-): T {
-  return {
-    ...options,
-    entryModule: resolve(root, options.entryModule),
-  };
-}
-
-export function normalizeNodeBuildOptions<T extends NodeBuildOptions>(
-  options: T,
-  root: string,
-): T {
-  return {
-    ...options,
+    entryModule: resolveOptional(root, options.entryModule),
   };
 }

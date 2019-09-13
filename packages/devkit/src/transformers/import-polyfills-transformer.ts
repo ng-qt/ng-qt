@@ -5,7 +5,7 @@ import {
   StandardTransform,
   TransformOperation,
 } from '@ngtools/webpack/src/transformers';
-import { AotBuildOptions } from '../builders/build/types';
+import { AotBuildOptions } from '../builders/build/build-options.interface';
 
 export function importPolyfillsTransformer(
   getNgCompiler: () => AngularCompilerPlugin,
