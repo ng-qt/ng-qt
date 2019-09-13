@@ -46,7 +46,7 @@
     "@ngtools/webpack": "8.3.2",
     "@nodegui/nodegui": "0.1.9",
     "@types/jest": "24.0.18",
-    "@types/node": "12.7.4",
+    "@types/node": "12.7.5",
     "@types/webpack": "4.39.1",
     "change-case": "3.1.0",
     "circular-dependency-plugin": "5.2.0",
