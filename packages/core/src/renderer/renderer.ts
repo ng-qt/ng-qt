@@ -133,17 +133,16 @@ export class NgQtRenderer implements Renderer2 {
   ): void {
     if (name === 'ng-version') return;
 
+    if (name === 'style') {
+      return this.sharedStylesHost.addInlineStyle(widget, value);
+    }
+
     const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
       const method = attrs.get(name);
 
       if (method) {
-        if (method === 'setInlineStyle') {
-          // this should clear out styles completely
-          return this.sharedStylesHost.addInlineStyle(widget, value);
-        }
-
         widget[method].call(widget, value);
       } else {
         // widget.setProperty();

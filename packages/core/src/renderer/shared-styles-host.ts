@@ -2,9 +2,12 @@ import { Injectable, NgZone, RendererType2 } from '@angular/core';
 import { NodeWidget } from '@nodegui/nodegui';
 import { NgQtView } from '@ng-qt/common';
 
-export type InlineStyles =
-  | string
-  | { property: string; value: string | number };
+export const COMPONENT_VARIABLE = '%COMP%';
+export const HOST_ATTR = `[_nghost-${COMPONENT_VARIABLE}]`;
+export const CONTENT_ATTR = `[_ngcontent-${COMPONENT_VARIABLE}]`;
+const ATTR_SANITIZER = /-/g;
+
+export type InlineStyles = string | { property: string; value: string };
 
 @Injectable()
 export class NgQtSharedStylesHost {
@@ -12,13 +15,11 @@ export class NgQtSharedStylesHost {
 
   private setNodeInlineStyle(node: NgQtView) {
     const inlineStyle = this.nodeStylesToInlineStyle(node);
-    this.ngZone.runOutsideAngular(() => node.setInlineStyle(inlineStyle));
+    this.ngZone.run(() => node.setInlineStyle(inlineStyle));
   }
 
   private nodeStylesToInlineStyle(node: NgQtView): string {
-    return [...node.styles.entries()]
-      .map(([prop, val]) => `${prop}: ${val}`)
-      .join(';');
+    return [...node.styles.entries()].map(s => s.join(':')).join(';');
   }
 
   removeInlineStyle(node: NgQtView, property: string) {
@@ -29,7 +30,7 @@ export class NgQtSharedStylesHost {
 
   addInlineStyle(node: NgQtView, styles: InlineStyles) {
     if (typeof styles === 'object') {
-      node.styles.set(styles.property, `${styles.value}`);
+      node.styles.set(styles.property, styles.value);
     } else {
       node.styles = new Map(
         styles.split(';').reduce((styles, style) => {
@@ -47,13 +48,10 @@ export class NgQtSharedStylesHost {
     let styles = type.styles.join().trim();
 
     if (styles !== '') {
-      styles = styles.split('[_ngcontent-%COMP%]').join('');
+      styles = styles.split(CONTENT_ATTR).join('');
+      styles = styles.split(HOST_ATTR).join(`#${type.id}`);
 
-      if (!hostWidget.objectName()) {
-        hostWidget.setObjectName(type.id);
-      }
-
-      this.ngZone.runOutsideAngular(() => hostWidget.setStyleSheet(styles));
+      this.ngZone.run(() => hostWidget.setStyleSheet(styles));
     }
   }
 }
