@@ -53,10 +53,10 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run:
-          name: Install libxkbcommon-x11-0
-          command: | 
+          name: Install Qt5 dependencies
+          command: |
             sudo apt update
-            sudo apt install -y libxkbcommon-x11-0
+            sudo apt install build-essential libx11-xcb-dev libglu1-mesa-dev
       - run:
           name: Run unit tests
           command: yarn test:ci
