@@ -14,7 +14,7 @@
     "build:ngc": "ngc -p packages/tsconfig-ngc-build.json && cp -r packages/. dist/",
     "build:ngc:watch": "ngc -p packages/tsconfig-ngc-build.json -w && cp -r packages/. dist/",
     "test": "qode node_modules/.bin/jest",
-    "test:ci": "yarn test --ci",
+    "test:ci": "QT_QPA_PLATFORM=offscreen yarn test --ci --detectOpenHandles",
     "lint": "yarn bazel:lint"
   },
   "husky": {

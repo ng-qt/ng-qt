@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "bazelOptions": {
-    "devmodeTargetOverride": "es2018",
+    "devmodeTargetOverride": "es2017",
     "suppressTsconfigOverrideWarnings": true
   }
 }
