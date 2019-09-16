@@ -3,7 +3,7 @@
   "description": "Angular renderer for NodeGui",
   "license": "MIT",
   "scripts": {
-    "postinstall": "ngc -p ./angular-metadata.tsconfig.json",
+    "postinstall": "sudo chmod -R 777 node_modules && ngc -p ./angular-metadata.tsconfig.json",
     "install:ci": "yarn install --frozen-lockfile",
     "build": "bazel build //packages/...",
     "build:watch": "ibazel build //packages/...",
