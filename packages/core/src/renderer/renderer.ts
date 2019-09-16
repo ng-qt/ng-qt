@@ -6,17 +6,22 @@ import {
   AppRootView,
   CommentNode,
   ElementReference,
+  getClassName,
   getWidgetMeta,
+  isFunc,
+  isInvisibleNode,
   NgQtView,
   TextNode,
 } from '@ng-qt/common';
 
+import { NgQtSharedStylesHost } from './shared-styles-host';
 import { ViewUtil } from './view-util';
 
 export class NgQtRenderer implements Renderer2 {
   constructor(
-    private readonly ngZone: NgZone,
+    private readonly sharedStylesHost: NgQtSharedStylesHost,
     private readonly viewUtil: ViewUtil,
+    private readonly ngZone: NgZone,
     @Inject(APP_ROOT_VIEW)
     private readonly rootView: AppRootView,
   ) {}
@@ -34,7 +39,7 @@ export class NgQtRenderer implements Renderer2 {
   }
 
   addClass(el: any, name: string): void {
-    // console.log('addClass', arguments);
+    console.log('addClass', arguments);
   }
 
   appendChild(parent: NgQtView, newChild: NgQtView): void {
@@ -45,10 +50,14 @@ export class NgQtRenderer implements Renderer2 {
     if (!isKnownWidget(name)) name = 'View';
 
     const widgetCtor = resolveWidget(name);
-    return new widgetCtor();
+    const instance = new widgetCtor();
+    instance.styles = new Map();
+    return instance;
   }
 
-  destroy(): void {}
+  destroy(): void {
+    console.log('destroy');
+  }
 
   insertBefore(
     parent: NgQtView,
@@ -70,9 +79,8 @@ export class NgQtRenderer implements Renderer2 {
       throw new TypeError(`${name} doesn't have event: ${eventName}`);
     }
 
-    const zonedCallback = (nativeEvent: NativeEvent) => {
+    const zonedCallback = (nativeEvent: NativeEvent) =>
       this.ngZone.run(() => callback.call(undefined, nativeEvent));
-    };
 
     widget.addEventListener(realEvent, zonedCallback);
 
@@ -106,16 +114,10 @@ export class NgQtRenderer implements Renderer2 {
     console.log('removeClass', arguments);
   }
 
-  removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void {
-    console.log('removeStyle', arguments);
-  }
-
-  selectRootElement(
-    selectorOrNode: string,
-    preserveContent?: boolean,
-  ): AppRootView {
-    this.rootView.setHostObjectName(selectorOrNode);
-    return this.rootView;
+  selectRootElement(selectorOrNode: string, preserveContent?: boolean) {
+    const view = this.createElement('View');
+    this.appendChild(this.rootView, view);
+    return view;
   }
 
   setAttribute(
@@ -125,7 +127,11 @@ export class NgQtRenderer implements Renderer2 {
     namespace?: string | null,
   ): void {
     if (name === 'ng-version') return;
-    // console.log('setAttribute', name, value);
+
+    if (name === 'style') {
+      return this.sharedStylesHost.addInlineStyle(widget, value);
+    }
+
     const { name: widgetName, attrs } = getWidgetMeta(widget);
 
     if (attrs) {
@@ -134,26 +140,44 @@ export class NgQtRenderer implements Renderer2 {
       if (method) {
         widget[method].call(widget, value);
       } else {
+        // widget.setProperty();
         console.warn(`Attribute ${name} doesn't exist on widget ${widgetName}`);
       }
     }
   }
 
   setProperty(widget: NgQtView, name: string, value: any): void {
-    // console.log('setProperty');
     this.setAttribute(widget, name, value);
   }
 
   setStyle(
-    el: any,
-    style: string,
+    node: NgQtView,
+    property: string,
     value: any,
     flags?: RendererStyleFlags2,
   ): void {
-    // console.log('setStyle', arguments);
+    this.sharedStylesHost.addInlineStyle(node, {
+      property,
+      value,
+    });
   }
 
-  setValue(node: any, value: string): void {
-    // console.log('setValue', arguments);
+  removeStyle(
+    node: NgQtView,
+    property: string,
+    flags?: RendererStyleFlags2,
+  ): void {
+    this.sharedStylesHost.removeInlineStyle(node, property);
+  }
+
+  setValue(node: NgQtView, value: any): void {
+    if (
+      isInvisibleNode(node) &&
+      node.parentNode &&
+      isFunc(node.parentNode.insertChild)
+    ) {
+      node.value = value;
+      node.parentNode.insertChild(node);
+    }
   }
 }

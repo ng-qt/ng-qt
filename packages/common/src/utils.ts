@@ -1,5 +1,5 @@
 import { FlexLayout, NodeLayout, NodeWidget } from '@nodegui/nodegui';
-import { PlatformRef, StaticProvider } from '@angular/core';
+import { PlatformRef, StaticProvider, Type } from '@angular/core';
 import { camelCase } from 'change-case';
 
 import {
@@ -8,7 +8,7 @@ import {
   WidgetMetaOptions,
   WidgetType,
 } from './interfaces';
-import { InvisibleNode } from './nodes';
+import { InvisibleNode, TextNode } from './nodes';
 import { WIDGET_META } from './tokens';
 
 export type NgQtPlatformRef = (
@@ -31,6 +31,11 @@ export function createWidgetEvents(
       realEventName,
     ]),
   );
+}
+
+export function getClassName<T>(target: Type<T> | T) {
+  const ctor = isInstance(target) ? target.constructor : target;
+  return (ctor as Function).name;
 }
 
 export function getWidgetMeta(widget: WidgetType | NgQtView): WidgetMeta {
@@ -75,7 +80,7 @@ export function isFunc(val: any): val is Function {
   return typeof val === 'function';
 }
 
-export function isDetachedElement(node: NodeWidget): boolean {
+export function isDetachedElement(node: any): boolean {
   if (isInvisibleNode(node)) return true;
 
   const { skipAddToDom } = getWidgetMeta(node);
@@ -90,6 +95,10 @@ export function isDetachedElement(node: NodeWidget): boolean {
 
 export function isInstance<T = object>(obj: T): boolean {
   return typeof obj === 'object' && 'constructor' in obj;
+}
+
+export function isTextNode(val: any): val is TextNode {
+  return val instanceof TextNode;
 }
 
 export function isInvisibleNode(val: any): val is InvisibleNode {

@@ -1,59 +1,67 @@
-// https://github.com/nrwl/nx/blob/master/packages/node/src/utils/config.ts
-import { Configuration, Stats, Plugin, ProgressPlugin, Options } from 'webpack';
+import { Configuration } from 'webpack';
 import CircularDependencyPlugin = require('circular-dependency-plugin');
-import ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
+import * as nodeExternals from 'webpack-node-externals';
+import { AngularCompilerPlugin } from '@ngtools/webpack';
+import { BuildOptimizerWebpackPlugin } from '@angular-devkit/build-optimizer';
+import * as ts from 'typescript';
 
-import { inlineAssetsTransformer } from './inline-assets-transformer';
-import { BuildOptions } from '../builders/build/types';
+import { BuildOptions } from '../builders/build/build-options.interface';
+import { resolveModulesDir } from './normalize';
+import { getAliases } from './get-aliases';
+import { getStatsConfig } from './get-stats';
+import { importPolyfills, replaceFactoryBootstrap } from '../transformers';
 
-function getAliases(options: BuildOptions): Record<string, string> {
-  return options.fileReplacements.reduce(
-    (aliases, replacement) => ({
-      ...aliases,
-      [replacement.replace]: replacement.with,
-    }),
-    {},
-  );
-}
+export type NgCompilerTransformer = (
+  ngCompiler: () => AngularCompilerPlugin,
+  options: BuildOptions,
+) => ts.TransformerFactory<ts.SourceFile>;
 
-function getStatsConfig(options: BuildOptions): Stats.ToStringOptions {
-  return {
-    hash: true,
-    timings: false,
-    cached: false,
-    cachedAssets: false,
-    modules: false,
-    warnings: true,
-    errors: true,
-    colors: !options.verbose && !options.statsJson,
-    chunks: !options.verbose,
-    assets: !!options.verbose,
-    chunkOrigins: !!options.verbose,
-    chunkModules: !!options.verbose,
-    children: !!options.verbose,
-    reasons: !!options.verbose,
-    version: !!options.verbose,
-    errorDetails: !!options.verbose,
-    moduleTrace: !!options.verbose,
-    usedExports: !!options.verbose,
-  };
-}
-
-export function getBaseWebpackPartial(options: BuildOptions): Configuration {
-  const extensions = ['.ts', '.mjs', '.js'];
+export function getWebpackConfig(options: BuildOptions): Configuration {
+  const ngCompilerTransformers: NgCompilerTransformer[] = [];
+  const modulesDir = resolveModulesDir(options.root);
+  const extensions = ['.ts', '.mjs', '.js', '.json'];
   const mainFields = ['module', 'main'];
+  const entries: string[] = [];
+
+  if (options.aot) {
+    ngCompilerTransformers.push(replaceFactoryBootstrap);
+  }
+
+  // has to be the last since it needs to put polyfills as top imports
+  ngCompilerTransformers.push(importPolyfills);
+
+  const platformTransformers = ngCompilerTransformers.map(t =>
+    t(() => ngCompilerPlugin, options),
+  );
+
+  const ngCompilerPlugin = new AngularCompilerPlugin({
+    tsConfigPath: options.tsConfig,
+    entryModule: options.entryModule,
+    sourceMap: options.sourceMap,
+    mainPath: options.main,
+    basePath: options.root,
+    skipCodeGeneration: !options.aot,
+    platformTransformers,
+  });
+
+  if (options.polyfills) {
+    entries.push(options.polyfills);
+  }
 
   const webpackConfig: Configuration = {
     entry: {
-      main: [options.main],
+      main: [...entries, options.main],
     },
+    target: 'node',
     // @ts-ignore
     devtool: options.sourceMap && 'source-map',
+    node: false,
+    externals: [nodeExternals({ modulesDir })],
     mode: options.optimization ? 'production' : 'development',
     output: {
       path: options.outputPath,
+      libraryTarget: 'commonjs2',
       filename: 'main.js',
     },
     module: {
@@ -63,58 +71,23 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
           loader: 'raw-loader',
         },
         {
-          test: /\.(j|t)sx?$/,
-          loader: 'ts-loader',
-          options: {
-            configFile: options.tsConfig,
-            transpileOnly: true,
-            compilerOptions: {
-              declaration: false,
-              noEmit: true,
-            },
-            getCustomTransformers: () => ({
-              before: [inlineAssetsTransformer()],
-            }),
-          },
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          loader: '@ngtools/webpack',
         },
       ],
-    },
-    resolve: {
-      extensions,
-      alias: getAliases(options),
-      plugins: [
-        new TsConfigPathsPlugin({
-          configFile: options.tsConfig,
-          extensions,
-          mainFields,
-        }),
-      ],
-      mainFields,
     },
     watch: options.watch,
     watchOptions: {
       poll: options.poll,
     },
-    performance: {
-      hints: false,
+    resolve: {
+      extensions,
+      mainFields,
+      alias: getAliases(options),
     },
-    plugins: [
-      new ForkTsCheckerWebpackPlugin({
-        tsconfig: options.tsConfig,
-        useTypescriptIncrementalApi: options.useTypescriptIncrementalApi,
-        workers: options.useTypescriptIncrementalApi
-          ? ForkTsCheckerWebpackPlugin.ONE_CPU
-          : options.maxWorkers || ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
-      }),
-    ],
+    plugins: [ngCompilerPlugin],
     stats: getStatsConfig(options),
   };
-
-  const extraPlugins: Plugin[] = [];
-
-  if (options.progress) {
-    extraPlugins.push(new ProgressPlugin());
-  }
 
   // process asset entries
   if (options.assets) {
@@ -139,18 +112,28 @@ export function getBaseWebpackPartial(options: BuildOptions): Configuration {
       copyWebpackPluginPatterns,
       copyWebpackPluginOptions,
     );
-    extraPlugins.push(copyWebpackPluginInstance);
+    webpackConfig.plugins.push(copyWebpackPluginInstance);
   }
 
   if (options.showCircularDependencies) {
-    extraPlugins.push(
+    webpackConfig.plugins.push(
       new CircularDependencyPlugin({
         exclude: /[\\\/]node_modules[\\\/]/,
       }),
     );
   }
 
-  webpackConfig.plugins = [...webpackConfig.plugins!, ...extraPlugins];
+  if (options.optimization) {
+    webpackConfig.module.rules.push({
+      test: /\.js$/,
+      loader: '@angular-devkit/build-optimizer/webpack-loader',
+      options: {
+        sourceMap: options.sourceMap,
+      },
+    });
+
+    webpackConfig.plugins.push(new BuildOptimizerWebpackPlugin());
+  }
 
   return webpackConfig;
 }

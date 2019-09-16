@@ -37,7 +37,9 @@ export default createBuilder<NodeExecuteBuilderOptions>(
     return runWaitUntilTargets(options, context).pipe(
       concatMap(({ success }) => {
         if (!success) {
-          context.logger.error(`One of the tasks specified in waitUntilTargets failed`);
+          context.logger.error(
+            `One of the tasks specified in waitUntilTargets failed`,
+          );
 
           return of({ success });
         }
@@ -45,9 +47,13 @@ export default createBuilder<NodeExecuteBuilderOptions>(
         return startBuild(options, context).pipe(
           concatMap((event: NodeBuildEvent) => {
             if (event.success) {
-              return restartProcess(event.outFile, options, context).pipe(mapTo(event));
+              return restartProcess(event.outFile, options, context).pipe(
+                mapTo(event),
+              );
             } else {
-              context.logger.error('There was an error with the build. See above.');
+              context.logger.error(
+                'There was an error with the build. See above.',
+              );
               context.logger.info(`${event.outFile} was not restarted.`);
 
               return of(event);
@@ -61,7 +67,11 @@ export default createBuilder<NodeExecuteBuilderOptions>(
 
 let subProcess: ChildProcess | null;
 
-function runProcess(file: string, options: NodeExecuteBuilderOptions, context: BuilderContext) {
+function runProcess(
+  file: string,
+  options: NodeExecuteBuilderOptions,
+  context: BuilderContext,
+) {
   if (subProcess) {
     throw new Error('Already running');
   }
@@ -70,13 +80,19 @@ function runProcess(file: string, options: NodeExecuteBuilderOptions, context: B
 
   subProcess = spawn('qode', [...args, file]);
 
-  subProcess.stdout!.on('data', data => context.logger.info(data.toString()));
-  subProcess.stderr!.on('data', err => context.logger.error(err.toString()));
+  if (!options.inspect) {
+    subProcess.stdout.on('data', data => {
+      context.logger.info(data.toString());
+    });
+
+    subProcess.stderr.on('data', err => {
+      context.logger.error(err.toString());
+    });
+  }
 }
 
 function getExecArgv(options: NodeExecuteBuilderOptions): string[] {
   const args: string[] = [];
-  // const args = ['-r', 'source-map-support/register'];
 
   if (options.inspect === true) {
     options.inspect = InspectType.Inspect;
@@ -89,7 +105,11 @@ function getExecArgv(options: NodeExecuteBuilderOptions): string[] {
   return args;
 }
 
-function restartProcess(file: string, options: NodeExecuteBuilderOptions, context: BuilderContext) {
+function restartProcess(
+  file: string,
+  options: NodeExecuteBuilderOptions,
+  context: BuilderContext,
+) {
   return killProcess(context).pipe(
     tap(() => {
       runProcess(file, options, context);
@@ -124,8 +144,11 @@ function startBuild(
 ): Observable<NodeBuildEvent> {
   const target = targetFromTargetString(options.buildTarget);
   return from(
-    Promise.all([context.getTargetOptions(target), context.getBuilderNameForTarget(target)]).then(
-      ([options, builderName]) => context.validateOptions(options, builderName),
+    Promise.all([
+      context.getTargetOptions(target),
+      context.getBuilderNameForTarget(target),
+    ]).then(([options, builderName]) =>
+      context.validateOptions(options, builderName),
     ),
   ).pipe(
     tap(options => {
@@ -154,21 +177,17 @@ function runWaitUntilTargets(
   options: NodeExecuteBuilderOptions,
   context: BuilderContext,
 ): Observable<BuilderOutput> {
-  if (!options.waitUntilTargets || options.waitUntilTargets.length === 0)
+  if (!options.waitUntilTargets || options.waitUntilTargets.length === 0) {
     return of({ success: true });
+  }
 
-  return zip(
+  return zip<BuilderOutput[]>(
     ...options.waitUntilTargets.map(b => {
       return scheduleTargetAndForget(context, targetFromTargetString(b)).pipe(
         // @ts-ignore
-        filter(e => e.success !== undefined),
+        filter(e => !!e.success),
         first(),
       );
     }),
-  ).pipe(
-    map(results => {
-      // @ts-ignore
-      return { success: !results.some(r => !r.success) };
-    }),
-  );
+  ).pipe(map(results => ({ success: !results.some(r => !r.success) })));
 }

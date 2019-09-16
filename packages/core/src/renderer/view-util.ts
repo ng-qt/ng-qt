@@ -1,9 +1,17 @@
-// Inspired from NativeScript Angular
-
-import { FlexLayout } from '@nodegui/nodegui';
-import { isDetachedElement, isFlexLayout, isFunc, isView, NgQtView } from '@ng-qt/common';
+import { FlexLayout, NodeWidget } from '@nodegui/nodegui';
+import {
+  isDetachedElement,
+  isFlexLayout,
+  isFunc,
+  isInvisibleNode,
+  isView,
+  getClassName,
+  NgQtView,
+} from '@ng-qt/common';
 
 export class ViewUtil {
+  private rootView: NodeWidget;
+
   private removeFromQueue(parent: NgQtView, child: NgQtView): void {
     if (parent.firstChild === child && parent.lastChild === child) {
       parent.firstChild = null;
@@ -28,7 +36,12 @@ export class ViewUtil {
     child.nextSibling = null;
   }
 
-  private addToQueue(parent: NgQtView, child: NgQtView, previous: NgQtView, next?: NgQtView): void {
+  private addToQueue(
+    parent: NgQtView,
+    child: NgQtView,
+    previous: NgQtView,
+    next?: NgQtView,
+  ): void {
     if (previous) {
       previous.nextSibling = child;
     } else {
@@ -51,9 +64,7 @@ export class ViewUtil {
   }
 
   private removeFromVisualTree(parent: NgQtView, child: NgQtView) {
-    if (isView(parent) && isFunc(parent.removeChild)) {
-      parent.removeChild.call(parent, child);
-    } else if (isFlexLayout(parent.layout)) {
+    if (isFlexLayout(parent.layout)) {
       parent.layout.removeWidget(child);
     }
   }
@@ -74,8 +85,6 @@ export class ViewUtil {
 
       parent.layout = flexLayout;
       parent.setLayout(parent.layout);
-
-      parent.show();
     }
   }
 
@@ -86,7 +95,7 @@ export class ViewUtil {
     next: NgQtView,
   ): void {
     if (previous && isDetachedElement(previous) && next) {
-      // this.ensureParentFlexLayout(parent);
+      this.ensureParentFlexLayout(parent);
       parent.layout.insertChildBefore(child, next);
     } else {
       this.addWidget(parent, child);
@@ -120,12 +129,21 @@ export class ViewUtil {
 
     this.removeFromQueue(parent, child);
 
+    if (isFunc(parent.removeChild)) {
+      parent.removeChild(child);
+    }
+
     if (!isDetachedElement(child)) {
       this.removeFromVisualTree(parent, child);
     }
   }
 
-  insertChild(parent: NgQtView, child: NgQtView, previous?: NgQtView, next?: NgQtView): void {
+  insertChild(
+    parent: NgQtView,
+    child: NgQtView,
+    previous?: NgQtView,
+    next?: NgQtView,
+  ): void {
     if (!parent) return;
 
     if (!previous) {
@@ -134,11 +152,13 @@ export class ViewUtil {
 
     this.addToQueue(parent, child, previous, next);
 
-    //if (isInvisibleNode(child)) {
     if (!child.parentNode) {
       child.parentNode = parent;
     }
-    //}
+
+    if (isFunc(parent.insertChild)) {
+      parent.insertChild(child);
+    }
 
     if (!isDetachedElement(child)) {
       const nextVisual = this.findNextVisual(next);

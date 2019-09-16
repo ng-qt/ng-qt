@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "dependencies": {
     "@ng-qt/common": "*",
-    "@angular/platform-browser-dynamic": "*",
-    "@angular/common": "*",
-    "@angular/compiler": "*",
-    "@angular/core": "*",
-    "tslib": "*"
-  }
+    "@angular/platform-browser-dynamic": "8.2.6",
+    "@angular/compiler": "8.2.6",
+    "tslib": "1.10.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "8.2.6",
+    "@angular/common": "8.2.6"
+  },
+  "sideEffects": false
 }

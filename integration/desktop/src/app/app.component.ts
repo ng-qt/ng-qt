@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NativeEvent } from '@nodegui/nodegui';
 import { BehaviorSubject } from 'rxjs';
 
@@ -20,11 +20,15 @@ export interface View {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   total$ = new BehaviorSubject<number>(0);
   display$ = new BehaviorSubject<string>('0');
   pendingOp$ = new BehaviorSubject<Operator>('~');
   valueBuffer$ = new BehaviorSubject<number | null>(null);
+
+  show = true;
+  backgroundColor = 'red';
+  styles = 'border: none';
 
   views: View[] = [
     {
@@ -86,7 +90,10 @@ export class AppComponent {
     };
   }
 
-  onKeyRelease(e: NativeEvent) {}
+  @HostListener('keyRelease', ['$event.target'])
+  keyRelease(e: NativeEvent) {
+    console.log(e);
+  }
 
   onValue(value: number) {
     const pendingOp = this.pendingOp$.getValue();
@@ -142,5 +149,23 @@ export class AppComponent {
     }
 
     this.pendingOp$.next(operator);
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.backgroundColor = 'green';
+
+      setTimeout(() => {
+        this.backgroundColor = 'red';
+
+        setTimeout(() => {
+          delete this.backgroundColor;
+
+          setTimeout(() => {
+            this.show = false;
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }, 1000);
   }
 }

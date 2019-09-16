@@ -15,7 +15,7 @@ import { AppTestingView } from './app-testing-view';
     },
     {
       provide: APP_ROOT_VIEW,
-      useClass: AppTestingView,
+      useValue: new AppTestingView(),
     },
   ],
   exports: [NgQtModule],
