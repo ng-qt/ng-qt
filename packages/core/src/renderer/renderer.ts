@@ -114,15 +114,10 @@ export class NgQtRenderer implements Renderer2 {
     console.log('removeClass', arguments);
   }
 
-  selectRootElement(
-    selectorOrNode: string,
-    preserveContent?: boolean,
-  ): AppRootView {
-    this.rootView.setObjectName(selectorOrNode);
-    return this.rootView;
-    /*const node = this.createElement(selectorOrNode);
-    node.setObjectName(selectorOrNode);
-    return node;*/
+  selectRootElement(selectorOrNode: string, preserveContent?: boolean) {
+    const view = this.createElement('View');
+    this.appendChild(this.rootView, view);
+    return view;
   }
 
   setAttribute(

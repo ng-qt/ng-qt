@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NativeEvent } from '@nodegui/nodegui';
 import { BehaviorSubject } from 'rxjs';
 
@@ -90,7 +90,10 @@ export class AppComponent implements OnInit {
     };
   }
 
-  onKeyRelease(e: NativeEvent) {}
+  @HostListener('keyRelease', ['$event.target'])
+  keyRelease(e: NativeEvent) {
+    console.log(e);
+  }
 
   onValue(value: number) {
     const pendingOp = this.pendingOp$.getValue();
@@ -157,6 +160,10 @@ export class AppComponent implements OnInit {
 
         setTimeout(() => {
           delete this.backgroundColor;
+
+          setTimeout(() => {
+            this.show = false;
+          }, 1000);
         }, 1000);
       }, 1000);
     }, 1000);

@@ -1,9 +1,10 @@
 import {
   QMainWindow,
+  FlexLayout,
+  QWidget,
   QMainWindowEvents,
-} from '@nodegui/nodegui/dist/lib/QtWidgets/QMainWindow';
+} from '@nodegui/nodegui';
 import { Widget } from '@ng-qt/common';
-import { FlexLayout, QWidget } from '@nodegui/nodegui';
 
 export interface Size {
   height?: number;
@@ -18,22 +19,16 @@ export interface Size {
   },
 })
 export class Window extends QMainWindow {
-  layout: FlexLayout;
-
   constructor() {
     super();
 
-    this.centralWidget = new QWidget();
+    const centralWidget = new QWidget();
+    const rootLayout = new FlexLayout();
 
-    Object.defineProperty(this, 'layout', {
-      value: new FlexLayout(),
-      writable: true,
-    });
-
-    const flexNode = this.centralWidget.getFlexNode();
-    this.layout.setFlexNode(flexNode);
-    this.centralWidget.setLayout(this.layout);
-    this.setCentralWidget(this.centralWidget);
+    const flexNode = centralWidget.getFlexNode();
+    rootLayout.setFlexNode(flexNode);
+    centralWidget.setLayout(rootLayout);
+    this.setCentralWidget(centralWidget);
   }
 
   setMaxSize({ width, height }: Size) {
@@ -48,8 +43,4 @@ export class Window extends QMainWindow {
   setObjectName(name: string) {
     this.centralWidget.setObjectName(name);
   }
-
-  /*removeChild() {
-    this.layout.removeWidget()
-  }*/
 }

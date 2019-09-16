@@ -8,13 +8,14 @@
   },
   "files": ["main.ts"],
   "include": [
-    "**/*.ts",
+    "src/**/*.ts",
     "../../../packages/common/widgets/**/*",
     "../../../packages/platform/static.ts"
   ],
   "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "enableIvy": false
   }
 }
