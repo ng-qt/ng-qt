@@ -1,6 +1,6 @@
 {
   "name": "@ng-qt/builders",
-  "version": "0.0.1",
+  "version": "0.0.0-PLACEHOLDER",
   "main": "lib/index.js",
   "builders": "builders.json",
   "schematics": "schematics.json",

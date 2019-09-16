@@ -1,8 +1,9 @@
 {
   "name": "@ng-qt/testing",
+  "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
-    "@ng-qt/platform": "*",
-    "@ng-qt/core": "*",
-    "@ng-qt/common": "*"
+    "@ng-qt/platform": "0.0.0-PLACEHOLDER",
+    "@ng-qt/core": "0.0.0-PLACEHOLDER",
+    "@ng-qt/common": "0.0.0-PLACEHOLDER"
   }
 }

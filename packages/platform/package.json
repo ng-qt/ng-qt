@@ -1,8 +1,8 @@
 {
   "name": "@ng-qt/platform",
-  "version": "0.0.1",
+  "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
-    "@ng-qt/common": "*",
+    "@ng-qt/common": "0.0.0-PLACEHOLDER",
     "@angular/platform-browser-dynamic": "8.2.6",
     "@angular/compiler": "8.2.6",
     "tslib": "1.10.0"
