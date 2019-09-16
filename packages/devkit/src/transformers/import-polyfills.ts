@@ -23,8 +23,13 @@ export function importPolyfills(
       const firstNode = getFirstNode(sourceFile);
 
       ops.push(
-        ...insertAllImport(sourceFile, 'zone.js/dist/zone', firstNode, true),
         ...insertAllImport(sourceFile, 'reflect-metadata', firstNode, true),
+        ...insertAllImport(
+          sourceFile,
+          'zone.js/dist/zone-node',
+          firstNode,
+          true,
+        ),
       );
     }
 
