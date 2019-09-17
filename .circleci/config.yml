@@ -32,7 +32,9 @@ var_8: &attach_workspace
   attach_workspace:
     at: ~/
 
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   setup:
     <<: *job_defaults
@@ -89,9 +91,7 @@ jobs:
       - checkout
       - *attach_workspace
       - *setup_circleci_bazel_config
-
       - run: ./scripts/build-packages-dist.sh
-
       # Save the npm packages from //packages/... for other workflow jobs to read
       - persist_to_workspace:
           root: ~/
@@ -108,11 +108,11 @@ jobs:
     steps:
       - checkout
       - *attach_workspace
-      # - *setup_circleci_bazel_config
       - run:
           name: Run unit tests
           command: yarn test:ci
-
+      - codecov/upload:
+          file: ./coverage/coverage-final.json
   publish:
     <<: *job_defaults
     steps:

@@ -13,6 +13,8 @@ module.exports = {
       ],
     },
   },
+  collectCoverage: true,
+  coverageReporters: ['json'],
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/packages/testing/index.ts'],
   testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
