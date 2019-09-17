@@ -62,7 +62,7 @@ jobs:
             - ./ng-qt
             - ./bazel_repository_cache
 
-  lint:
+  checks:
     <<: *job_defaults
     steps:
       - *attach_workspace
@@ -71,6 +71,14 @@ jobs:
           command: |
             sudo apt install shellcheck
             shellcheck scripts/*.sh
+      - run:
+          name: Codechecks
+          command: yarn codechecks
+
+  lint:
+    <<: *job_defaults
+    steps:
+      - *attach_workspace
       - run:
           name: Lint
           command: yarn lint
@@ -122,6 +130,9 @@ workflows:
       - test:
           requires:
             - setup
+      - checks:
+          requires:
+            - setup
       - build:
           requires:
             - setup
@@ -129,6 +140,7 @@ workflows:
           filters:
             <<: *publish_branches_filter
           requires:
+            - checks
             - test
             - lint
             - build

@@ -1,0 +1,6 @@
+checks:
+  - name: typecov
+    options:
+      name: ng-qt
+      atLeast: 94
+      strict: true
