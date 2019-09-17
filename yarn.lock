@@ -975,7 +975,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codechecks/client@^0.1.9":
+"@codechecks/client@0.1.9":
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/@codechecks/client/-/client-0.1.9.tgz#5cf8c126f13b322cc207c5b2b6fe3767121db17a"
   integrity sha512-ch8F7InQDKOXbp1J5j6Xpu707Zt8I2L/ljCLMDNa+d6T/YYBBxDJPnACLdALEjrmBLOhsCWJIK3+mLRxQsXiOQ==
@@ -9234,7 +9234,7 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typecov@^0.2.1:
+typecov@0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/typecov/-/typecov-0.2.1.tgz#b68a3c2580cf1e0f5b7afbc8d3eff4c56820d6de"
   integrity sha512-75JJbLJbx1dCgx/qiDbt3ME9sYeQT9gK38bNFfW9MnFKoI0wa3R3ivQbuMjOiNiWX4oZDy2QfZfk3wQINgyltQ==
