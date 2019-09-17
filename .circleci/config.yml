@@ -50,7 +50,7 @@ jobs:
               touch ~/bazel_repository_cache/MARKER
             fi
       - run:
-          name: Fix Qode permissions
+          name: Fix qode permissions
           command: |
             sudo chmod -R 777 node_modules/@nodegui/qode
       # Persist any changes at this point to be reused by further jobs.
@@ -66,6 +66,11 @@ jobs:
     <<: *job_defaults
     steps:
       - *attach_workspace
+      - run:
+          name: Running shellcheck
+          command: |
+            sudo apt install shellcheck
+            shellcheck scripts/*.sh
       - run:
           name: Lint
           command: yarn lint

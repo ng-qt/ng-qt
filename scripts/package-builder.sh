@@ -16,7 +16,7 @@ function buildTargetPackages() {
   # List of targets to build, e.g. core, common, compiler, etc. Note that we want to
   # remove all carriage return ("\r") characters form the query output because otherwise
   # the carriage return is part of the bazel target name and bazel will complain.
-  targets=$(${bazel_bin} query --output=label 'attr("tags", "\[.*release-with-framework.*\]", //packages/...) intersect kind(".*_package", //packages/...)' | tr -d "\r")
+  targets=$(${bazel_bin} query --output=label 'attr("tags", "\[.*release.*\]", //packages/...)' | tr -d "\r")
 
   # Path to the output directory into which we copy the npm packages.
   dest_path="$1"
@@ -31,21 +31,22 @@ function buildTargetPackages() {
   echo "##################################"
 
   # Use --config=release so that snapshot builds get published with embedded version info
-  echo "$targets" | xargs ${bazel_bin} build # --config=release
+  echo "$targets" | xargs "${bazel_bin}" build
+  # --config=release
 
-  [[ -d "${base_dir}/${dest_path}" ]] || mkdir -p ${base_dir}/${dest_path}
+  [[ -d "${base_dir}/${dest_path}" ]] || mkdir -p "${base_dir}/${dest_path}"
 
-  dirs=`echo "$targets" | sed -e 's/\/\/packages\/\(.*\):npm/\1/'`
+  dirs=$(echo "$targets" | sed -e 's/\/\/packages\/\(.*\):npm/\1/')
 
   for pkg in ${dirs}; do
-    # Skip any that don't have an "npm_package" target
+    # Skip any that don't have an "npm" target
     src_dir="${bin}/packages/${pkg}/npm"
     dest_dir="${base_dir}/${dest_path}/${pkg}"
     if [[ -d ${src_dir} ]]; then
       echo "# Copy artifacts to ${dest_dir}"
-      rm -rf ${dest_dir}
-      cp -R ${src_dir} ${dest_dir}
-      chmod -R u+w ${dest_dir}
+      rm -rf "${dest_dir}"
+      cp -R "${src_dir}" "${dest_dir}"
+      chmod -R u+w "${dest_dir}"
     fi
   done
 }

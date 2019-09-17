@@ -31,6 +31,9 @@ npm_package(
     srcs = [
         ":package.json",
     ],
+    tags = [
+        "release",
+    ],
     # entry_point = ":index.ts",
     deps = [
         ":platform",
