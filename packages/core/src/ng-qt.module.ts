@@ -6,7 +6,6 @@ import {
   ApplicationModule,
   ErrorHandler,
   NgModule,
-  NO_ERRORS_SCHEMA,
   Optional,
   RendererFactory2,
   Sanitizer,
