@@ -1,11 +1,12 @@
 import { Injectable, NgZone, RendererType2 } from '@angular/core';
-import { NodeWidget } from '@nodegui/nodegui';
 import { NgQtView } from '@ng-qt/common';
+import {
+  HOST_ATTR as NG_HOST_ATTR,
+  CONTENT_ATTR as NG_CONTENT_ATTR,
+} from '@angular/compiler';
 
-export const COMPONENT_VARIABLE = '%COMP%';
-export const HOST_ATTR = `[_nghost-${COMPONENT_VARIABLE}]`;
-export const CONTENT_ATTR = `[_ngcontent-${COMPONENT_VARIABLE}]`;
-const ATTR_SANITIZER = /-/g;
+export const HOST_ATTR = `[${NG_HOST_ATTR}]`;
+export const CONTENT_ATTR = `[${NG_CONTENT_ATTR}]`;
 
 export type InlineStyles = string | { property: string; value: string };
 
@@ -44,14 +45,14 @@ export class NgQtSharedStylesHost {
     this.setNodeInlineStyle(node);
   }
 
-  addHostStyles(hostWidget: NodeWidget, type: RendererType2) {
-    let styles = type.styles.join().trim();
+  addHostStyles(hostView: NgQtView, type: RendererType2) {
+    let styles = type.styles.join('').trim();
 
     if (styles !== '') {
       styles = styles.split(CONTENT_ATTR).join('');
       styles = styles.split(HOST_ATTR).join(`#${type.id}`);
 
-      this.ngZone.run(() => hostWidget.setStyleSheet(styles));
+      this.ngZone.run(() => hostView.setStyleSheet(styles));
     }
   }
 }

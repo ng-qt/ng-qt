@@ -1,5 +1,3 @@
-// run tests in qode
-
 module.exports = {
   globals: {
     'ts-jest': {
@@ -8,7 +6,11 @@ module.exports = {
       },
       tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: [require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer.js')],
+      astTransformers: [
+        require.resolve(
+          'jest-preset-angular/InlineHtmlStripStylesTransformer.js',
+        ),
+      ],
     },
   },
   testEnvironment: 'node',
@@ -21,7 +23,11 @@ module.exports = {
     '@ng-qt/(.*)': '<rootDir>/packages/$1',
   },
   moduleFileExtensions: ['ts', 'js', 'json', 'html'],
-  modulePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/dist', '<rootDir>/bazel-*'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/node_modules',
+    '<rootDir>/dist',
+    '<rootDir>/bazel-*',
+  ],
   snapshotSerializers: [
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',

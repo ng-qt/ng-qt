@@ -1,4 +1,4 @@
-import { APP_ROOT_VIEW, AppRootView } from '@ng-qt/common';
+import { APP_ROOT_VIEW, AppRootView, NgQtView } from '@ng-qt/common';
 import { NodeWidget } from '@nodegui/nodegui';
 import {
   Inject,
@@ -33,7 +33,7 @@ export class NgQtRendererFactory implements RendererFactory2 {
   }
 
   createRenderer(
-    hostWidget: NodeWidget,
+    hostWidget: NgQtView,
     type: RendererType2 | null,
   ): NgQtRenderer {
     if (!hostWidget || !type) {

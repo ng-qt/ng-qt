@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgQtSharedStylesHost addInlineStyle should add style property if inline styles is object 1`] = `
+Map {
+  "color" => "red",
+  "font-size" => "12px",
+  "max-width" => "50px",
+}
+`;
+
+exports[`NgQtSharedStylesHost addInlineStyle should convert inline styles to node styles 1`] = `
+Map {
+  "color" => "red",
+  "font-size" => "12px",
+}
+`;
+
+exports[`NgQtSharedStylesHost nodeStylesToInlineStyle should return "color:red;font-size:12px" 1`] = `"color:red;font-size:12px"`;
+
+exports[`NgQtSharedStylesHost removeInlineStyle should remove property from node styles 1`] = `
+Map {
+  "color" => "red",
+}
+`;

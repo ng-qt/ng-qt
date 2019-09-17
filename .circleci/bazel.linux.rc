@@ -4,9 +4,3 @@ build --repository_cache=/home/circleci/bazel_repository_cache
 
 build --experimental_allow_incremental_repository_updates
 query --experimental_allow_incremental_repository_updates
-
-# Workaround https://github.com/bazelbuild/bazel/issues/3645
-# Bazel doesn't calculate the memory ceiling correctly when running under Docker.
-# Limit Bazel to consuming resources that fit in CircleCI "xlarge" class
-# https://circleci.com/docs/2.0/configuration-reference/#resource_class
-build --local_resources=14336,8.0,1.0
