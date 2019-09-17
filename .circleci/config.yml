@@ -1,75 +1,129 @@
-version: 2
+var_1: &default_docker_image circleci/node:12
 
-defaults: &defaults
-  working_directory: ~/repo
+var_2: &cache_key ng-qt-yarn-{{ checksum "yarn.lock" }}-{{ checksum "WORKSPACE" }}
+
+var_3: &job_defaults
+  working_directory: ~/ng-qt
   docker:
-    - image: circleci/node:12
+    - image: *default_docker_image
 
+var_4: &yarn_install
+  run:
+    name: Running Yarn install
+    command: |
+      # Yarn's requests sometimes take more than 10mins to complete.
+      # Print something to stdout, to prevent CircleCI from failing due to not output.
+      while true; do sleep 60; echo "[`date`] Keeping alive..."; done &
+      KEEP_ALIVE_PID=$!
+      yarn install:ci
+      kill $KEEP_ALIVE_PID
+
+var_5: &setup_circleci_bazel_config
+  run:
+    name: Setting up CircleCI bazel configuration
+    command: sudo cp .circleci/bazel.linux.rc $HOME/.bazelrc
+
+var_6: &restore_cache
+  restore_cache:
+    keys:
+      - *cache_key
+
+var_7: &publish_branches_filter
+  branches:
+    only:
+      - master
+
+var_8: &attach_workspace
+  attach_workspace:
+    at: ~/
+
+version: 2
 jobs:
-  install:
-    <<: *defaults
+  setup:
+    <<: *job_defaults
     steps:
       - checkout
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - root-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install:ci
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: root-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
+      - *restore_cache
+      - *yarn_install
+      # Make the bazel directories and add a file to them if they don't exist already so that
+      # persist_to_workspace does not fail.
+      - run: |
+          if [ ! -d ~/bazel_repository_cache ]; then
+            mkdir ~/bazel_repository_cache
+            touch ~/bazel_repository_cache/MARKER
+          fi
+      # Persist any changes at this point to be reused by further jobs.
+      # **NOTE 1 **: Folders persisted here should be kept in sync with `var_13: &attach_workspace`.
+      # **NOTE 2 **: To add new content to the workspace, always persist on the same root.
       - persist_to_workspace:
-          root: ~/repo
-          paths: ./node_modules
+          root: ~/
+          paths:
+            - ./ng-qt
+            - ./bazel_repository_cache
 
   lint:
-    <<: *defaults
+    <<: *job_defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
+      - *attach_workspace
       - run:
           name: Lint
           command: yarn lint
 
   build:
-    <<: *defaults
+    <<: *job_defaults
+    resource_class: xlarge
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Build packages
-          command: yarn build
+      - *attach_workspace
+      - *setup_circleci_bazel_config
 
+      - run: ./scripts/build-packages-dist.sh
+
+      # Save the npm packages from //packages/... for other workflow jobs to read
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./ng-qt/dist
+      # Save dependencies and bazel repository cache to use on subsequent runs.
+      - save_cache:
+          key: *cache_key
+          paths:
+            - node_modules
+            - ~/bazel_repository_cache
   test:
-    <<: *defaults
+    <<: *job_defaults
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/repo
+      - *attach_workspace
+      # - *setup_circleci_bazel_config
       - run:
           name: Run unit tests
           command: yarn test:ci
 
+  publish:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - *attach_workspace
+
 workflows:
   version: 2
-  install-build-and-test:
+  default_workflow:
     jobs:
-      - install
+      - setup
       - lint:
           requires:
-            - install
+            - setup
       - test:
           requires:
-            - install
-#      - build:
-#          requires:
-#            - lint
-#      - test:
-#          requires:
-#            - build
+            - setup
+      - build:
+          requires:
+            - setup
+      - publish:
+          filters:
+            <<: *publish_branches_filter
+          requires:
+            - test
+            - lint
+            - build
