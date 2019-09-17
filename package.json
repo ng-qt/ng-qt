@@ -48,7 +48,7 @@
     "@angular/platform-server": "8.2.6",
     "@bazel/bazel": "0.29.0",
     "@bazel/buildifier": "0.28.0",
-    "@bazel/hide-bazel-files": "0.37.0",
+    "@bazel/hide-bazel-files": "0.37.1",
     "@bazel/ibazel": "0.10.3",
     "@bazel/typescript": "0.37.0",
     "@codechecks/client": "0.1.9",
