@@ -55,6 +55,10 @@ jobs:
       # Persist any changes at this point to be reused by further jobs.
       # **NOTE 1 **: Folders persisted here should be kept in sync with `var_13: &attach_workspace`.
       # **NOTE 2 **: To add new content to the workspace, always persist on the same root.
+      - run:
+          name: Fix Qode permissions
+          command: |
+            sudo chmod -R 777 node_modules/@nodegui/qode
       - persist_to_workspace:
           root: ~/
           paths:
