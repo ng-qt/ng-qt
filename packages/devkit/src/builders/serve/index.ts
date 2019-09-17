@@ -78,9 +78,9 @@ function runProcess(
 
   const args = [...getExecArgv(options), ...options.args];
 
-  subProcess = spawn('qode', [...args, file]);
+  subProcess = spawn('qode', [...args, file], { stdio: 'inherit' });
 
-  if (!options.inspect) {
+  if (!options.inspect && subProcess.stdout) {
     subProcess.stdout.on('data', data => {
       context.logger.info(data.toString());
     });
@@ -88,6 +88,8 @@ function runProcess(
     subProcess.stderr.on('data', err => {
       context.logger.error(err.toString());
     });
+  } else {
+    process.on('exit', () => killProcess(context));
   }
 }
 

@@ -35,6 +35,9 @@ ts_library(
 
 npm_package(
     name = "npm",
+    tags = [
+        "release",
+    ],
     visibility = ["//visibility:private"],
     deps = [
         ":assets",

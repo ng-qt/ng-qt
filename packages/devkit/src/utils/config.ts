@@ -41,7 +41,7 @@ export function getWebpackConfig(options: BuildOptions): Configuration {
     sourceMap: options.sourceMap,
     mainPath: options.main,
     basePath: options.root,
-    skipCodeGeneration: !options.aot,
+    // skipCodeGeneration: !options.aot,
     platformTransformers,
   });
 

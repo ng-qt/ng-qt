@@ -38,7 +38,8 @@
           "type": "boolean"
         }
       ],
-      "description": "Ensures the app is starting with debugging"
+      "description": "Ensures the app is starting with debugging",
+      "default": false
     },
     "args": {
       "type": "array",

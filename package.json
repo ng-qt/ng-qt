@@ -3,7 +3,6 @@
   "description": "Angular renderer for NodeGui",
   "license": "MIT",
   "scripts": {
-    "postinstall": "ngc -p ./angular-metadata.tsconfig.json",
     "install:ci": "yarn install --frozen-lockfile",
     "build": "bazel build //packages/...",
     "build:watch": "ibazel build //packages/...",
@@ -13,8 +12,8 @@
     "bazel:lint-fix": "yarn bazel:format --lint=fix",
     "build:ngc": "ngc -p packages/tsconfig-ngc-build.json && cp -r packages/. dist/",
     "build:ngc:watch": "ngc -p packages/tsconfig-ngc-build.json -w && cp -r packages/. dist/",
-    "test": "qode node_modules/.bin/jest",
-    "test:ci": "yarn test --ci",
+    "test": "qode node_modules/.bin/jest --detectOpenHandles --forceExit",
+    "test:ci": "QT_QPA_PLATFORM=offscreen yarn test --ci",
     "lint": "yarn bazel:lint"
   },
   "husky": {

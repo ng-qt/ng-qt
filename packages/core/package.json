@@ -1,10 +1,10 @@
 {
   "name": "@ng-qt/core",
-  "version": "0.0.1",
+  "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
     "@angular/platform-browser": "8.2.6",
-    "@ng-qt/platform": "*",
-    "@ng-qt/common": "*",
+    "@ng-qt/platform": "0.0.0-PLACEHOLDER",
+    "@ng-qt/common": "0.0.0-PLACEHOLDER",
     "tslib": "1.10.0"
   },
   "peerDependencies": {

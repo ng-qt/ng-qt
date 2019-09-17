@@ -36,7 +36,6 @@ export function createAppRootView() {
     { provide: RendererFactory2, useExisting: NgQtRendererFactory },
   ],
   exports: [ApplicationModule, CommonModule],
-  schemas: [NO_ERRORS_SCHEMA],
 })
 export class NgQtModule {
   constructor(@Optional() @SkipSelf() parentModule: NgQtModule) {

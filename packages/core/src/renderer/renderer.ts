@@ -49,10 +49,10 @@ export class NgQtRenderer implements Renderer2 {
   createElement(name: string, namespace?: string | null): NgQtView {
     if (!isKnownWidget(name)) name = 'View';
 
-    const widgetCtor = resolveWidget(name);
-    const instance = new widgetCtor();
-    instance.styles = new Map();
-    return instance;
+    const Widget = resolveWidget(name);
+    const widget = new Widget();
+    widget.styles = new Map();
+    return widget;
   }
 
   destroy(): void {
@@ -79,8 +79,8 @@ export class NgQtRenderer implements Renderer2 {
       throw new TypeError(`${name} doesn't have event: ${eventName}`);
     }
 
-    const zonedCallback = (nativeEvent: NativeEvent) =>
-      this.ngZone.run(() => callback.call(undefined, nativeEvent));
+    const zonedCallback = (e: NativeEvent) =>
+      this.ngZone.run(() => callback.call(widget, e));
 
     widget.addEventListener(realEvent, zonedCallback);
 
