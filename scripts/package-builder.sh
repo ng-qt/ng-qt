@@ -31,7 +31,7 @@ function buildTargetPackages() {
   echo "##################################"
 
   # Use --config=release so that snapshot builds get published with embedded version info
-  echo "$targets" | xargs ${bazel_bin} build --config=release
+  echo "$targets" | xargs ${bazel_bin} build # --config=release
 
   [[ -d "${base_dir}/${dest_path}" ]] || mkdir -p ${base_dir}/${dest_path}
 
