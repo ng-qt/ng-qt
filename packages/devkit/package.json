@@ -20,6 +20,6 @@
   },
   "peerDependencies": {
     "typescript": "3.5.3",
-    "@nodegui/nodegui": "0.1.8"
+    "@nodegui/nodegui": "0.2.1"
   }
 }
