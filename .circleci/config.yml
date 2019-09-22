@@ -65,6 +65,7 @@ jobs:
       - run:
           name: Running shellcheck
           command: |
+            apt update
             apt install shellcheck
             shellcheck scripts/*.sh
       - run:
