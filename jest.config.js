@@ -18,7 +18,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/packages/testing/index.ts'],
   testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   transform: {
-    '^.+\\.(ts|js)$': 'ts-jest',
+    '^.+\\.(ts|js|html|css)$': 'ts-jest',
   },
   moduleNameMapper: {
     '@ng-qt/(.*)': '<rootDir>/packages/$1',
