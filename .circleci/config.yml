@@ -14,7 +14,7 @@ var_4: &setup_circleci_bazel_config
   run:
     name: Setting up CircleCI bazel configuration
     command: |
-      sudo cp .circleci/bazel.linux.rc $HOME/.bazelrc
+      cp .circleci/bazel.linux.rc $HOME/.bazelrc
 
 var_5: &restore_cache
   restore_cache:
@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Running shellcheck
           command: |
-            sudo apt install shellcheck
+            apt install shellcheck
             shellcheck scripts/*.sh
       - run:
           name: Codechecks
