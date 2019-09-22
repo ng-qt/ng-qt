@@ -121,15 +121,15 @@ workflows:
       - lint:
           requires:
             - setup
-      - test:
-          requires:
-            - setup
       - checks:
           requires:
             - setup
       - build:
           requires:
             - setup
+      - test:
+          requires:
+            - build
       - publish:
           filters:
             <<: *publish_branches_filter
