@@ -1,34 +1,32 @@
-var_1: &default_docker_image circleci/node:12
+var_1: &cache_key ng-qt-yarn-{{ checksum "yarn.lock" }}-{{ checksum "WORKSPACE" }}
 
-var_2: &cache_key ng-qt-yarn-{{ checksum "yarn.lock" }}-{{ checksum "WORKSPACE" }}
-
-var_3: &job_defaults
+var_2: &job_defaults
   working_directory: ~/ng-qt
   docker:
-    - image: *default_docker_image
+    - image: ngqt/qode
 
-var_4: &yarn_install
+var_3: &yarn_install
   run:
     name: Running Yarn install
     command: yarn install:ci
 
-var_5: &setup_circleci_bazel_config
+var_4: &setup_circleci_bazel_config
   run:
     name: Setting up CircleCI bazel configuration
     command: |
-      sudo cp .circleci/bazel.linux.rc $HOME/.bazelrc
+      cp .circleci/bazel.linux.rc $HOME/.bazelrc
 
-var_6: &restore_cache
+var_5: &restore_cache
   restore_cache:
     keys:
       - *cache_key
 
-var_7: &publish_branches_filter
+var_6: &publish_branches_filter
   branches:
     only:
       - master
 
-var_8: &attach_workspace
+var_7: &attach_workspace
   attach_workspace:
     at: ~/
 
@@ -51,10 +49,6 @@ jobs:
               mkdir ~/bazel_repository_cache
               touch ~/bazel_repository_cache/MARKER
             fi
-      - run:
-          name: Fix qode permissions
-          command: |
-            sudo chmod -R 777 node_modules/@nodegui/qode
       # Persist any changes at this point to be reused by further jobs.
       # **NOTE 1 **: Folders persisted here should be kept in sync with `var_13: &attach_workspace`.
       # **NOTE 2 **: To add new content to the workspace, always persist on the same root.
@@ -71,7 +65,8 @@ jobs:
       - run:
           name: Running shellcheck
           command: |
-            sudo apt install shellcheck
+            apt update
+            apt install shellcheck
             shellcheck scripts/*.sh
       - run:
           name: Codechecks
@@ -127,15 +122,15 @@ workflows:
       - lint:
           requires:
             - setup
-      - test:
-          requires:
-            - setup
       - checks:
           requires:
             - setup
       - build:
           requires:
             - setup
+      - test:
+          requires:
+            - build
       - publish:
           filters:
             <<: *publish_branches_filter

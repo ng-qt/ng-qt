@@ -1,8 +1,6 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
 
-# package(default_visibility = ["//visibility:private"])
-
 filegroup(
     name = "assets",
     srcs = glob(["**/*.json"]),

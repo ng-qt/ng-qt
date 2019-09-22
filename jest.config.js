@@ -1,15 +1,14 @@
 module.exports = {
+  preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
       diagnostics: {
         ignoreCodes: 'TS151001',
       },
       tsConfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
+      stringifyContentPathRegex: '\\.(html|css)$',
       astTransformers: [
-        require.resolve(
-          'jest-preset-angular/InlineHtmlStripStylesTransformer.js',
-        ),
+        '<rootDir>/dist/testing/jest/inline-assets-transformer.js',
       ],
     },
   },
@@ -19,12 +18,12 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/packages/testing/index.ts'],
   testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   transform: {
-    '^.+\\.(ts|js)$': 'ts-jest',
+    '^.+\\.(ts|js|html|css)$': 'ts-jest',
   },
   moduleNameMapper: {
     '@ng-qt/(.*)': '<rootDir>/packages/$1',
   },
-  moduleFileExtensions: ['ts', 'js', 'json', 'html'],
+  moduleFileExtensions: ['ts', 'js', 'html', 'json', 'css'],
   modulePathIgnorePatterns: [
     '<rootDir>/node_modules',
     '<rootDir>/dist',

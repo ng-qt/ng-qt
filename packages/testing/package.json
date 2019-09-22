@@ -2,8 +2,15 @@
   "name": "@ng-qt/testing",
   "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
+    "@angular/platform-browser-dynamic": "8.2.6",
     "@ng-qt/platform": "0.0.0-PLACEHOLDER",
     "@ng-qt/core": "0.0.0-PLACEHOLDER",
     "@ng-qt/common": "0.0.0-PLACEHOLDER"
+  },
+  "peerDependencies": {
+    "@angular/core": "8.2.6"
+  },
+  "optionalDependencies": {
+    "jest-preset-angular": "7.1.1"
   }
 }
