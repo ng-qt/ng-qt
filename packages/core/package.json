@@ -2,13 +2,13 @@
   "name": "@ng-qt/core",
   "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
-    "@angular/platform-browser": "8.2.9",
+    "@angular/platform-browser": "8.2.10",
     "@ng-qt/platform": "0.0.0-PLACEHOLDER",
     "@ng-qt/common": "0.0.0-PLACEHOLDER",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
-    "@angular/core": "8.2.9",
+    "@angular/core": "8.2.10",
     "@nodegui/nodegui": "0.2.1",
     "rxjs": "6.5.3",
     "zone.js": "0.10.2"
