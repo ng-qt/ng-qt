@@ -11,7 +11,7 @@
     "@angular-devkit/build-webpack": "0.803.9",
     "@schematics/angular": "8.3.9",
     "copy-webpack-plugin": "5.0.4",
-    "webpack": "4.41.0",
+    "webpack": "4.41.1",
     "circular-dependency-plugin": "5.2.0",
     "webpack-node-externals": "1.7.2",
     "raw-loader": "3.1.0",
