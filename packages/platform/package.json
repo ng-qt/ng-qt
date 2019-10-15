@@ -3,13 +3,13 @@
   "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
     "@ng-qt/common": "0.0.0-PLACEHOLDER",
-    "@angular/platform-browser-dynamic": "8.2.10",
-    "@angular/compiler": "8.2.10",
+    "@angular/platform-browser-dynamic": "8.2.11",
+    "@angular/compiler": "8.2.11",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
-    "@angular/core": "8.2.10",
-    "@angular/common": "8.2.10"
+    "@angular/core": "8.2.11",
+    "@angular/common": "8.2.11"
   },
   "sideEffects": false
 }
