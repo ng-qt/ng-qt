@@ -76,7 +76,7 @@
     "typecov": "0.2.1",
     "typescript": "3.6.4",
     "webpack": "4.41.2",
-    "webpack-dev-server": "3.8.2",
+    "webpack-dev-server": "3.9.0",
     "webpack-node-externals": "1.7.2",
     "zone.js": "0.10.2"
   }
