@@ -5,17 +5,17 @@
   "builders": "builders.json",
   "schematics": "schematics.json",
   "dependencies": {
-    "@angular-devkit/architect": "0.803.14",
-    "@angular-devkit/core": "8.3.14",
-    "@angular-devkit/schematics": "8.3.14",
-    "@angular-devkit/build-webpack": "0.803.14",
-    "@schematics/angular": "8.3.14",
+    "@angular-devkit/architect": "0.803.15",
+    "@angular-devkit/core": "8.3.15",
+    "@angular-devkit/schematics": "8.3.15",
+    "@angular-devkit/build-webpack": "0.803.15",
+    "@schematics/angular": "8.3.15",
     "copy-webpack-plugin": "5.0.4",
     "webpack": "4.41.2",
     "circular-dependency-plugin": "5.2.0",
     "webpack-node-externals": "1.7.2",
     "raw-loader": "3.1.0",
-    "@ngtools/webpack": "8.3.14",
+    "@ngtools/webpack": "8.3.15",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
