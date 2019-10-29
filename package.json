@@ -55,7 +55,7 @@
     "@ngtools/webpack": "8.3.15",
     "@nodegui/nodegui": "0.2.1",
     "@nodegui/qode": "1.0.5",
-    "@types/jest": "24.0.20",
+    "@types/jest": "24.0.21",
     "@types/node": "12.11.7",
     "@types/webpack": "4.39.5",
     "change-case": "3.1.0",
