@@ -118,10 +118,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/bazel@9.0.0-next.14":
-  version "9.0.0-next.14"
-  resolved "https://registry.yarnpkg.com/@angular/bazel/-/bazel-9.0.0-next.14.tgz#7425463244bad8a89b20aee784fb5abb57869f0c"
-  integrity sha512-a3Cin/4X8NEuoNXtvqH+khNnFNmp0fh8fyhku8FjGNWgU0mZ4Mvuk4bMkr6Ypvq1keOEOJ97lfqJy/4rksQRrA==
+"@angular/bazel@9.0.0-next.15":
+  version "9.0.0-next.15"
+  resolved "https://registry.yarnpkg.com/@angular/bazel/-/bazel-9.0.0-next.15.tgz#565c5501095225b149ba4cb6e8c44242ec878140"
+  integrity sha512-/TvPrUOfc5vKzJbwr3neAsEwkpqruPc7CoXnC4c2/zdJcK/cNs80VIGk0Xl4C5X42Z8LUQt1c5iNp7oTUcz7Yg==
   dependencies:
     "@microsoft/api-extractor" "^7.3.9"
     shelljs "0.8.2"
