@@ -10,7 +10,7 @@
     "@angular-devkit/schematics": "8.3.17",
     "@angular-devkit/build-webpack": "0.803.17",
     "@schematics/angular": "8.3.17",
-    "copy-webpack-plugin": "5.0.4",
+    "copy-webpack-plugin": "5.0.5",
     "webpack": "4.41.2",
     "circular-dependency-plugin": "5.2.0",
     "webpack-node-externals": "1.7.2",
