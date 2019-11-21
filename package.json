@@ -46,7 +46,7 @@
     "@angular/platform-browser": "8.2.13",
     "@angular/platform-browser-dynamic": "8.2.13",
     "@angular/platform-server": "8.2.13",
-    "@bazel/bazel": "0.29.0",
+    "@bazel/bazel": "1.2.0",
     "@bazel/buildifier": "0.29.0",
     "@bazel/hide-bazel-files": "0.40.0",
     "@bazel/ibazel": "0.10.3",
