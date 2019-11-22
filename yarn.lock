@@ -899,10 +899,10 @@
     "@bazel/buildifier-linux_x64" "0.29.0"
     "@bazel/buildifier-win32_x64" "0.29.0"
 
-"@bazel/hide-bazel-files@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.40.0.tgz#710d658580d97bdf6472829abf49e4bdf8d9aeb3"
-  integrity sha512-1Ew6r/i0J2H6h31Uo+ZkLFpV7l4gysdJSbCUueqbWlT8g+UHJuPtdMtPEDij1aI29ZrUbs7w4P0DTxMvOvgjwg==
+"@bazel/hide-bazel-files@0.41.0":
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.41.0.tgz#19de0490bb658b317f64e6b5e029e66e5c56b8e1"
+  integrity sha512-RKDZ02VfA1Xpz9DJ5MP+PPXqz7mG/zDLFmYY+QXo9RGpRUEHX0/c50rio0mdd94IgheUypSKfdGRhdQnea/nFw==
 
 "@bazel/hide-bazel-files@latest":
   version "0.36.2"
