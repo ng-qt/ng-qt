@@ -49,7 +49,7 @@
     "@bazel/bazel": "0.29.0",
     "@bazel/buildifier": "0.29.0",
     "@bazel/hide-bazel-files": "0.42.3",
-    "@bazel/ibazel": "0.10.3",
+    "@bazel/ibazel": "0.11.0",
     "@bazel/typescript": "0.38.1",
     "@codechecks/client": "0.1.10",
     "@ngtools/webpack": "8.3.20",
