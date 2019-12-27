@@ -75,7 +75,7 @@
     "tslib": "1.10.0",
     "typecov": "0.2.1",
     "typescript": "3.7.4",
-    "webpack": "4.41.4",
+    "webpack": "4.41.5",
     "webpack-dev-server": "3.10.1",
     "webpack-node-externals": "1.7.2",
     "zone.js": "0.10.2"
