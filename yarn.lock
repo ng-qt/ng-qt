@@ -9665,10 +9665,10 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typecov@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/typecov/-/typecov-0.2.1.tgz#b68a3c2580cf1e0f5b7afbc8d3eff4c56820d6de"
-  integrity sha512-75JJbLJbx1dCgx/qiDbt3ME9sYeQT9gK38bNFfW9MnFKoI0wa3R3ivQbuMjOiNiWX4oZDy2QfZfk3wQINgyltQ==
+typecov@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/typecov/-/typecov-0.2.2.tgz#553bd2fdaafc8562e5b514f3489f335d76883ae9"
+  integrity sha512-iyvO3t8jEPIhGvPQmumt7G0eU5pXfx+9zC0/ZIubWW1fkub2aTos5KJ1Rhm7okgmL3e7O4xkwHwR5mBzCI06fQ==
   dependencies:
     lodash "^4.17.11"
     type-coverage-core "^2.2.0"
