@@ -19,7 +19,7 @@
     "tslib": "1.13.0"
   },
   "peerDependencies": {
-    "typescript": "3.9.6",
+    "typescript": "3.9.7",
     "@nodegui/nodegui": "0.2.1"
   }
 }
