@@ -50,7 +50,7 @@
     "@bazel/buildifier": "0.29.0",
     "@bazel/hide-bazel-files": "0.42.3",
     "@bazel/ibazel": "0.13.1",
-    "@bazel/typescript": "0.38.1",
+    "@bazel/typescript": "2.3.1",
     "@codechecks/client": "0.1.10",
     "@ngtools/webpack": "8.3.25",
     "@nodegui/nodegui": "0.2.1",
