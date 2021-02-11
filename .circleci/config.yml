@@ -32,7 +32,7 @@ var_7: &attach_workspace
 
 version: 2.1
 orbs:
-  codecov: codecov/codecov@1.1.1
+  codecov: codecov/codecov@1.1.3
 jobs:
   setup:
     <<: *job_defaults
