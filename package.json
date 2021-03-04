@@ -63,7 +63,7 @@
     "copy-webpack-plugin": "5.1.2",
     "husky": "3.1.0",
     "jest": "24.9.0",
-    "jest-preset-angular": "7.1.1",
+    "jest-preset-angular": "8.4.0",
     "lint-staged": "9.5.0",
     "prettier": "1.19.1",
     "raw-loader": "3.1.0",

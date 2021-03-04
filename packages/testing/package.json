@@ -11,6 +11,6 @@
     "@angular/core": "8.2.13"
   },
   "optionalDependencies": {
-    "jest-preset-angular": "7.1.1"
+    "jest-preset-angular": "8.4.0"
   }
 }
