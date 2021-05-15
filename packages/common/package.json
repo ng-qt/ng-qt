@@ -7,7 +7,7 @@
     "reflect-metadata": "0.1.13"
   },
   "peerDependencies": {
-    "@angular/core": "8.2.13",
+    "@angular/core": "8.2.14",
     "@nodegui/nodegui": "0.2.1"
   },
   "sideEffects": false
