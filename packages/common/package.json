@@ -3,7 +3,7 @@
   "version": "0.0.0-PLACEHOLDER",
   "dependencies": {
     "tslib": "1.14.1",
-    "change-case": "3.1.0",
+    "change-case": "4.1.2",
     "reflect-metadata": "0.1.13"
   },
   "peerDependencies": {
