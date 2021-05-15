@@ -10,7 +10,7 @@
   "peerDependencies": {
     "@angular/core": "8.2.14",
     "@nodegui/nodegui": "0.2.1",
-    "rxjs": "6.6.3",
+    "rxjs": "6.6.7",
     "zone.js": "0.11.4"
   },
   "sideEffects": false
