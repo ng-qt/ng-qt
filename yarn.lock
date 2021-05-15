@@ -1478,7 +1478,18 @@
     node-addon-api "^1.6.3"
     postcss-nodegui-autoprefixer "0.0.7"
 
-"@nodegui/qode@1.0.5", "@nodegui/qode@^1.0.5":
+"@nodegui/qode@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.6.tgz#dcc12214949e860140687babddec1e76785a212a"
+  integrity sha512-Np6r91wDCzV4+PCepr83t+BjWBtZMh5WT9/68mXXSMJi+ueZbYXL0d5VAIJ84C87NMwnA/7hdoqppp8lgzymvg==
+  dependencies:
+    env-paths "^2.2.0"
+    extract-zip "^1.6.7"
+    fs-extra "^8.1.0"
+    got "^9.6.0"
+    progress "^2.0.3"
+
+"@nodegui/qode@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.5.tgz#37dbc8e868422b9e8481d314f273dee136571b80"
   integrity sha512-JKb4JcC03VCdodmiL35VfznsCKHpiKOYbtgf9+KTHhH5p7IXvr+0k/LIq112T6Rpxd5zXa1pbsnfa2F8ReyWEg==
