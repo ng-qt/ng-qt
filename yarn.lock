@@ -1223,10 +1223,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codechecks/client@0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@codechecks/client/-/client-0.1.10.tgz#41fe736c424976d9feb8116b131fb9c1f099d105"
-  integrity sha512-rvX+LknmMohsLTU8mHJqIcNTo8fKfw6A5i7JvT6JJWqwCLi+TujHpRO8BLf48iF96+gU5viVvKfRaUyhc3wloA==
+"@codechecks/client@0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@codechecks/client/-/client-0.1.12.tgz#519f11be8fcaa581c6ee8d5e8457e35bbbe5d9b1"
+  integrity sha512-2GHHvhO3kaOyxFXxOaiznlY8ARmz33/p+WQdhc2y6wzWw5eOl2wSwg1eZxx3LsWlAnB963Y4bd1YjZcGIhKRzA==
   dependencies:
     bluebird "^3.5.3"
     chalk "^2.4.2"
