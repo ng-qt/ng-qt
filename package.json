@@ -51,7 +51,7 @@
     "@bazel/hide-bazel-files": "0.42.3",
     "@bazel/ibazel": "0.14.0",
     "@bazel/typescript": "0.38.1",
-    "@codechecks/client": "0.1.10",
+    "@codechecks/client": "0.1.12",
     "@ngtools/webpack": "8.3.25",
     "@nodegui/nodegui": "0.2.1",
     "@nodegui/qode": "1.0.5",
