@@ -53,7 +53,7 @@
     "@bazel/typescript": "0.38.1",
     "@codechecks/client": "0.1.10",
     "@ngtools/webpack": "8.3.25",
-    "@nodegui/nodegui": "0.2.1",
+    "@nodegui/nodegui": "0.50.0",
     "@nodegui/qode": "1.0.5",
     "@types/jest": "24.9.1",
     "@types/node": "12.19.16",
